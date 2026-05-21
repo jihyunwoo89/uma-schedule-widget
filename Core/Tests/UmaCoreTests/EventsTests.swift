@@ -13,6 +13,15 @@ final class EventsTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(ChampionsMeeting.self, from: data), cm)
     }
 
+    func test_leagueOfHeroes_roundTrip() throws {
+        let loh = LeagueOfHeroes(
+            id: "loh-2026-s3", season: "시즌 3", track: track,
+            phases: [EventPhase(kind: .round1, label: "본선", date: Date(timeIntervalSince1970: 200))]
+        )
+        let data = try JSONEncoder().encode(loh)
+        XCTAssertEqual(try JSONDecoder().decode(LeagueOfHeroes.self, from: data), loh)
+    }
+
     func test_gachaBanner_roundTrip() throws {
         let b = GachaBanner(id: "g1", type: .trainee, featured: ["오구리 캡"],
                             startDate: Date(timeIntervalSince1970: 0),

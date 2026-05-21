@@ -19,6 +19,8 @@ public struct ScheduleDocument: Codable, Hashable, Sendable {
         self.gachaBanners = gachaBanners
     }
 
+    /// Zero-state document for placeholders / first-launch before data loads.
+    /// server "kr" is this app's only target region (KR-server Umamusume).
     public static let empty = ScheduleDocument(
         version: 1, updatedAt: Date(timeIntervalSince1970: 0), server: "kr",
         championsMeetings: [], leagueOfHeroes: [], gachaBanners: []

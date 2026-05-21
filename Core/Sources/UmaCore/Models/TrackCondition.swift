@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Surface: String, Codable, Sendable {
+public enum Surface: String, Codable, Hashable, Sendable {
     case turf
     case dirt
 

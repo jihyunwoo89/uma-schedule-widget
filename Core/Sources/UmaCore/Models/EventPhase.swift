@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PhaseKind: String, Codable, Sendable {
+public enum PhaseKind: String, Codable, Hashable, Sendable {
     case open
     case round1
     case round2
