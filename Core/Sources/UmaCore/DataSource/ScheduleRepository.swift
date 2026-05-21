@@ -1,7 +1,7 @@
 import Foundation
 
 public final class ScheduleRepository: @unchecked Sendable {
-    public static let cacheKey = "cache.schedule.v1"
+    public static let cacheKey = "cache.schedule.v2"
     /// Schedule changes day-to-day at most; 6h keeps it fresh without chasing.
     public static let ttl: TimeInterval = 6 * 3600
 
