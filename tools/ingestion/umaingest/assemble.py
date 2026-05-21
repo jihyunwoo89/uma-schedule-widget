@@ -26,6 +26,11 @@ def _track(t: dict) -> TrackCondition:
         if k in t})
 
 
+def _support(sc: dict) -> SupportCardPick:
+    # Filter to known keys so an extra vision-hallucinated field (e.g. "level") doesn't abort the run.
+    return SupportCardPick(**{k: sc.get(k) for k in ("rarity", "name", "type") if k in sc})
+
+
 def _phases(period: EventPeriod) -> list[EventPhase]:
     return [EventPhase(kind="open", label="오픈", date=period.start),
             EventPhase(kind="ended", label="종료", date=period.end)]
@@ -54,7 +59,7 @@ def assemble_document(slides: list[VisionResult], *, source_post_no: int, now_is
             eid = _eid("pk", per.start.isoformat(), ",".join(p.get("trainees", [])))
             pks.setdefault(eid, PickupPeriod(
                 id=eid, period=per, trainees=p.get("trainees", []),
-                supportCards=[SupportCardPick(**sc) for sc in p.get("supportCards", [])]))
+                supportCards=[_support(sc) for sc in p.get("supportCards", [])]))
 
     return ScheduleDocument(
         version=2, updatedAt=now_iso, sourcePostNo=source_post_no, server="kr",

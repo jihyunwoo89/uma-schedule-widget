@@ -24,6 +24,13 @@ def test_assemble_merges_slides_and_adds_ids_phases():
     assert cm.phases[-1].kind == "ended"
     assert doc.pickups[0].trainees == ["오르페브르","푸리오소"]
 
+def test_assemble_tolerates_extra_support_card_keys():
+    slides = [VisionResult(pickups=[{"period":{"start":"2026-06-15","end":"2026-06-21","estimated":False},
+              "trainees":["오르페브르"],
+              "supportCards":[{"rarity":"SSR","name":"아몬드 아이","type":"스피드","level":3}]}])]
+    doc = assemble_document(slides, source_post_no=1, now_iso="2026-05-20T00:00:00Z")
+    assert doc.pickups[0].supportCards[0].name == "아몬드 아이"
+
 def test_assemble_dedups_by_id():
     slides = [VisionResult(championsMeetings=[_cm("2026-07-14")]),
               VisionResult(championsMeetings=[_cm("2026-07-14")])]

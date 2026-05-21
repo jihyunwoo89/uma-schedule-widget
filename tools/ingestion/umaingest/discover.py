@@ -7,11 +7,16 @@ GUIDE_TITLE_PREFIX = "미래시가이드"
 _ROW_RE = re.compile(r'data-no="(\d+)"[^>]*>.*?<a[^>]*>(.*?)</a>', re.DOTALL)
 
 
+_TAG_RE = re.compile(r"<[^>]+>")
+
+
 def find_latest_guide_post_no(list_html: str) -> Optional[int]:
     """Highest-numbered post whose title starts with 미래시가이드."""
     candidates: list[int] = []
     for no, title in _ROW_RE.findall(list_html):
-        if title.strip().startswith(GUIDE_TITLE_PREFIX):
+        # Strip any inline tags (e.g. a leading icon <span>) before the prefix check.
+        clean = _TAG_RE.sub("", title).strip()
+        if clean.startswith(GUIDE_TITLE_PREFIX):
             candidates.append(int(no))
     return max(candidates) if candidates else None
 
