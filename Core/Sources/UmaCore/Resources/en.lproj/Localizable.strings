@@ -1,0 +1,52 @@
+"category.champions" = "Champions Meeting";
+"category.loh" = "League of Heroes";
+"category.pickup" = "Pickup";
+
+"state.idle.title" = "No upcoming events";
+"state.idle.body" = "New schedules will appear here";
+"state.nodata.title" = "Couldn't load schedule";
+"state.nodata.body" = "Please try again shortly";
+
+"pickup.trainee" = "Trainee";
+"pickup.support_card" = "Support Card";
+
+"settings.title" = "Settings";
+"settings.section.categories" = "Categories";
+"settings.section.font" = "Font";
+"settings.section.language" = "Language";
+"settings.section.notify" = "Notifications";
+"settings.row.notify_before" = "Notify before phase starts";
+"settings.value.font.system" = "System";
+"settings.value.font.rounded" = "Rounded";
+"settings.value.font.mono" = "Mono";
+"settings.value.font.serif" = "Serif";
+"settings.value.language.system" = "System";
+"settings.value.language.ko" = "한국어";
+"settings.value.language.en" = "English";
+"settings.row.data_source" = "Data source";
+"settings.row.refresh" = "Refresh now";
+
+"legal.disclaimer" = "Unofficial schedule app. Not affiliated with Kakao Games / Cygames.";
+
+"gallery.l1.title" = "Major Event (Detailed)";
+"gallery.l1.desc" = "Next Champions Meeting / League of Heroes with track image";
+"gallery.l2.title" = "Full Schedule";
+"gallery.l2.desc" = "Next Champions Meeting, League of Heroes and pickup";
+"gallery.m1.title" = "Major Event (Brief)";
+"gallery.m1.desc" = "Next Champions Meeting / League of Heroes, brief";
+"gallery.m2.title" = "CM + LoH";
+"gallery.m2.desc" = "Next Champions Meeting and League of Heroes together";
+"gallery.m3.title" = "Pickup";
+"gallery.m3.desc" = "Next trainee / support card pickup";
+"gallery.s1.title" = "Major Event (Overview)";
+"gallery.s1.desc" = "Nearest of Champions Meeting / League of Heroes";
+"gallery.s2.title" = "Champions Meeting";
+"gallery.s2.desc" = "Next Champions Meeting only";
+"gallery.s3.title" = "League of Heroes";
+"gallery.s3.desc" = "Next League of Heroes only";
+"gallery.s4.title" = "Pickup";
+"gallery.s4.desc" = "Next pickup only";
+"gallery.lock_rect.title" = "Next Event";
+"gallery.lock_rect.desc" = "Most imminent event on your lock screen";
+"gallery.lock_circ.title" = "D-day";
+"gallery.lock_circ.desc" = "Days until the next event";
