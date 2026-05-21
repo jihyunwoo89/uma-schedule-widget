@@ -39,6 +39,11 @@ public enum L {
         // Legal
         case legalDisclaimer = "legal.disclaimer"
 
+        // Field labels
+        case fieldEstimated   = "field.estimated"
+        case fieldTrainee     = "field.trainee"
+        case fieldSupport     = "field.support"
+
         // Widget gallery (per widget)
         case galleryL1Title = "gallery.l1.title"
         case galleryL1Desc  = "gallery.l1.desc"

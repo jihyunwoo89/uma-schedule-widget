@@ -50,3 +50,6 @@
 "gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
+"field.estimated" = "예상";
+"field.trainee" = "육성마";
+"field.support" = "서포트";

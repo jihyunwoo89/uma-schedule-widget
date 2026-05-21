@@ -50,3 +50,6 @@
 "gallery.lock_rect.desc" = "Most imminent event on your lock screen";
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "Days until the next event";
+"field.estimated" = "Est.";
+"field.trainee" = "Trainee";
+"field.support" = "Support";
