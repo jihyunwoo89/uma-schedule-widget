@@ -31,7 +31,7 @@ python -m umaingest.cli --from-sheet "<published CSV URL>" --dest ../../data/sch
 
 | Column | Notes |
 |---|---|
-| `category` | `championsMeeting` / `leagueOfHeroes` / `gacha` — also accepts Korean synonyms: `챔미`/`챔피언스미팅`→CM, `리그오브히어로즈`/`LoH`→LoH, `픽업`/`가챠`→gacha |
+| `category` | `championsMeeting` / `leagueOfHeroes` / `gacha` — also accepts Korean synonyms: `챔미`/`챔피언스미팅`→CM, `리그오브히어로스`/`리그오브히어로즈`/`LoH`→LoH, `픽업`/`가챠`→gacha |
 | `title` | CM → `codeName` (e.g. `MILE`); LoH → `round` (e.g. `10회차`); pickup → blank |
 | `raceGrade` | e.g. `G1` |
 | `raceName` | race name |

@@ -1,5 +1,5 @@
 "category.champions" = "챔피언스 미팅";
-"category.loh" = "리그 오브 히어로즈";
+"category.loh" = "리그 오브 히어로스";
 "category.pickup" = "픽업";
 
 "state.idle.title" = "예정된 일정 없음";
@@ -26,21 +26,21 @@
 "legal.disclaimer" = "본 앱은 비공식 일정 안내 앱이며 카카오게임즈/Cygames와 무관합니다.";
 
 "gallery.l1.title" = "주요 이벤트 (상세)";
-"gallery.l1.desc" = "다음 챔피언스 미팅·리그 오브 히어로즈를 마장 이미지와 함께 상세히";
+"gallery.l1.desc" = "다음 챔피언스 미팅·리그 오브 히어로스를 마장 이미지와 함께 상세히";
 "gallery.l2.title" = "전체 일정";
-"gallery.l2.desc" = "챔피언스 미팅·리그 오브 히어로즈·픽업 다음 일정 전부";
+"gallery.l2.desc" = "챔피언스 미팅·리그 오브 히어로스·픽업 다음 일정 전부";
 "gallery.m1.title" = "주요 이벤트 (간략)";
-"gallery.m1.desc" = "다음 챔피언스 미팅·리그 오브 히어로즈를 간략히";
+"gallery.m1.desc" = "다음 챔피언스 미팅·리그 오브 히어로스를 간략히";
 "gallery.m2.title" = "챔미 + LoH";
-"gallery.m2.desc" = "챔피언스 미팅과 리그 오브 히어로즈 다음 일정 동시 표시";
+"gallery.m2.desc" = "챔피언스 미팅과 리그 오브 히어로스 다음 일정 동시 표시";
 "gallery.m3.title" = "픽업";
 "gallery.m3.desc" = "다음 육성마·서포트카드 픽업 일정";
 "gallery.s1.title" = "주요 이벤트 (개요)";
 "gallery.s1.desc" = "다음 챔미·LoH 중 가장 임박한 일정";
 "gallery.s2.title" = "챔피언스 미팅";
 "gallery.s2.desc" = "다음 챔피언스 미팅 일정만";
-"gallery.s3.title" = "리그 오브 히어로즈";
-"gallery.s3.desc" = "다음 리그 오브 히어로즈 일정만";
+"gallery.s3.title" = "리그 오브 히어로스";
+"gallery.s3.desc" = "다음 리그 오브 히어로스 일정만";
 "gallery.s4.title" = "픽업";
 "gallery.s4.desc" = "다음 픽업 일정만";
 "gallery.lock_rect.title" = "다음 일정";

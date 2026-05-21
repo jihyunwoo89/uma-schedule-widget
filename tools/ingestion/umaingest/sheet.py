@@ -9,7 +9,7 @@ _TURN = {"우": "clockwise", "시계": "clockwise", "clockwise": "clockwise",
          "직선": "straight", "straight": "straight"}
 _CATEGORY = {
     "championsmeeting": "championsMeeting", "챔피언스미팅": "championsMeeting", "챔미": "championsMeeting", "cm": "championsMeeting",
-    "leagueofheroes": "leagueOfHeroes", "리그오브히어로즈": "leagueOfHeroes", "loh": "leagueOfHeroes",
+    "leagueofheroes": "leagueOfHeroes", "리그오브히어로스": "leagueOfHeroes", "리그오브히어로즈": "leagueOfHeroes", "loh": "leagueOfHeroes",
     "gacha": "gacha", "픽업": "gacha", "가챠": "gacha", "pickup": "gacha",
 }
 
