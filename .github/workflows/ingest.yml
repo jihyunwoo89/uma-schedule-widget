@@ -1,0 +1,38 @@
+name: Ingest schedule
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          cd tools/ingestion
+          pip install -e ".[dev]"
+      - name: Run ingestion
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd tools/ingestion
+          python -m umaingest.cli --dest "$GITHUB_WORKSPACE/data/schedule.json"
+      - name: Open PR if changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: data/schedule.json
+          branch: ingest/schedule-update
+          title: "data: schedule.json update (review)"
+          body: |
+            Automated ingestion from the latest DCinside 미래시가이드.
+            **Review the diff before merging** — dates are 미래시(예상) and vision-extracted.
+          commit-message: "data: update schedule.json from ingestion"
