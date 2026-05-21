@@ -12,7 +12,8 @@ let package = Package(
         .target(
             name: "UmaCore",
             resources: [
-                .process("Resources")
+                .process("Resources"),
+                .copy("PrivacyInfo.xcprivacy")
             ]
         ),
         .testTarget(
