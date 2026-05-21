@@ -11,7 +11,9 @@ public enum WidgetVariant: String, Codable, Sendable {
     /// `true` for variants that auto-pick the nearer of CM/LoH instead of listing fixed categories.
     public var isMajorAuto: Bool { self == .majorAuto }
 
-    /// Fixed category set for non-auto variants (used to assemble cards in order).
+    /// Fixed category set for non-auto variants, used to assemble cards in order.
+    /// Ignored for `.majorAuto` (the resolver branches on `isMajorAuto` first and never
+    /// reads this); the value returned for `.majorAuto` is not meaningful — don't rely on it.
     public var categories: [EventCategory] {
         switch self {
         case .majorAuto:     return [.championsMeeting, .leagueOfHeroes]

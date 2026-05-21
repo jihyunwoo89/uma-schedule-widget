@@ -3,6 +3,8 @@ import Foundation
 public enum ScheduleStateResolver {
 
     /// Build the widget state for a variant from the schedule document at `now`.
+    /// Returns `.content` or `.idle`; `.noData` is never produced here — the timeline
+    /// provider sets it when the repository fails to supply any document at all.
     public static func resolve(document: ScheduleDocument, variant: WidgetVariant, now: Date) -> WidgetState {
         let cards: [EventCard]
         if variant.isMajorAuto {

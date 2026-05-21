@@ -41,4 +41,16 @@ final class ScheduleStateResolverTests: XCTestCase {
         let state = ScheduleStateResolver.resolve(document: doc(), variant: .allSchedule, now: d(9999))
         XCTAssertEqual(state, .idle)
     }
+
+    func test_championsOnly_returnsSingleChampionsCard() {
+        let state = ScheduleStateResolver.resolve(document: doc(), variant: .championsOnly, now: d(50))
+        guard case let .content(cards) = state else { return XCTFail("expected content") }
+        XCTAssertEqual(cards.map(\.category), [.championsMeeting])
+    }
+
+    func test_championsLoH_returnsTwoCardsInOrder() {
+        let state = ScheduleStateResolver.resolve(document: doc(), variant: .championsLoH, now: d(50))
+        guard case let .content(cards) = state else { return XCTFail("expected content") }
+        XCTAssertEqual(cards.map(\.category), [.championsMeeting, .leagueOfHeroes])
+    }
 }
