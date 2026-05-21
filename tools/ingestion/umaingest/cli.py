@@ -6,6 +6,7 @@ from .fetch import fetch_post_html, extract_image_urls, download_image
 from .vision import extract_document, make_client
 from .assemble import build_document
 from .publish import write_if_changed
+from .sheet import fetch_sheet_csv, parse_csv
 
 
 def png_bytes(raw: bytes, max_width: int = 1280) -> bytes:
@@ -38,6 +39,15 @@ def run(*, dest: Path, now_iso: str | None = None) -> dict:
     }
 
 
+def run_from_sheet(*, url: str, dest: Path, now_iso: str | None = None) -> dict:
+    now_iso = now_iso or datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    extracted = parse_csv(fetch_sheet_csv(url))
+    doc = build_document(extracted, source_post_no=None, now_iso=now_iso)
+    wrote = write_if_changed(Path(dest), doc.to_json())
+    return {"source": "sheet", "wrote": wrote,
+            "events": len(doc.championsMeetings) + len(doc.leagueOfHeroes) + len(doc.pickups)}
+
+
 def download_slides(out_dir: Path) -> dict:
     """Free mode: download the latest guide's slides (PNG) to out_dir. No vision/API call."""
     out_dir = Path(out_dir)
@@ -52,12 +62,16 @@ def download_slides(out_dir: Path) -> dict:
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Ingest DCinside 미래시가이드 → schedule.json")
+    ap = argparse.ArgumentParser(description="Ingest Umamusume schedule → schedule.json")
     ap.add_argument("--dest", default="data/schedule.json")
+    ap.add_argument("--from-sheet", metavar="CSV_URL", default=None,
+                    help="Build schedule.json from a published Google Sheet CSV URL (recommended).")
     ap.add_argument("--download-only", metavar="DIR", default=None,
-                    help="Free mode: download the latest guide's slides to DIR (no API call).")
+                    help="(DCinside path) download the latest guide's slides to DIR.")
     args = ap.parse_args(argv)
-    if args.download_only:
+    if args.from_sheet:
+        print(run_from_sheet(url=args.from_sheet, dest=Path(args.dest)))
+    elif args.download_only:
         print(download_slides(Path(args.download_only)))
     else:
         print(run(dest=Path(args.dest)))

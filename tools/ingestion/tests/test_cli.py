@@ -35,3 +35,13 @@ def test_download_only_saves_slides(tmp_path, monkeypatch):
     res = cli.download_slides(out)
     assert res["saved"] == 1 and res["post_no"] == 1850737
     assert (out / "slide_00.png").exists()
+
+
+def test_run_from_sheet_mocked(tmp_path, monkeypatch):
+    csv_text = ("category,title,raceGrade,raceName,racecourse,surface,distanceMeters,turn,courseSide,season,weather,ground,timeOfDay,start,end,estimated,trainees,supportCards\n"
+                "championsMeeting,MILE,G1,벚꽃상,한신,잔디,1600,우,,봄,,,,2026-07-14,2026-07-20,TRUE,,\n")
+    monkeypatch.setattr(cli, "fetch_sheet_csv", lambda url, transport=None: csv_text)
+    dest = tmp_path / "data" / "schedule.json"
+    res = cli.run_from_sheet(url="https://x/pub?output=csv", dest=dest)
+    assert res["source"] == "sheet" and res["wrote"] is True and res["events"] == 1
+    assert "벚꽃상" in dest.read_text(encoding="utf-8")
