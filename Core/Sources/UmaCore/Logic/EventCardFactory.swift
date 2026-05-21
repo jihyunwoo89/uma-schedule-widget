@@ -12,8 +12,10 @@ public enum EventCardFactory {
         guard let (cm, r) = candidate else { return nil }
         return EventCard(
             category: .championsMeeting,
-            title: cm.name,
+            title: cm.codeName,
+            subtitle: [cm.raceGrade, cm.raceName].compactMap { $0 }.joined(separator: " "),
             track: cm.track,
+            period: cm.period,
             phaseLabel: phaseLabel(for: r),
             targetDate: r.targetDate,
             status: r.status
@@ -29,31 +31,35 @@ public enum EventCardFactory {
         guard let (loh, r) = candidate else { return nil }
         return EventCard(
             category: .leagueOfHeroes,
-            title: loh.season,
+            title: loh.round,
+            subtitle: loh.raceName,
             track: loh.track,
+            period: loh.period,
             phaseLabel: phaseLabel(for: r),
             targetDate: r.targetDate,
             status: r.status
         )
     }
 
-    /// Active banner (now within start..end) preferred; else the soonest upcoming.
-    public static func gachaCard(_ banners: [GachaBanner], now: Date) -> EventCard? {
-        let active = banners
-            .filter { now >= $0.startDate && now < $0.endDate }
-            .sorted { $0.endDate < $1.endDate }
+    /// Active pickup (now within period) preferred; else the soonest upcoming.
+    public static func pickupCard(_ pickups: [PickupPeriod], now: Date) -> EventCard? {
+        let active = pickups
+            .filter { now >= $0.period.start && now < $0.period.end }
+            .sorted { $0.period.end < $1.period.end }
             .first
-        if let b = active {
-            return EventCard(category: .gacha, title: b.featured.joined(separator: ", "),
-                             track: nil, phaseLabel: "종료까지", targetDate: b.endDate, status: .active)
+        if let p = active {
+            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
+                             period: p.period, phaseLabel: "종료까지", targetDate: p.period.end, status: .active,
+                             trainees: p.trainees, supportCards: p.supportCards)
         }
-        let upcoming = banners
-            .filter { $0.startDate > now }
-            .sorted { $0.startDate < $1.startDate }
+        let upcoming = pickups
+            .filter { $0.period.start > now }
+            .sorted { $0.period.start < $1.period.start }
             .first
-        if let b = upcoming {
-            return EventCard(category: .gacha, title: b.featured.joined(separator: ", "),
-                             track: nil, phaseLabel: "시작까지", targetDate: b.startDate, status: .upcoming)
+        if let p = upcoming {
+            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
+                             period: p.period, phaseLabel: "시작까지", targetDate: p.period.start, status: .upcoming,
+                             trainees: p.trainees, supportCards: p.supportCards)
         }
         return nil
     }

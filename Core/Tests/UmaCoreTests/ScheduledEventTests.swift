@@ -3,8 +3,12 @@ import XCTest
 
 final class ScheduledEventTests: XCTestCase {
     private func d(_ t: TimeInterval) -> Date { Date(timeIntervalSince1970: t) }
+    private func track() -> TrackCondition {
+        TrackCondition(racecourse: "도쿄", surface: .turf, distanceMeters: 2400, distanceClass: .long)
+    }
+    private func period() -> EventPeriod { EventPeriod(start: d(100), end: d(400)) }
     private func cm() -> ChampionsMeeting {
-        ChampionsMeeting(id: "x", name: "리브르", track: TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf),
+        ChampionsMeeting(id: "x", codeName: "LIBRA", raceGrade: nil, raceName: "리브르", track: track(), period: period(),
             phases: [
                 EventPhase(kind: .open,   label: "오픈",    date: d(100)),
                 EventPhase(kind: .round1, label: "라운드1", date: d(200)),
@@ -40,7 +44,6 @@ final class ScheduledEventTests: XCTestCase {
     }
 
     func test_exactlyAtOpenDate_isActive_nextPhaseIsRound1() {
-        // now == open.date: the open phase has started (status active), next is round1.
         let r = cm().resolution(now: d(100))
         XCTAssertEqual(r.status, .active)
         XCTAssertEqual(r.nextPhase?.kind, .round1)
@@ -52,8 +55,8 @@ final class ScheduledEventTests: XCTestCase {
     }
 
     func test_emptyPhases_isUpcoming_targetDateIsNow() {
-        let empty = ChampionsMeeting(id: "e", name: "없음",
-            track: TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf), phases: [])
+        let empty = ChampionsMeeting(id: "e", codeName: "EMPTY", raceGrade: nil, raceName: "없음",
+            track: track(), period: period(), phases: [])
         let now = d(123)
         let r = empty.resolution(now: now)
         XCTAssertEqual(r.status, .upcoming)
@@ -62,8 +65,8 @@ final class ScheduledEventTests: XCTestCase {
     }
 
     func test_unsortedPhases_areSortedBeforeResolving() {
-        let unsorted = ChampionsMeeting(id: "u", name: "뒤섞임",
-            track: TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf),
+        let unsorted = ChampionsMeeting(id: "u", codeName: "MIX", raceGrade: nil, raceName: "뒤섞임",
+            track: track(), period: period(),
             phases: [
                 EventPhase(kind: .ended,  label: "종료", date: d(400)),
                 EventPhase(kind: .open,   label: "오픈", date: d(100)),

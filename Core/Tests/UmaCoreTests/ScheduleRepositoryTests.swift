@@ -7,7 +7,7 @@ final class ScheduleRepositoryTests: XCTestCase {
     }
     private func doc(version: Int) -> ScheduleDocument {
         ScheduleDocument(version: version, updatedAt: Date(timeIntervalSince1970: 0), server: "kr",
-                         championsMeetings: [], leagueOfHeroes: [], gachaBanners: [])
+                         championsMeetings: [], leagueOfHeroes: [], pickups: [])
     }
     private struct StubFallback: ScheduleProviding {
         let document: ScheduleDocument

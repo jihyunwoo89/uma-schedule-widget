@@ -26,8 +26,8 @@ public struct CourseDiagramView: View {
             VStack(spacing: 2) {
                 Text("\(track.distanceMeters)m")
                     .font(.system(size: 18, weight: .bold))
-                if let dir = track.direction {
-                    Text(dir).font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary)
+                if let turn = track.turn {
+                    Text(turn.koLabel).font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary)
                 }
             }
         }

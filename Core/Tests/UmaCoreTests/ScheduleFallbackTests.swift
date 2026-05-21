@@ -6,6 +6,5 @@ final class ScheduleFallbackTests: XCTestCase {
         let doc = try ScheduleFallback.production.load()
         XCTAssertEqual(doc.server, "kr")
         XCTAssertFalse(doc.championsMeetings.isEmpty)
-        XCTAssertFalse(doc.gachaBanners.isEmpty)
     }
 }

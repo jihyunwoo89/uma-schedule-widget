@@ -4,18 +4,22 @@ import XCTest
 final class ScheduleStateResolverTests: XCTestCase {
     private func d(_ t: TimeInterval) -> Date { Date(timeIntervalSince1970: t) }
     private func doc() -> ScheduleDocument {
-        let track = TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf)
-        let cm = ChampionsMeeting(id: "cm", name: "리브르", track: track, phases: [
+        let track = TrackCondition(racecourse: "도쿄", surface: .turf, distanceMeters: 2400, distanceClass: .long)
+        let period = EventPeriod(start: d(0), end: d(600))
+        let cm = ChampionsMeeting(id: "cm", codeName: "LIBRA", raceGrade: nil, raceName: "리브르",
+            track: track, period: period, phases: [
             EventPhase(kind: .open, label: "오픈", date: d(100)),
             EventPhase(kind: .ended, label: "종료", date: d(500)),
         ])
-        let loh = LeagueOfHeroes(id: "loh", season: "시즌3", track: track, phases: [
+        let loh = LeagueOfHeroes(id: "loh", round: "시즌3", raceName: "스프린트",
+            track: track, period: period, phases: [
             EventPhase(kind: .open, label: "오픈", date: d(200)),
             EventPhase(kind: .ended, label: "종료", date: d(600)),
         ])
-        let g = GachaBanner(id: "g", type: .trainee, featured: ["오구리 캡"], startDate: d(150), endDate: d(450))
-        return ScheduleDocument(version: 1, updatedAt: d(0), server: "kr",
-                                championsMeetings: [cm], leagueOfHeroes: [loh], gachaBanners: [g])
+        let pickup = PickupPeriod(id: "p", period: EventPeriod(start: d(150), end: d(450)),
+            trainees: ["오구리 캡"], supportCards: [])
+        return ScheduleDocument(version: 2, updatedAt: d(0), server: "kr",
+                                championsMeetings: [cm], leagueOfHeroes: [loh], pickups: [pickup])
     }
 
     func test_majorAuto_returnsSingleNearerCard() {

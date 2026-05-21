@@ -19,7 +19,7 @@ public enum ScheduleStateResolver {
         switch category {
         case .championsMeeting: return EventCardFactory.championsCard(document.championsMeetings, now: now)
         case .leagueOfHeroes:   return EventCardFactory.leagueCard(document.leagueOfHeroes, now: now)
-        case .gacha:            return EventCardFactory.gachaCard(document.gachaBanners, now: now)
+        case .gacha:            return EventCardFactory.pickupCard(document.pickups, now: now)
         }
     }
 }
