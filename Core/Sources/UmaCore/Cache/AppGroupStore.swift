@@ -10,6 +10,8 @@ public final class AppGroupStore: @unchecked Sendable {
 
     private let defaults: UserDefaults
     private let clock: @Sendable () -> Date
+    // Shared encoder/decoder aren't Sendable; safe because access is serial per process
+    // (widget timeline builds and app saves don't run concurrently). Covered by @unchecked Sendable.
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 

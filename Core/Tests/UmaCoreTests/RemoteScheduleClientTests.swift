@@ -14,7 +14,13 @@ final class RemoteScheduleClientTests: XCTestCase {
 
     func test_fetch_non200Throws() async {
         let client = RemoteScheduleClient(transport: { _ in (Data(), 503) })
-        do { _ = try await client.fetch(); XCTFail("should throw") }
-        catch { /* expected */ }
+        do {
+            _ = try await client.fetch()
+            XCTFail("should throw")
+        } catch RemoteScheduleError.badStatus(let code) {
+            XCTAssertEqual(code, 503)
+        } catch {
+            XCTFail("unexpected error: \(error)")
+        }
     }
 }
