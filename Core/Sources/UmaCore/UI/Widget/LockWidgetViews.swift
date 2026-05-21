@@ -1,34 +1,31 @@
 import SwiftUI
 import WidgetKit
 
-/// accessoryRectangular: nearest event — category, title, d-day + phase.
 public struct LockRectangularView: View {
     public let entry: WidgetEntry
     public init(entry: WidgetEntry) { self.entry = entry }
-
     @ViewBuilder
     public var body: some View {
         if case let .content(cards) = entry.state, let card = cards.first {
             VStack(alignment: .leading, spacing: 1) {
-                Text(L.string(card.category.labelKey)).font(.system(size: 11, weight: .semibold))
-                Text(card.title).font(.system(size: 13, weight: .bold)).lineLimit(1)
+                Text(card.category == .gacha ? L.string(.categoryPickup) : "\(L.string(card.category.labelKey)) 「\(card.title)」")
+                    .font(.system(size: 11, weight: .semibold)).lineLimit(1)
+                Text(card.category == .gacha ? card.title : (card.subtitle ?? ""))
+                    .font(.system(size: 13, weight: .bold)).lineLimit(1)
                 HStack(spacing: 4) {
                     Text(CountdownFormatter.ddayLabel(days: CountdownFormatter.daysUntil(card.targetDate, from: entry.date)))
                     Text(card.phaseLabel)
                 }.font(.system(size: 11)).foregroundStyle(.secondary)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            }.frame(maxWidth: .infinity, alignment: .leading)
         } else {
             Text(L.string(.stateIdleTitle)).font(.system(size: 12))
         }
     }
 }
 
-/// accessoryCircular: d-day number with the category icon.
 public struct LockCircularView: View {
     public let entry: WidgetEntry
     public init(entry: WidgetEntry) { self.entry = entry }
-
     @ViewBuilder
     public var body: some View {
         if case let .content(cards) = entry.state, let card = cards.first {
