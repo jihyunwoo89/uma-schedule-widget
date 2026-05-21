@@ -6,6 +6,7 @@ dependencies = [
     "requests>=2.31",
     "anthropic>=0.40",
     "pydantic>=2.6",
+    "pillow>=10.0",
 ]
 
 [project.optional-dependencies]
