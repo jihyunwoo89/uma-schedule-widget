@@ -1,13 +1,52 @@
 # Uma schedule ingestion
 
-Reads the latest DCinside `미래시가이드` post and produces `data/schedule.json` (schema v2)
-for the app to fetch. Two modes:
+Produces `data/schedule.json` (schema v2) for the app. **Primary method: a hand-maintained Google Sheet published as CSV** — no API key, fully free. (A DCinside-image + Claude-vision path also exists as an alternative; see lower sections.)
 
-- **Free / manual (default)** — no API key, no cost. See "Free mode" below.
-- **Automated (optional)** — a weekly GitHub Action calls Claude vision and opens a
-  review-gated PR. Needs `ANTHROPIC_API_KEY`. See "Automated mode".
+## Sheet mode (recommended)
 
-## Free mode (no API key)
+### Sheet columns
+
+| Column | Notes |
+|---|---|
+| `category` | `championsMeeting` / `leagueOfHeroes` / `gacha` — also accepts Korean synonyms: `챔미`/`챔피언스미팅`→CM, `리그오브히어로즈`/`LoH`→LoH, `픽업`/`가챠`→gacha |
+| `title` | CM → `codeName` (e.g. `MILE`); LoH → `round` (e.g. `10회차`); pickup → blank |
+| `raceGrade` | e.g. `G1` |
+| `raceName` | race name |
+| `racecourse` | track name |
+| `surface` | `잔디` or `turf` → turf; `더트` or `dirt` → dirt |
+| `distanceMeters` | numeric metres (e.g. `1600`) |
+| `turn` | `우`/`clockwise` → clockwise; `좌`/`counterclockwise` → counterclockwise; `직선`/`straight` → straight |
+| `courseSide` | optional (e.g. `외측`) |
+| `season` | optional (e.g. `봄`) |
+| `weather` | optional |
+| `ground` | optional |
+| `timeOfDay` | optional (e.g. `낮`) |
+| `start` | ISO date `YYYY-MM-DD` |
+| `end` | ISO date; if blank, same as `start` |
+| `estimated` | `TRUE`/`FALSE` (also `true`/`1`/`y`/`예`) |
+| `trainees` | Pickup: semicolon-separated trainee names, e.g. `발렌타인 마짱; 발렌타인 제퍼` |
+| `supportCards` | Pickup: semicolon-separated, each `등급\|이름\|타입`, e.g. `SSR\|카렌짱\|근성; SSR\|이쿠노 딕터스\|지능` |
+
+**Auto-derived:** `distanceClass` is computed from `distanceMeters` (≤1400 → sprint, ≤1800 → mile, ≤2400 → medium, else long) — do not add a column for it.
+
+Rows whose `category` is blank or unrecognised are silently skipped, so you can keep notes or blank separator rows freely.
+
+### Steps
+
+1. In Google Sheets: **파일 → 공유 → 웹에 게시 → CSV**
+2. Copy the published CSV URL.
+3. Run:
+
+```bash
+cd tools/ingestion && . .venv/bin/activate
+python -m umaingest.cli --from-sheet "<published CSV URL>" --dest ../../data/schedule.json
+```
+
+4. Commit `data/schedule.json` to a free GitHub repo (or update the app's bundled fallback) and point `ScheduleEndpoint.url` (Swift) at its raw URL.
+
+---
+
+## Alternative: DCinside image guide (no API key)
 
 The deterministic steps cost nothing (just HTTP + image decode):
 
