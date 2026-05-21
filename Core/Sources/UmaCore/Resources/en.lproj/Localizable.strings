@@ -7,9 +7,6 @@
 "state.nodata.title" = "Couldn't load schedule";
 "state.nodata.body" = "Please try again shortly";
 
-"pickup.trainee" = "Trainee";
-"pickup.support_card" = "Support Card";
-
 "settings.title" = "Settings";
 "settings.section.categories" = "Categories";
 "settings.section.font" = "Font";
@@ -50,6 +47,5 @@
 "gallery.lock_rect.desc" = "Most imminent event on your lock screen";
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "Days until the next event";
-"field.estimated" = "Est.";
 "field.trainee" = "Trainee";
 "field.support" = "Support";

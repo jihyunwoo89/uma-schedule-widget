@@ -10,7 +10,7 @@ public struct LockRectangularView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text(card.category == .gacha ? L.string(.categoryPickup) : "\(L.string(card.category.labelKey)) 「\(card.title)」")
                     .font(.system(size: 11, weight: .semibold)).lineLimit(1)
-                Text(card.category == .gacha ? card.title : (card.subtitle ?? ""))
+                Text(card.category == .gacha ? card.trainees.joined(separator: " · ") : (card.subtitle ?? ""))
                     .font(.system(size: 13, weight: .bold)).lineLimit(1)
                 HStack(spacing: 4) {
                     Text(CountdownFormatter.ddayLabel(days: CountdownFormatter.daysUntil(card.targetDate, from: entry.date)))

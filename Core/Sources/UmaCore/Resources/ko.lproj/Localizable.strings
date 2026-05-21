@@ -7,9 +7,6 @@
 "state.nodata.title" = "일정을 불러올 수 없어요";
 "state.nodata.body" = "잠시 후 다시 시도해주세요";
 
-"pickup.trainee" = "육성마";
-"pickup.support_card" = "서포트카드";
-
 "settings.title" = "설정";
 "settings.section.categories" = "표시 카테고리";
 "settings.section.font" = "글꼴";
@@ -50,6 +47,5 @@
 "gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
-"field.estimated" = "예상";
 "field.trainee" = "육성마";
 "field.support" = "서포트";

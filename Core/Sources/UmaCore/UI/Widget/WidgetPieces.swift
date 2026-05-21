@@ -55,6 +55,9 @@ public struct PickupLines: View {
                 Text("\(L.string(.fieldTrainee))  \(trainees.joined(separator: " · "))")
                     .font(.system(size: compact ? 9.5 : 11, weight: .semibold)).lineLimit(1)
             }
+            if !compact && !supports.isEmpty {
+                Text(L.string(.fieldSupport)).font(.system(size: 11, weight: .semibold)).foregroundStyle(.secondary)
+            }
             ForEach(Array(supports.enumerated()), id: \.offset) { _, s in
                 (Text("\(s.rarity) ").font(.system(size: compact ? 9.5 : 11, weight: .bold)).foregroundColor(EventCategory.gacha.accentColor)
                  + Text(s.name).font(.system(size: compact ? 9.5 : 11))
@@ -79,6 +82,7 @@ public struct EventCardRow: View {
                 } else {
                     BracketTitle(card.title, size: 15)
                     if let s = card.subtitle { Text(s).font(.system(size: 11)).foregroundStyle(.secondary).lineLimit(1) }
+                    if let t = card.track { Text(t.summary).font(.system(size: 10)).foregroundStyle(.secondary).lineLimit(1) }
                 }
             }
             Spacer(minLength: 4)

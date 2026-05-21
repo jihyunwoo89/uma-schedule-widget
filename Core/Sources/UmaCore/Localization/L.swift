@@ -15,10 +15,6 @@ public enum L {
         case stateNoDataTitle = "state.nodata.title"
         case stateNoDataBody  = "state.nodata.body"
 
-        // Pickup labels
-        case pickupTrainee     = "pickup.trainee"
-        case pickupSupportCard = "pickup.support_card"
-
         // Settings
         case settingsTitle              = "settings.title"
         case settingsSectionCategories  = "settings.section.categories"
@@ -40,7 +36,6 @@ public enum L {
         case legalDisclaimer = "legal.disclaimer"
 
         // Field labels
-        case fieldEstimated   = "field.estimated"
         case fieldTrainee     = "field.trainee"
         case fieldSupport     = "field.support"
 
