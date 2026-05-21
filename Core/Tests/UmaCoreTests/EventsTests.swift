@@ -2,36 +2,25 @@ import XCTest
 @testable import UmaCore
 
 final class EventsTests: XCTestCase {
-    private let track = TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf)
+    private let track = TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile)
+    private func period() -> EventPeriod { EventPeriod(start: Date(timeIntervalSince1970: 100), end: Date(timeIntervalSince1970: 200), estimated: true) }
 
     func test_championsMeeting_roundTrip() throws {
-        let cm = ChampionsMeeting(
-            id: "cm-2026-06", name: "리브르(LIBRA)", track: track,
-            phases: [EventPhase(kind: .round1, label: "라운드1", date: Date(timeIntervalSince1970: 100))]
-        )
-        let data = try JSONEncoder().encode(cm)
-        XCTAssertEqual(try JSONDecoder().decode(ChampionsMeeting.self, from: data), cm)
+        let cm = ChampionsMeeting(id: "cm", codeName: "LONG", raceGrade: "G1", raceName: "벚꽃상",
+                                  track: track, period: period(),
+                                  phases: [EventPhase(kind: .open, label: "오픈", date: Date(timeIntervalSince1970: 100))])
+        XCTAssertEqual(try JSONDecoder().decode(ChampionsMeeting.self, from: JSONEncoder().encode(cm)), cm)
     }
-
     func test_leagueOfHeroes_roundTrip() throws {
-        let loh = LeagueOfHeroes(
-            id: "loh-2026-s3", season: "시즌 3", track: track,
-            phases: [EventPhase(kind: .round1, label: "본선", date: Date(timeIntervalSince1970: 200))]
-        )
-        let data = try JSONEncoder().encode(loh)
-        XCTAssertEqual(try JSONDecoder().decode(LeagueOfHeroes.self, from: data), loh)
+        let loh = LeagueOfHeroes(id: "loh", round: "10회차", raceName: "스프린터즈 스테이크스",
+                                 track: track, period: period(),
+                                 phases: [EventPhase(kind: .open, label: "오픈", date: Date(timeIntervalSince1970: 100))])
+        XCTAssertEqual(try JSONDecoder().decode(LeagueOfHeroes.self, from: JSONEncoder().encode(loh)), loh)
     }
-
-    func test_gachaBanner_roundTrip() throws {
-        let b = GachaBanner(id: "g1", type: .trainee, featured: ["오구리 캡"],
-                            startDate: Date(timeIntervalSince1970: 0),
-                            endDate: Date(timeIntervalSince1970: 1000))
-        let data = try JSONEncoder().encode(b)
-        XCTAssertEqual(try JSONDecoder().decode(GachaBanner.self, from: data), b)
-    }
-
-    func test_bannerType_rawValues() {
-        XCTAssertEqual(BannerType.trainee.rawValue, "trainee")
-        XCTAssertEqual(BannerType.supportCard.rawValue, "supportCard")
+    func test_pickupPeriod_roundTrip() throws {
+        let p = PickupPeriod(id: "p", period: period(),
+                             trainees: ["오르페브르", "푸리오소"],
+                             supportCards: [SupportCardPick(rarity: "SSR", name: "아몬드 아이", type: "스피드")])
+        XCTAssertEqual(try JSONDecoder().decode(PickupPeriod.self, from: JSONEncoder().encode(p)), p)
     }
 }

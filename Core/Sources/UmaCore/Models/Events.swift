@@ -2,49 +2,59 @@ import Foundation
 
 public struct ChampionsMeeting: Codable, Hashable, Sendable {
     public var id: String
-    public var name: String
+    public var codeName: String
+    public var raceGrade: String?
+    public var raceName: String
     public var track: TrackCondition
+    public var period: EventPeriod
     public var phases: [EventPhase]
 
-    public init(id: String, name: String, track: TrackCondition, phases: [EventPhase]) {
+    public init(id: String, codeName: String, raceGrade: String?, raceName: String,
+                track: TrackCondition, period: EventPeriod, phases: [EventPhase]) {
         self.id = id
-        self.name = name
+        self.codeName = codeName
+        self.raceGrade = raceGrade
+        self.raceName = raceName
         self.track = track
+        self.period = period
         self.phases = phases
     }
 }
 
 public struct LeagueOfHeroes: Codable, Hashable, Sendable {
     public var id: String
-    public var season: String
+    public var round: String
+    public var raceName: String
     public var track: TrackCondition
+    public var period: EventPeriod
     public var phases: [EventPhase]
 
-    public init(id: String, season: String, track: TrackCondition, phases: [EventPhase]) {
+    public init(id: String, round: String, raceName: String,
+                track: TrackCondition, period: EventPeriod, phases: [EventPhase]) {
         self.id = id
-        self.season = season
+        self.round = round
+        self.raceName = raceName
         self.track = track
+        self.period = period
         self.phases = phases
     }
 }
 
-public enum BannerType: String, Codable, Hashable, Sendable {
-    case trainee
-    case supportCard
+public struct SupportCardPick: Codable, Hashable, Sendable {
+    public var rarity: String
+    public var name: String
+    public var type: String
+    public init(rarity: String, name: String, type: String) {
+        self.rarity = rarity; self.name = name; self.type = type
+    }
 }
 
-public struct GachaBanner: Codable, Hashable, Sendable {
+public struct PickupPeriod: Codable, Hashable, Sendable {
     public var id: String
-    public var type: BannerType
-    public var featured: [String]
-    public var startDate: Date
-    public var endDate: Date
-
-    public init(id: String, type: BannerType, featured: [String], startDate: Date, endDate: Date) {
-        self.id = id
-        self.type = type
-        self.featured = featured
-        self.startDate = startDate
-        self.endDate = endDate
+    public var period: EventPeriod
+    public var trainees: [String]
+    public var supportCards: [SupportCardPick]
+    public init(id: String, period: EventPeriod, trainees: [String], supportCards: [SupportCardPick]) {
+        self.id = id; self.period = period; self.trainees = trainees; self.supportCards = supportCards
     }
 }
