@@ -36,12 +36,14 @@ struct ScheduleTimelineProvider: TimelineProvider {
         let repo = ScheduleRepository.makeLive()
         do {
             let doc = try await repo.current()
-            if detailLevel == .detailed,
-               case let .content(cards) = ScheduleStateResolver.resolve(document: doc, variant: variant, now: date),
-               let url = cards.first?.track?.imageURL {
-                await TrackImageCache.shared().ensureCached(url) { try await Data(contentsOf: $0) }
-            }
             let state = ScheduleStateResolver.resolve(document: doc, variant: variant, now: date)
+            // Detailed widgets show a track image — pre-download it into the App Group cache
+            // so the (synchronous) widget view can load it from disk.
+            if detailLevel == .detailed,
+               case let .content(cards) = state,
+               let url = cards.first?.track?.imageURL {
+                await TrackImageCache.shared().ensureCached(url) { try await URLSession.shared.data(from: $0).0 }
+            }
             return WidgetEntry(date: date, state: state, detailLevel: detailLevel, fontTheme: fontTheme)
         } catch {
             return WidgetEntry(date: date, state: .noData, detailLevel: detailLevel, fontTheme: fontTheme)

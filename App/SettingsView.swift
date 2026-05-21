@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 import UmaCore
 
 struct SettingsView: View {
@@ -39,11 +40,26 @@ struct SettingsView: View {
             }
 
             Section {
+                Button(L.string(.settingsRowRefresh), action: refreshNow)
+                HStack {
+                    Text(L.string(.settingsRowDataSource))
+                    Spacer()
+                    Text(ScheduleEndpoint.url.host ?? "").foregroundStyle(.secondary)
+                }
+            }
+
+            Section {
                 Text(L.string(.legalDisclaimer)).font(.footnote).foregroundStyle(.secondary)
             }
         }
         .environment(\.editMode, .constant(.active))
         .navigationTitle(L.string(.settingsTitle))
+    }
+
+    /// Drop the cached schedule so the next widget/app load refetches, then reload widgets now.
+    private func refreshNow() {
+        AppGroupStore.shared().remove(forKey: ScheduleRepository.cacheKey)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private var fontBinding: Binding<FontTheme> {
