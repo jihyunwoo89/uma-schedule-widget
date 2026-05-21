@@ -46,7 +46,7 @@ struct RootView: View {
         switch category {
         case .championsMeeting: return EventCardFactory.championsCard(doc.championsMeetings, now: Date())
         case .leagueOfHeroes:   return EventCardFactory.leagueCard(doc.leagueOfHeroes, now: Date())
-        case .gacha:            return EventCardFactory.gachaCard(doc.gachaBanners, now: Date())
+        case .gacha:            return EventCardFactory.pickupCard(doc.pickups, now: Date())
         }
     }
 
