@@ -1,0 +1,73 @@
+name: UmaSchedule
+options:
+  bundleIdPrefix: com.damienjee
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    DEVELOPMENT_TEAM: "4SBX5T4LW8"
+    CODE_SIGN_STYLE: Automatic
+    TARGETED_DEVICE_FAMILY: "1"
+packages:
+  UmaCore:
+    path: Core
+targets:
+  UmaSchedule:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    dependencies:
+      - target: UmaWidgets
+        embed: true
+      - package: UmaCore
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        CFBundleDisplayName: 우마 스케줄
+        CFBundleLocalizations: [en, ko]
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+        UIBackgroundModes: [fetch, processing]
+        BGTaskSchedulerPermittedIdentifiers:
+          - com.damienjee.umaschedule.refresh
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    entitlements:
+      path: App/UmaSchedule.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.damienjee.umaschedule
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.damienjee.umaschedule
+        TARGETED_DEVICE_FAMILY: "1"
+  UmaWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widgets
+    dependencies:
+      - package: UmaCore
+    info:
+      path: Widgets/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        CFBundleDisplayName: 우마 스케줄
+        CFBundleLocalizations: [en, ko]
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Widgets/UmaWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.damienjee.umaschedule
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.damienjee.umaschedule.widgets
+        TARGETED_DEVICE_FAMILY: "1"
