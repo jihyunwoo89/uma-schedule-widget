@@ -1,6 +1,36 @@
 # Uma schedule ingestion
 
-Reads the latest DCinside `미래시가이드` post, extracts schedule facts with Claude vision, and writes `data/schedule.json` (schema v2). A GitHub Action runs weekly and opens a PR — **merging the PR is the review gate**; the app only consumes data after merge.
+Reads the latest DCinside `미래시가이드` post and produces `data/schedule.json` (schema v2)
+for the app to fetch. Two modes:
+
+- **Free / manual (default)** — no API key, no cost. See "Free mode" below.
+- **Automated (optional)** — a weekly GitHub Action calls Claude vision and opens a
+  review-gated PR. Needs `ANTHROPIC_API_KEY`. See "Automated mode".
+
+## Free mode (no API key)
+
+The deterministic steps cost nothing (just HTTP + image decode):
+
+```bash
+cd tools/ingestion && . .venv/bin/activate
+# Download the latest guide's slides to a folder (no API key needed):
+python -m umaingest.cli --download-only /tmp/umaslides
+```
+
+Then the schedule is produced human-in-the-loop, because the guide splits a single
+event's **conditions** and **dates** across different slides and renders names on
+stylized banner art:
+
+1. Ask Claude (in chat) to read the downloaded slides and draft the consolidated
+   extraction, **or** just tell Claude the upcoming events you already know.
+2. Claude builds + validates them via `umaingest.assemble.build_document` → `schedule.json`.
+3. You confirm uncertain dates/names; commit `schedule.json` to a **free** GitHub repo
+   (or update the app's bundled `Core/Sources/UmaCore/Resources/schedule_fallback.json`).
+
+Hosting is free (GitHub raw). The only thing that would cost money is the automated
+vision call, which this mode does not use.
+
+## Automated mode (optional, needs API key)
 
 ## Local run
 

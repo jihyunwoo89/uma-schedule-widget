@@ -38,11 +38,29 @@ def run(*, dest: Path, now_iso: str | None = None) -> dict:
     }
 
 
+def download_slides(out_dir: Path) -> dict:
+    """Free mode: download the latest guide's slides (PNG) to out_dir. No vision/API call."""
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    post_no = find_latest_guide_post_no(fetch_gallery_list_html())
+    if post_no is None:
+        return {"post_no": None, "saved": 0}
+    urls = extract_image_urls(fetch_post_html(post_no))
+    for i, u in enumerate(urls):
+        (out_dir / f"slide_{i:02d}.png").write_bytes(png_bytes(download_image(u, post_no)))
+    return {"post_no": post_no, "saved": len(urls), "dir": str(out_dir)}
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Ingest DCinside 미래시가이드 → schedule.json")
     ap.add_argument("--dest", default="data/schedule.json")
+    ap.add_argument("--download-only", metavar="DIR", default=None,
+                    help="Free mode: download the latest guide's slides to DIR (no API call).")
     args = ap.parse_args(argv)
-    print(run(dest=Path(args.dest)))
+    if args.download_only:
+        print(download_slides(Path(args.download_only)))
+    else:
+        print(run(dest=Path(args.dest)))
     return 0
 
 

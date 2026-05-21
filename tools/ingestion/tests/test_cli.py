@@ -24,3 +24,14 @@ def test_run_pipeline_end_to_end_mocked(tmp_path, monkeypatch):
     assert captured["n"] == 2          # both slides sent in ONE extract call
     assert dest.exists()
     assert "오르페브르" in dest.read_text(encoding="utf-8")
+
+
+def test_download_only_saves_slides(tmp_path, monkeypatch):
+    monkeypatch.setattr(cli, "fetch_gallery_list_html", lambda transport=None: '<tr data-no="1850737"><td class="gall_tit"><a>미래시가이드 X</a></td></tr>')
+    monkeypatch.setattr(cli, "fetch_post_html", lambda no, transport=None: '<img src="https://dcimg1.dcinside.com/viewimage.php?id=a&amp;no=S1"/>')
+    monkeypatch.setattr(cli, "download_image", lambda url, no, transport=None: b"img")
+    monkeypatch.setattr(cli, "png_bytes", lambda raw, max_width=1280: b"png")
+    out = tmp_path / "slides"
+    res = cli.download_slides(out)
+    assert res["saved"] == 1 and res["post_no"] == 1850737
+    assert (out / "slide_00.png").exists()
