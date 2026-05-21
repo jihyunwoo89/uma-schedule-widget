@@ -7,3 +7,6 @@ Core/build/
 DerivedData/
 *.xcuserstate
 .superpowers/
+tools/ingestion/.venv/
+__pycache__/
+*.egg-info/
