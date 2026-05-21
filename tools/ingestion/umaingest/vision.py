@@ -1,18 +1,10 @@
 from __future__ import annotations
 import base64, json, re
-from dataclasses import dataclass, field
 from . import prompts
 
 MODEL = "claude-opus-4-7"  # vision-capable; swap if needed
 
 _FENCE_RE = re.compile(r"```(?:json)?\s*(\{.*\})\s*```", re.DOTALL)
-
-
-@dataclass
-class VisionResult:
-    championsMeetings: list = field(default_factory=list)
-    leagueOfHeroes: list = field(default_factory=list)
-    pickups: list = field(default_factory=list)
 
 
 def _parse_json(text: str) -> dict:
@@ -26,23 +18,21 @@ def make_client():
     return anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
 
 
-def extract_slide(image_bytes: bytes, *, client, media_type: str = "image/png") -> VisionResult:
-    b64 = base64.standard_b64encode(image_bytes).decode("ascii")
+def extract_document(images: list[bytes], *, client, media_type: str = "image/png") -> dict:
+    """Send ALL slides in ONE request so the model cross-references conditions+dates
+    into complete events. Returns a dict with championsMeetings/leagueOfHeroes/pickups."""
+    content: list[dict] = []
+    for img in images:
+        b64 = base64.standard_b64encode(img).decode("ascii")
+        content.append({"type": "image", "source": {"type": "base64", "media_type": media_type, "data": b64}})
+    content.append({"type": "text", "text": prompts.MULTI_EXTRACT})
     msg = client.messages.create(
-        model=MODEL,
-        max_tokens=2000,
-        system=prompts.SYSTEM,
-        messages=[{
-            "role": "user",
-            "content": [
-                {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": b64}},
-                {"type": "text", "text": prompts.EXTRACT},
-            ],
-        }],
+        model=MODEL, max_tokens=8000, system=prompts.MULTI_SYSTEM,
+        messages=[{"role": "user", "content": content}],
     )
     data = _parse_json(msg.content[0].text)
-    return VisionResult(
-        championsMeetings=data.get("championsMeetings", []),
-        leagueOfHeroes=data.get("leagueOfHeroes", []),
-        pickups=data.get("pickups", []),
-    )
+    return {
+        "championsMeetings": data.get("championsMeetings", []),
+        "leagueOfHeroes": data.get("leagueOfHeroes", []),
+        "pickups": data.get("pickups", []),
+    }
