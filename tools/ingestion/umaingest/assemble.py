@@ -34,7 +34,7 @@ def _phases(period: EventPeriod) -> list[EventPhase]:
             EventPhase(kind="ended", label="종료", date=period.end)]
 
 
-def build_document(extracted: dict, *, source_post_no: int, now_iso: str) -> ScheduleDocument:
+def build_document(extracted: dict, *, source_post_no: int | None = None, now_iso: str) -> ScheduleDocument:
     """Build a validated ScheduleDocument from one consolidated extraction dict.
     Incomplete events (missing period; CM/LoH missing track) are skipped, not fatal —
     the review gate catches gaps, and one bad event shouldn't drop the whole run."""
