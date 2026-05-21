@@ -87,6 +87,7 @@ struct TrackCondition: Codable, Sendable {     // 마장 정보
     var distanceMeters: Int  // 거리: 2400
     var surface: Surface     // 바바: turf(잔디)/dirt(더트)
     var direction: String?   // 방향: 좌/우/직선
+    var imageURL: URL?       // 마장 이미지(원격). 앱 번들 X, 런타임 fetch → App Group 캐시. nil이면 코스 도식 fallback
 }
 enum Surface: String, Codable { case turf, dirt }
 
@@ -140,16 +141,53 @@ enum EventStatus: String, Codable { case upcoming, active, ended }
 
 ## 5. 위젯 구성 & 상태
 
-**카테고리 전용 위젯** (각각 systemSmall / systemMedium):
-- 챔피언스 미팅: 미팅명, d-day, phase 라벨, 마장 요약(도쿄·잔디 2400m)
-- 리그 오브 히어로즈: 시즌명, d-day, 마장 요약
-- 픽업: 진행/예정 육성마·서포트카드 픽업, 픽업 대상, 종료/시작 d-day
+위젯은 사이즈별로 여러 변형(variant)을 별도 위젯으로 제공한다. 각 위젯은 고유 `kind`를 갖고 `WidgetVariant`로 표시 내용을 결정한다.
 
-**통합 Large 위젯** (systemLarge): 3개 카드 세로 스택(챔미 / LoH / 픽업)
+### 5.1 홈 위젯 갤러리
 
-**잠금화면 위젯**:
-- `accessoryRectangular`: 가장 임박한 이벤트 자동 선택
+**Large (systemLarge) — 2종**
+- `L1 주요이벤트(상세)`: 챔미·LoH 중 가장 임박한 것 자동 전환. 이벤트 상세 + **마장 이미지** 포함.
+- `L2 전체일정`: 챔미 + LoH + 픽업 다음 일정 카드 세로 스택.
+
+**Medium (systemMedium) — 3종**
+- `M1 주요이벤트(간략)`: 챔미·LoH 자동 전환. 간략 정보(제목·d-day·마장 요약).
+- `M2 챔미+LoH`: 챔미와 LoH 다음 일정 2개 동시 표시.
+- `M3 픽업`: 다음 픽업 일정 + 정보(육성마/서포트카드 대상).
+
+**Small (systemSmall) — 4종**
+- `S1 주요이벤트(개요)`: 챔미·LoH 자동 전환. 개요만(제목·d-day).
+- `S2 챔미`: 챔미 일정만.
+- `S3 LoH`: LoH 일정만.
+- `S4 픽업`: 픽업 일정만.
+
+> "주요 이벤트 자동 전환"(L1/M1/S1) = 픽업 제외, 챔미·LoH 중 `targetDate`가 가장 가까운 이벤트를 선택. 상세도는 사이즈별로 다름(Large=상세+이미지, Medium=간략, Small=개요).
+
+**상세도(detail level)별 표시 항목**
+
+| 레벨 | 항목 |
+|------|------|
+| 개요(Small) | 카테고리 배지, 제목, d-day, phase 라벨 |
+| 간략(Medium) | + 마장 요약(도쿄·잔디 2400m), 다음 phase 일시 |
+| 상세(Large) | + 마장 이미지, 전체 phase 타임라인(오픈/라운드1/라운드2 일자) |
+
+### 5.2 잠금화면 위젯
+- `accessoryRectangular`: 가장 임박한 이벤트 자동 선택(챔미·LoH)
 - `accessoryCircular`: d-day 링
+
+### 5.3 위젯 변형 & 상태
+
+```swift
+enum WidgetVariant: String, Codable, Sendable {
+    case majorAuto      // 챔미·LoH 중 임박 자동 전환 (L1/M1/S1, lock rect)
+    case allSchedule    // 챔미+LoH+픽업 전체 (L2)
+    case championsLoH   // 챔미+LoH 동시 (M2)
+    case championsOnly  // 챔미만 (S2)
+    case loHOnly        // LoH만 (S3)
+    case pickupOnly     // 픽업만 (M3/S4)
+}
+```
+
+`ScheduleStateResolver`가 `(WidgetVariant, family)` → `WidgetState`로 변환. `EventCard`에 `track: TrackCondition?`을 포함시켜 상세 레벨에서 이미지/도식 렌더에 사용.
 
 **위젯 상태 머신** (LCK의 upcoming/live/offSeason/empty 대응):
 - `upcoming` — 다음 phase까지 카운트다운
@@ -159,7 +197,7 @@ enum EventStatus: String, Codable { case upcoming, active, ended }
 
 ```swift
 enum WidgetState: Codable, Hashable, Sendable {
-    case content([EventCard])   // 표시할 카드들
+    case content([EventCard])   // 표시할 카드들 (variant/사이즈에 맞게 1~3개)
     case idle
     case noData
 }
@@ -167,9 +205,16 @@ enum WidgetState: Codable, Hashable, Sendable {
 struct WidgetEntry: TimelineEntry, Codable, Hashable, Sendable {
     let date: Date
     let state: WidgetState
+    let detailLevel: DetailLevel   // overview / brief / detailed
     let fontTheme: FontTheme
 }
+enum DetailLevel: String, Codable, Sendable { case overview, brief, detailed }
 ```
+
+### 5.4 마장 이미지 처리
+- `TrackCondition.imageURL`(원격)을 `ScheduleRepository`/TimelineProvider가 미리 다운로드 → App Group 컨테이너에 파일 캐시
+- 위젯 뷰는 캐시 파일을 동기 로드(WidgetKit은 뷰 내 비동기 이미지 로드가 제한적)
+- 캐시 없음/실패 시 **SwiftUI로 그린 코스 도식**(거리·방향·잔디/더트 색)으로 fallback
 
 ## 6. 설정 & 다국어
 
@@ -199,8 +244,15 @@ LCK와 동일하게 Core SPM 단위 테스트:
 - 인앱결제 / Pro 기능
 - 위젯 탭 시 딥링크 상세화면 (앱 열기까지만)
 
-## 9. 열린 항목 (구현 중 확정)
+## 9. 리스크 & 열린 항목
 
-- 원격 JSON 호스팅 위치 (GitHub raw vs Netlify) 및 URL
+**수용된 리스크 — 마장 이미지 저작권**
+- 마장 이미지는 게임(카카오게임즈/Cygames) 저작물이며 인터넷에서 수집해 사용. 앱스토어 심사 가이드 5.2(지식재산권) 거절 및 저작권 이슈 가능성이 있음.
+- 완화책: 이미지를 **앱 바이너리에 번들하지 않고** 원격 URL로 런타임 fetch + App Group 캐시 → 앱 자체는 저작물 미포함. 이미지 없으면 자체 제작 코스 도식으로 fallback.
+- 심사 거절 시 fallback 도식만 쓰는 모드로 전환 가능.
+
+**열린 항목 (구현 중 확정)**
+- 원격 JSON/이미지 호스팅 위치 (GitHub raw vs Netlify) 및 URL
 - 챔미 phase 실제 구성이 한국 서버 운영과 정확히 일치하는지 검증 (오픈/라운드1/라운드2 외 단계 유무)
 - 마장 정보에 방향/코스를 위젯에 노출할지 (데이터 모델엔 포함, 표시 여부만 구현 중 확정)
+- 마장 이미지 수집 파이프라인(스크래핑 소스/스크립트)
