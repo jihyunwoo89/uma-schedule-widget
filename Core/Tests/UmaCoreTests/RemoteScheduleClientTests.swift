@@ -5,7 +5,7 @@ final class RemoteScheduleClientTests: XCTestCase {
     func test_fetch_decodesDocument() async throws {
         let json = """
         {"version":2,"updatedAt":"2026-05-20T00:00:00Z","server":"kr",
-         "championsMeetings":[],"leagueOfHeroes":[],"gachaBanners":[]}
+         "championsMeetings":[],"leagueOfHeroes":[],"pickups":[]}
         """.data(using: .utf8)!
         let client = RemoteScheduleClient(transport: { _ in (json, 200) })
         let doc = try await client.fetch()
