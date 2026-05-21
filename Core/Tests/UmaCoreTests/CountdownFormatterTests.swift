@@ -22,4 +22,12 @@ final class CountdownFormatterTests: XCTestCase {
     func test_ddayLabel_future() {
         XCTAssertEqual(CountdownFormatter.ddayLabel(days: 5), "D-5")
     }
+
+    func test_ddayLabel_negativeClampsToDDay() {
+        XCTAssertEqual(CountdownFormatter.ddayLabel(days: -3), "D-DAY")
+    }
+
+    func test_daysUntil_pastTargetIsNegative() {
+        XCTAssertEqual(CountdownFormatter.daysUntil(d("2026-06-01T00:00:00Z"), from: d("2026-06-04T00:00:00Z"), calendar: cal), -3)
+    }
 }
