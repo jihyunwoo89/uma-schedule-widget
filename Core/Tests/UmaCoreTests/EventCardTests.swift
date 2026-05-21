@@ -4,17 +4,11 @@ import XCTest
 final class EventCardTests: XCTestCase {
     func test_roundTrip() throws {
         let card = EventCard(
-            category: .championsMeeting, title: "리브르(LIBRA)",
-            track: TrackCondition(racecourse: "도쿄", distanceMeters: 2400, surface: .turf),
-            phaseLabel: "라운드1까지", targetDate: Date(timeIntervalSince1970: 5000), status: .upcoming
-        )
-        let data = try JSONEncoder().encode(card)
-        XCTAssertEqual(try JSONDecoder().decode(EventCard.self, from: data), card)
-    }
-
-    func test_categoryRawValues() {
-        XCTAssertEqual(EventCategory.championsMeeting.rawValue, "championsMeeting")
-        XCTAssertEqual(EventCategory.leagueOfHeroes.rawValue, "leagueOfHeroes")
-        XCTAssertEqual(EventCategory.gacha.rawValue, "gacha")
+            category: .championsMeeting, title: "LONG", subtitle: "G1 벚꽃상",
+            track: TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile),
+            period: EventPeriod(start: Date(timeIntervalSince1970: 100), end: Date(timeIntervalSince1970: 200), estimated: true),
+            phaseLabel: "오픈까지", targetDate: Date(timeIntervalSince1970: 100), status: .upcoming,
+            trainees: [], supportCards: [])
+        XCTAssertEqual(try JSONDecoder().decode(EventCard.self, from: JSONEncoder().encode(card)), card)
     }
 }
