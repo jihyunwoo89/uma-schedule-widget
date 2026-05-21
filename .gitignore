@@ -6,3 +6,4 @@ build/
 Core/build/
 DerivedData/
 *.xcuserstate
+.superpowers/
