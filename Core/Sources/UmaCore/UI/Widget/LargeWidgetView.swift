@@ -1,9 +1,6 @@
 import SwiftUI
 import WidgetKit
 
-/// systemLarge renderer. Two modes driven by detailLevel:
-///   .detailed (L1) → single hero card with track image + d-day
-///   else      (L2) → up to three stacked EventCardRows with dividers between them
 public struct LargeWidgetView: View {
     public let entry: WidgetEntry
     public init(entry: WidgetEntry) { self.entry = entry }
@@ -23,29 +20,26 @@ public struct LargeWidgetView: View {
                         EventCardRow(card: card, now: entry.date)
                         if index < shown.count - 1 { Divider() }
                     }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
         case .idle:   WidgetMessageView(titleKey: .stateIdleTitle, bodyKey: .stateIdleBody)
         case .noData: WidgetMessageView(titleKey: .stateNoDataTitle, bodyKey: .stateNoDataBody)
         }
     }
 
+    @ViewBuilder
     private func hero(_ card: EventCard) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                CategoryBadge(category: card.category)
-                Spacer()
-                DDayBadge(targetDate: card.targetDate, now: entry.date)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack { CategoryBadge(category: card.category); Spacer(); DDayBadge(targetDate: card.targetDate, now: entry.date) }
+            BracketTitle(card.title, size: 26)
+            if let s = card.subtitle { Text(s).font(.system(size: 13, weight: .semibold)).foregroundStyle(.secondary) }
+            if let p = card.period { Text(PeriodFormatter.range(p)).font(.system(size: 12)).foregroundStyle(.secondary) }
+            if let t = card.track {
+                TrackImageView(track: t).frame(height: 92)
+                Text(t.summary).font(.system(size: 12)).foregroundStyle(.secondary)
+                ConditionChips(t.conditionChips)
             }
-            Text(card.title).font(.system(size: 22, weight: .bold)).lineLimit(1)
-            if let track = card.track {
-                TrackImageView(track: track).frame(height: 130)
-                Text(track.summary).font(.system(size: 13)).foregroundStyle(.secondary)
-            }
-            Text(card.phaseLabel).font(.system(size: 13, weight: .medium))
             Spacer(minLength: 0)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
