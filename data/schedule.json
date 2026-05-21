@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-05-21T00:00:00Z",
+  "updatedAt": "2026-05-21T14:12:52Z",
   "sourcePostNo": null,
   "server": "kr",
   "championsMeetings": [
@@ -17,9 +17,9 @@
         "turn": "clockwise",
         "courseSide": null,
         "season": "봄",
-        "weather": null,
-        "ground": null,
-        "timeOfDay": null,
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
         "imageURL": null
       },
       "period": {
@@ -46,16 +46,16 @@
       "raceGrade": "G1",
       "raceName": "텐노상(봄)",
       "track": {
-        "racecourse": "한신",
+        "racecourse": "교토",
         "surface": "turf",
         "distanceMeters": 3200,
         "distanceClass": "long",
         "turn": "clockwise",
         "courseSide": null,
         "season": "봄",
-        "weather": null,
-        "ground": null,
-        "timeOfDay": null,
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
         "imageURL": null
       },
       "period": {
@@ -88,9 +88,9 @@
         "distanceClass": "medium",
         "turn": "counterclockwise",
         "courseSide": null,
-        "season": null,
-        "weather": null,
-        "ground": null,
+        "season": "봄",
+        "weather": "맑음",
+        "ground": "양호",
         "timeOfDay": null,
         "imageURL": null
       },
@@ -111,48 +111,49 @@
           "date": "2026-10-10T00:00:00Z"
         }
       ]
-    }
-  ],
-  "leagueOfHeroes": [
+    },
     {
-      "id": "loh-ceff379440",
-      "round": "",
-      "raceName": "재팬 더트 더비",
+      "id": "cm-a080e27cf9",
+      "codeName": "CLASSIC",
+      "raceGrade": "G1",
+      "raceName": "타카라즈카 기념",
       "track": {
         "racecourse": "한신",
-        "surface": "dirt",
-        "distanceMeters": 2000,
+        "surface": "turf",
+        "distanceMeters": 2200,
         "distanceClass": "medium",
         "turn": "clockwise",
         "courseSide": null,
-        "season": null,
-        "weather": null,
-        "ground": null,
-        "timeOfDay": null,
+        "season": "여름",
+        "weather": "흐림",
+        "ground": "다습",
+        "timeOfDay": "낮",
         "imageURL": null
       },
       "period": {
-        "start": "2026-09-15T00:00:00Z",
-        "end": "2026-09-15T00:00:00Z",
+        "start": "2026-11-13T00:00:00Z",
+        "end": "2026-11-13T00:00:00Z",
         "estimated": true
       },
       "phases": [
         {
           "kind": "open",
           "label": "오픈",
-          "date": "2026-09-15T00:00:00Z"
+          "date": "2026-11-13T00:00:00Z"
         },
         {
           "kind": "ended",
           "label": "종료",
-          "date": "2026-09-15T00:00:00Z"
+          "date": "2026-11-13T00:00:00Z"
         }
       ]
-    },
+    }
+  ],
+  "leagueOfHeroes": [
     {
-      "id": "loh-ab032fd623",
-      "round": "",
-      "raceName": "",
+      "id": "loh-be03c9ca9f",
+      "round": "10회차",
+      "raceName": "G1 스프린터즈 S",
       "track": {
         "racecourse": "나카야마",
         "surface": "turf",
@@ -160,10 +161,10 @@
         "distanceClass": "sprint",
         "turn": "clockwise",
         "courseSide": null,
-        "season": null,
+        "season": "겨울",
         "weather": null,
         "ground": null,
-        "timeOfDay": null,
+        "timeOfDay": "낮",
         "imageURL": null
       },
       "period": {
@@ -183,19 +184,54 @@
           "date": "2026-06-07T00:00:00Z"
         }
       ]
+    },
+    {
+      "id": "loh-bb34fdc427",
+      "round": "11회차",
+      "raceName": "G1 재팬 더트 더비",
+      "track": {
+        "racecourse": "오이",
+        "surface": "dirt",
+        "distanceMeters": 2000,
+        "distanceClass": "medium",
+        "turn": "clockwise",
+        "courseSide": null,
+        "season": "봄",
+        "weather": null,
+        "ground": null,
+        "timeOfDay": "밤",
+        "imageURL": null
+      },
+      "period": {
+        "start": "2026-09-15T00:00:00Z",
+        "end": "2026-09-15T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2026-09-15T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2026-09-15T00:00:00Z"
+        }
+      ]
     }
   ],
   "pickups": [
     {
-      "id": "pk-f56df97739",
+      "id": "pk-73d96e8f01",
       "period": {
         "start": "2026-05-22T00:00:00Z",
         "end": "2026-05-22T00:00:00Z",
         "estimated": true
       },
       "trainees": [
-        "발렌타인 마짱",
-        "발렌타인 제퍼"
+        "발렌타인 애스턴 마짱 3★",
+        "발렌타인 야마닌 제퍼 3★"
       ],
       "supportCards": [
         {
@@ -211,15 +247,322 @@
       ]
     },
     {
-      "id": "pk-f433ef8bde",
+      "id": "pk-da578f46c1",
       "period": {
         "start": "2026-06-05T00:00:00Z",
         "end": "2026-06-05T00:00:00Z",
         "estimated": true
       },
       "trainees": [
-        "츠루마루 츠요시",
-        "천장시 3성 택1"
+        "츠루마루 츠요시 2★",
+        "천장시 3★ 택 1"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-3cbd0bc101",
+      "period": {
+        "start": "2026-06-15T00:00:00Z",
+        "end": "2026-06-15T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "오르페브르 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "전설을 구현한 자",
+          "type": "그룹"
+        },
+        {
+          "rarity": "SSR",
+          "name": "아몬드 아이",
+          "type": "스피드"
+        }
+      ]
+    },
+    {
+      "id": "pk-a60c45d7ec",
+      "period": {
+        "start": "2026-06-30T00:00:00Z",
+        "end": "2026-06-30T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "그란 알레그리아 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "메지로 브라이트",
+          "type": "스태미나"
+        },
+        {
+          "rarity": "SR",
+          "name": "라이스 샤워",
+          "type": "스피드"
+        }
+      ]
+    },
+    {
+      "id": "pk-e2fb1a0bdb",
+      "period": {
+        "start": "2026-07-10T00:00:00Z",
+        "end": "2026-07-10T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "노 리즌 3★"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-eafaa3b41e",
+      "period": {
+        "start": "2026-07-20T00:00:00Z",
+        "end": "2026-07-20T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "무도회 탭 댄스 시티 3★",
+        "무도회 타니노 김렛 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "보드카",
+          "type": "파워"
+        },
+        {
+          "rarity": "SSR",
+          "name": "드림 저니",
+          "type": "스피드"
+        }
+      ]
+    },
+    {
+      "id": "pk-261fe847c7",
+      "period": {
+        "start": "2026-07-30T00:00:00Z",
+        "end": "2026-07-30T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "트윙클 레전드",
+        "시리우스 심볼리 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "데어링 택트",
+          "type": "지능"
+        },
+        {
+          "rarity": "SR",
+          "name": "데어링 하트",
+          "type": "파워"
+        }
+      ]
+    },
+    {
+      "id": "pk-6ace67c605",
+      "period": {
+        "start": "2026-08-10T00:00:00Z",
+        "end": "2026-08-10T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "페노메노 3★"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-9bffb50cb4",
+      "period": {
+        "start": "2026-08-19T00:00:00Z",
+        "end": "2026-08-19T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "퍼레이드 코파노 리키 3★",
+        "퍼레이드 스마트 팔콘 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "트레센드",
+          "type": "근성"
+        },
+        {
+          "rarity": "SSR",
+          "name": "부에나 비스타",
+          "type": "파워"
+        }
+      ]
+    },
+    {
+      "id": "pk-1c224e2477",
+      "period": {
+        "start": "2026-08-31T00:00:00Z",
+        "end": "2026-08-31T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "베르시나 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "사일런스 스즈카",
+          "type": "근성"
+        },
+        {
+          "rarity": "SR",
+          "name": "카렌 부케도르",
+          "type": "스태미나"
+        }
+      ]
+    },
+    {
+      "id": "pk-bc772e3ed1",
+      "period": {
+        "start": "2026-09-09T00:00:00Z",
+        "end": "2026-09-09T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "러브즈 온리 유 3★"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-777902fcdf",
+      "period": {
+        "start": "2026-09-18T00:00:00Z",
+        "end": "2026-09-18T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "웨딩 메지로 라모누 3★",
+        "웨딩 세자리오 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "라인 크라프트",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SSR",
+          "name": "데어링 하트",
+          "type": "지능"
+        }
+      ]
+    },
+    {
+      "id": "pk-77d08e0257",
+      "period": {
+        "start": "2026-10-02T00:00:00Z",
+        "end": "2026-10-02T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "크로노 제네시스 3★"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-ad6b9b5fd4",
+      "period": {
+        "start": "2026-10-16T00:00:00Z",
+        "end": "2026-10-16T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "무인도 골드 시티 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "터커 브라인",
+          "type": "친구"
+        },
+        {
+          "rarity": "SSR",
+          "name": "타마모 크로스",
+          "type": "파워"
+        }
+      ]
+    },
+    {
+      "id": "pk-8eacd5e8ed",
+      "period": {
+        "start": "2026-10-30T00:00:00Z",
+        "end": "2026-10-30T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "무인도 아이네스 후진 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "메지로 라이언",
+          "type": "스태미나"
+        },
+        {
+          "rarity": "SR",
+          "name": "카와카미 프린세스",
+          "type": "근성"
+        }
+      ]
+    },
+    {
+      "id": "pk-9da047c8ae",
+      "period": {
+        "start": "2026-11-10T00:00:00Z",
+        "end": "2026-11-10T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "후사이치 판도라 3★"
+      ],
+      "supportCards": []
+    },
+    {
+      "id": "pk-cc4b675248",
+      "period": {
+        "start": "2026-11-19T00:00:00Z",
+        "end": "2026-11-19T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "수영복 사토노 크라운 3★",
+        "수영복 슈발 그랑 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "윈 바리아시옹",
+          "type": "지능"
+        },
+        {
+          "rarity": "SSR",
+          "name": "두라멘테",
+          "type": "스태미나"
+        }
+      ]
+    },
+    {
+      "id": "pk-38674a7951",
+      "period": {
+        "start": "2026-12-03T00:00:00Z",
+        "end": "2026-12-03T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "수영복 비블로스 3★"
       ],
       "supportCards": []
     }

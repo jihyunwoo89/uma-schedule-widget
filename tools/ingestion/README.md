@@ -4,7 +4,30 @@ Produces `data/schedule.json` (schema v2) for the app. **Primary method: a hand-
 
 ## Sheet mode (recommended)
 
-### Sheet columns
+The converter **auto-detects two layouts** (by header row):
+
+### KR human-friendly layout (used by the live sheet)
+
+Columns: `날짜, 분류, 제목, 레이스, 마장, 픽업(육성마), 픽업(서포트), 비고`. One row per event; values are packed Korean strings.
+
+| Column | Notes |
+|---|---|
+| `날짜` | `YYYY-MM-DD` (used as both start and end; events are treated as 미래시 → `estimated: true`) |
+| `분류` | `챔미` / `LoH` / `픽업` |
+| `제목` | `「MILE」`/`「LONG」`/`「CLASSIC」` (CM codeName) or `10회차` (LoH round) — 「」 stripped automatically |
+| `레이스` | `G1 벚꽃상` → grade `G1` + name `벚꽃상` (CM splits; LoH keeps the whole string) |
+| `마장` | packed: `경마장, 잔디 1600m(마일), 시계(우), 봄, 맑음, 양호, 낮` — racecourse, surface+distance, turn, then any of season/날씨/마장상태/시간대 (order-flexible, omittable). `distanceClass` auto from distance. |
+| `픽업(육성마)` | comma-separated trainee names (ratings like `3★` kept verbatim) |
+| `픽업(서포트)` | comma-separated `이름 SSR(타입)`, e.g. `카렌짱 SSR(근성), 이쿠노 딕터스 SSR(지능)`. `셀렉트 픽업` / non-matching → no structured card. |
+| `비고` | free note (ignored by the converter) |
+
+Rows with a blank `날짜` are skipped (use for headers/notes). To use it:
+```bash
+cd tools/ingestion && . .venv/bin/activate
+python -m umaingest.cli --from-sheet "<published CSV URL>" --dest ../../data/schedule.json
+```
+
+### Generic column layout (alternative)
 
 | Column | Notes |
 |---|---|
