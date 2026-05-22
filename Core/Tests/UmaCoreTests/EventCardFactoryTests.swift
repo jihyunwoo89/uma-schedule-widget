@@ -148,6 +148,24 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(card.subtitle, "스프린터즈 스테이크스")
     }
 
+    func test_upcomingChampions_sortedAndExcludesEnded() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        func cm(_ id: String, openInDays: Double, endedDaysAgo: Double? = nil) -> ChampionsMeeting {
+            let t = TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile)
+            let phases: [EventPhase]
+            if let ago = endedDaysAgo {
+                phases = [EventPhase(kind: .ended, label: "종료", date: now.addingTimeInterval(-ago*86400))]
+            } else {
+                phases = [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(openInDays*86400)),
+                          EventPhase(kind: .ended, label: "종료", date: now.addingTimeInterval((openInDays+3)*86400))]
+            }
+            return ChampionsMeeting(id: id, codeName: id, raceGrade: "G1", raceName: "x",
+                                    track: t, period: EventPeriod(start: now, end: now.addingTimeInterval(86400)), phases: phases)
+        }
+        let list = EventCardFactory.upcomingChampions([cm("late", openInDays: 50), cm("soon", openInDays: 5), cm("done", openInDays: 0, endedDaysAgo: 2)], now: now)
+        XCTAssertEqual(list.map { $0.id }, ["soon", "late"])  // ended excluded, sorted by target
+    }
+
     func test_pickupCard_forItem_upcomingVsActive() {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
         let upcoming = PickupPeriod(id: "p1", period: EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(3*86400)),

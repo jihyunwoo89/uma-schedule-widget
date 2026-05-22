@@ -28,48 +28,42 @@ public enum EventCardFactory {
                          trainees: p.trainees, supportCards: p.supportCards)
     }
 
-    // MARK: - "Soonest" (array) factory methods
+    // MARK: - Upcoming list factory methods
+
+    public static func upcomingChampions(_ meetings: [ChampionsMeeting], now: Date) -> [ChampionsMeeting] {
+        meetings.map { ($0, $0.resolution(now: now)) }
+                .filter { $0.1.status != .ended }
+                .sorted { $0.1.targetDate < $1.1.targetDate }
+                .map { $0.0 }
+    }
+
+    public static func upcomingLeagues(_ leagues: [LeagueOfHeroes], now: Date) -> [LeagueOfHeroes] {
+        leagues.map { ($0, $0.resolution(now: now)) }
+               .filter { $0.1.status != .ended }
+               .sorted { $0.1.targetDate < $1.1.targetDate }
+               .map { $0.0 }
+    }
+
+    public static func upcomingPickups(_ pickups: [PickupPeriod], now: Date) -> [PickupPeriod] {
+        pickups.filter { now < $0.period.end }
+               .sorted { lhs, rhs in
+                   let lt = lhs.period.start > now ? lhs.period.start : lhs.period.end
+                   let rt = rhs.period.start > now ? rhs.period.start : rhs.period.end
+                   return lt < rt
+               }
+    }
+
+    // MARK: - "Soonest" (array) factory methods — refactored to reuse upcoming lists
 
     /// The soonest non-ended Champions Meeting as a card, or nil if all are ended/empty.
     public static func championsCard(_ meetings: [ChampionsMeeting], now: Date) -> EventCard? {
-        let candidate = meetings
-            .map { ($0, $0.resolution(now: now)) }
-            .filter { $0.1.status != .ended }
-            .sorted { $0.1.targetDate < $1.1.targetDate }
-            .first
-        guard let (cm, r) = candidate else { return nil }
-        return EventCard(
-            category: .championsMeeting,
-            title: cm.codeName,
-            subtitle: cm.raceName,
-            track: cm.track,
-            period: cm.period,
-            phaseLabel: phaseLabel(for: r),
-            targetDate: r.targetDate,
-            status: r.status,
-            raceGrade: cm.raceGrade
-        )
+        guard let cm = upcomingChampions(meetings, now: now).first else { return nil }
+        return championsCard(for: cm, now: now)
     }
 
     public static func leagueCard(_ leagues: [LeagueOfHeroes], now: Date) -> EventCard? {
-        let candidate = leagues
-            .map { ($0, $0.resolution(now: now)) }
-            .filter { $0.1.status != .ended }
-            .sorted { $0.1.targetDate < $1.1.targetDate }
-            .first
-        guard let (loh, r) = candidate else { return nil }
-        let (grade, name) = GradeParse.leading(loh.raceName)
-        return EventCard(
-            category: .leagueOfHeroes,
-            title: loh.round,
-            subtitle: name,
-            track: loh.track,
-            period: loh.period,
-            phaseLabel: phaseLabel(for: r),
-            targetDate: r.targetDate,
-            status: r.status,
-            raceGrade: grade
-        )
+        guard let loh = upcomingLeagues(leagues, now: now).first else { return nil }
+        return leagueCard(for: loh, now: now)
     }
 
     /// Active pickup (now within period) preferred; else the soonest upcoming.
