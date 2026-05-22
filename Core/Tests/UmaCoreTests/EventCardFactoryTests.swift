@@ -119,4 +119,49 @@ final class EventCardFactoryTests: XCTestCase {
             leagueOfHeroes: [], pickups: [])
         XCTAssertNil(EventCardFactory.majorCard(endedDoc, now: d(100)))
     }
+
+    func test_championsCard_forItem_mapsFields() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let track = TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile, turn: .clockwise, season: "봄")
+        let period = EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(2*86400), estimated: true)
+        let cm = ChampionsMeeting(id: "cm1", codeName: "MILE", raceGrade: "G1", raceName: "벚꽃상",
+                                  track: track, period: period,
+                                  phases: [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(86400))])
+        let card = EventCardFactory.championsCard(for: cm, now: now)
+        XCTAssertEqual(card.title, "MILE")
+        XCTAssertEqual(card.subtitle, "벚꽃상")
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.category, .championsMeeting)
+        XCTAssertEqual(card.track?.racecourse, "한신")
+    }
+
+    func test_leagueCard_forItem_parsesGradeFromRaceName() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let track = TrackCondition(racecourse: "나카야마", surface: .turf, distanceMeters: 1200, distanceClass: .sprint)
+        let period = EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(2*86400))
+        let loh = LeagueOfHeroes(id: "loh1", round: "10회차", raceName: "G1 스프린터즈 스테이크스",
+                                 track: track, period: period,
+                                 phases: [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(86400))])
+        let card = EventCardFactory.leagueCard(for: loh, now: now)
+        XCTAssertEqual(card.title, "10회차")
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "스프린터즈 스테이크스")
+    }
+
+    func test_pickupCard_forItem_upcomingVsActive() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let upcoming = PickupPeriod(id: "p1", period: EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(3*86400)),
+                                    trainees: ["오르페브르 3★"], supportCards: [])
+        let upCard = EventCardFactory.pickupCard(for: upcoming, now: now)
+        XCTAssertEqual(upCard.status, .upcoming)
+        XCTAssertEqual(upCard.phaseLabel, "시작까지")
+        XCTAssertEqual(upCard.targetDate, upcoming.period.start)
+
+        let active = PickupPeriod(id: "p2", period: EventPeriod(start: now.addingTimeInterval(-86400), end: now.addingTimeInterval(86400)),
+                                  trainees: ["푸리오소 3★"], supportCards: [])
+        let actCard = EventCardFactory.pickupCard(for: active, now: now)
+        XCTAssertEqual(actCard.status, .active)
+        XCTAssertEqual(actCard.phaseLabel, "종료까지")
+        XCTAssertEqual(actCard.targetDate, active.period.end)
+    }
 }

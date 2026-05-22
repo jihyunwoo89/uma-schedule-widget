@@ -2,6 +2,34 @@ import Foundation
 
 public enum EventCardFactory {
 
+    // MARK: - Per-item factory methods
+
+    public static func championsCard(for cm: ChampionsMeeting, now: Date) -> EventCard {
+        let r = cm.resolution(now: now)
+        return EventCard(category: .championsMeeting, title: cm.codeName, subtitle: cm.raceName,
+                         track: cm.track, period: cm.period, phaseLabel: phaseLabel(for: r),
+                         targetDate: r.targetDate, status: r.status, raceGrade: cm.raceGrade)
+    }
+
+    public static func leagueCard(for loh: LeagueOfHeroes, now: Date) -> EventCard {
+        let r = loh.resolution(now: now)
+        let (grade, name) = GradeParse.leading(loh.raceName)
+        return EventCard(category: .leagueOfHeroes, title: loh.round, subtitle: name,
+                         track: loh.track, period: loh.period, phaseLabel: phaseLabel(for: r),
+                         targetDate: r.targetDate, status: r.status, raceGrade: grade)
+    }
+
+    public static func pickupCard(for p: PickupPeriod, now: Date) -> EventCard {
+        let upcoming = p.period.start > now
+        let status: EventStatus = upcoming ? .upcoming : (now < p.period.end ? .active : .ended)
+        return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
+                         period: p.period, phaseLabel: upcoming ? "시작까지" : "종료까지",
+                         targetDate: upcoming ? p.period.start : p.period.end, status: status,
+                         trainees: p.trainees, supportCards: p.supportCards)
+    }
+
+    // MARK: - "Soonest" (array) factory methods
+
     /// The soonest non-ended Champions Meeting as a card, or nil if all are ended/empty.
     public static func championsCard(_ meetings: [ChampionsMeeting], now: Date) -> EventCard? {
         let candidate = meetings
