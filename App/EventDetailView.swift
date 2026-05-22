@@ -132,9 +132,62 @@ struct PhaseTimeline: View {
     }
 }
 
-/// Placeholder so the file compiles before Task 9 fills it in.
 struct PickupDetailBody: View {
     let pickup: PickupPeriod
     let now: Date
-    var body: some View { EmptyView() }
+    var body: some View {
+        let card = EventCardFactory.pickupCard(for: pickup, now: now)
+        VStack(alignment: .leading, spacing: 14) {
+            // Hero
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(alignment: .top) {
+                    CategoryBadge(category: .gacha)
+                    Spacer()
+                    DDayStack(targetDate: card.targetDate, now: now, dateText: card.phaseLabel, ddaySize: 30, dateSize: 11)
+                }
+                Text("\(L.string(.detailFieldPeriod)) · \(PeriodFormatter.range(pickup.period))")
+                    .font(.system(size: 13, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(EventCategory.gacha.accentColor.opacity(0.08)))
+
+            // Trainees
+            if !pickup.trainees.isEmpty {
+                Text(L.string(.fieldTrainee)).font(.system(size: 13, weight: .heavy)).foregroundStyle(WidgetColors.title)
+                VStack(spacing: 0) {
+                    ForEach(Array(pickup.trainees.enumerated()), id: \.offset) { idx, t in
+                        let parsed = PickupFormatter.trainee(t)
+                        HStack(spacing: 8) {
+                            if let stars = parsed.stars, let tier = RarityTier("\(stars)★") {
+                                RarityBadge(text: "\(stars)★", tier: tier)
+                            }
+                            Text(parsed.name).font(.system(size: 14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
+                            Spacer()
+                        }.padding(.vertical, 9)
+                        if idx < pickup.trainees.count - 1 { Divider() }
+                    }
+                }.padding(.horizontal, 13)
+                .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))
+            }
+
+            // Support cards
+            if !pickup.supportCards.isEmpty {
+                Text(L.string(.fieldSupport)).font(.system(size: 13, weight: .heavy)).foregroundStyle(WidgetColors.title)
+                VStack(spacing: 0) {
+                    ForEach(Array(pickup.supportCards.enumerated()), id: \.offset) { idx, s in
+                        HStack(spacing: 8) {
+                            if let tier = RarityTier(s.rarity) { RarityBadge(text: s.rarity, tier: tier) }
+                            Text(s.name).font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(SupportType.color(forType: s.type) ?? WidgetColors.raceName)
+                            Spacer()
+                            SupportTypeIcon(type: s.type, size: 20)
+                        }.padding(.vertical, 9)
+                        if idx < pickup.supportCards.count - 1 { Divider() }
+                    }
+                }.padding(.horizontal, 13)
+                .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))
+            }
+        }
+    }
 }
