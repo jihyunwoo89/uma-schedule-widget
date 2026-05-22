@@ -1,6 +1,9 @@
 "category.champions" = "챔피언스 미팅";
 "category.loh" = "리그 오브 히어로스";
 "category.pickup" = "픽업";
+"category.champions.short" = "챔미";
+"category.loh.short" = "LoH";
+"category.pickup.short" = "픽업";
 
 "state.idle.title" = "예정된 일정 없음";
 "state.idle.body" = "새 일정이 등록되면 표시됩니다";
@@ -47,5 +50,5 @@
 "gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
-"field.trainee" = "육성마";
-"field.support" = "서포트";
+"field.trainee" = "육성 우마무스메";
+"field.support" = "서포트 카드";

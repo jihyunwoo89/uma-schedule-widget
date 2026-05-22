@@ -34,6 +34,29 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(card.track?.racecourse, "도쿄")
     }
 
+    func test_championsCard_gradeMovesToRaceGradeAndSubtitleHasNoGrade() {
+        let card = EventCardFactory.championsCard(doc().championsMeetings, now: d(50))!
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "리브르")  // grade NOT joined into subtitle
+    }
+
+    func test_leagueCard_parsesLeadingGradeFromRaceName() {
+        let track = TrackCondition(racecourse: "나카야마", surface: .turf, distanceMeters: 1200, distanceClass: .sprint)
+        let period = EventPeriod(start: d(0), end: d(600))
+        let loh = LeagueOfHeroes(id: "loh2", round: "10회차", raceName: "G1 스프린터즈 S",
+            track: track, period: period,
+            phases: [EventPhase(kind: .open, label: "오픈", date: d(200))])
+        let card = EventCardFactory.leagueCard([loh], now: d(50))!
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "스프린터즈 S")
+    }
+
+    func test_leagueCard_noGradeKeepsFullRaceName() {
+        let card = EventCardFactory.leagueCard(doc().leagueOfHeroes, now: d(50))!
+        XCTAssertNil(card.raceGrade)
+        XCTAssertEqual(card.subtitle, "스프린트")
+    }
+
     func test_endedChampions_isSkipped_returnsNilWhenAllEnded() {
         let card = EventCardFactory.championsCard(doc().championsMeetings, now: d(999))
         XCTAssertNil(card)

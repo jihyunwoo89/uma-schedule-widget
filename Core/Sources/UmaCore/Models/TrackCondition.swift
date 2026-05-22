@@ -59,6 +59,9 @@ public struct TrackCondition: Codable, Hashable, Sendable {
 
     public var summary: String { "\(racecourse) · \(surface.koLabel) \(distanceMeters)m" }
 
+    /// "한신 잔디 1600m" — racecourse + surface + meters, NO distance class. (DESIGN §8.6)
+    public var distanceLine: String { "\(racecourse) \(surface.koLabel) \(distanceMeters)m" }
+
     public var conditionChips: [String] {
         var c: [String] = []
         if let turn { c.append(turn.koLabel) }

@@ -8,6 +8,9 @@ public enum L {
         case categoryChampions = "category.champions"
         case categoryLoH       = "category.loh"
         case categoryPickup    = "category.pickup"
+        case categoryChampionsShort = "category.champions.short"
+        case categoryLoHShort       = "category.loh.short"
+        case categoryPickupShort    = "category.pickup.short"
 
         // Widget states
         case stateIdleTitle   = "state.idle.title"

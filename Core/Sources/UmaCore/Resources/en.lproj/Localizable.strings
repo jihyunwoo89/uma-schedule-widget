@@ -1,6 +1,9 @@
 "category.champions" = "Champions Meeting";
 "category.loh" = "League of Heroes";
 "category.pickup" = "Pickup";
+"category.champions.short" = "CM";
+"category.loh.short" = "LoH";
+"category.pickup.short" = "Pickup";
 
 "state.idle.title" = "No upcoming events";
 "state.idle.body" = "New schedules will appear here";
@@ -48,4 +51,4 @@
 "gallery.lock_circ.title" = "D-day";
 "gallery.lock_circ.desc" = "Days until the next event";
 "field.trainee" = "Trainee";
-"field.support" = "Support";
+"field.support" = "Support Card";

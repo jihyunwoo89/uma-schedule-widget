@@ -13,12 +13,13 @@ public enum EventCardFactory {
         return EventCard(
             category: .championsMeeting,
             title: cm.codeName,
-            subtitle: [cm.raceGrade, cm.raceName].compactMap { $0 }.joined(separator: " "),
+            subtitle: cm.raceName,
             track: cm.track,
             period: cm.period,
             phaseLabel: phaseLabel(for: r),
             targetDate: r.targetDate,
-            status: r.status
+            status: r.status,
+            raceGrade: cm.raceGrade
         )
     }
 
@@ -29,15 +30,17 @@ public enum EventCardFactory {
             .sorted { $0.1.targetDate < $1.1.targetDate }
             .first
         guard let (loh, r) = candidate else { return nil }
+        let (grade, name) = GradeParse.leading(loh.raceName)
         return EventCard(
             category: .leagueOfHeroes,
             title: loh.round,
-            subtitle: loh.raceName,
+            subtitle: name,
             track: loh.track,
             period: loh.period,
             phaseLabel: phaseLabel(for: r),
             targetDate: r.targetDate,
-            status: r.status
+            status: r.status,
+            raceGrade: grade
         )
     }
 

@@ -19,12 +19,14 @@ public struct EventCard: Codable, Hashable, Sendable {
     public var phaseLabel: String
     public var targetDate: Date
     public var status: EventStatus
+    public var raceGrade: String?
     public var trainees: [String]
     public var supportCards: [SupportCardPick]
 
     public init(category: EventCategory, title: String, subtitle: String? = nil,
                 track: TrackCondition? = nil, period: EventPeriod? = nil,
                 phaseLabel: String, targetDate: Date, status: EventStatus,
+                raceGrade: String? = nil,
                 trainees: [String] = [], supportCards: [SupportCardPick] = []) {
         self.category = category
         self.title = title
@@ -34,6 +36,7 @@ public struct EventCard: Codable, Hashable, Sendable {
         self.phaseLabel = phaseLabel
         self.targetDate = targetDate
         self.status = status
+        self.raceGrade = raceGrade
         self.trainees = trainees
         self.supportCards = supportCards
     }
