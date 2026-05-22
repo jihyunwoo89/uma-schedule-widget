@@ -3,13 +3,13 @@ import WidgetKit
 
 // MARK: - Shared color tokens (DESIGN §2)
 
-enum WidgetColors {
-    static let title    = Color(hex: "#1B1E24") ?? .primary   // 제목 / D-day
-    static let raceName = Color(hex: "#2B2F36") ?? .primary    // 레이스명 (bold)
-    static let subtitle = Color(hex: "#5B616B") ?? .secondary  // 부제
-    static let cond     = Color(hex: "#7B818B") ?? .secondary  // 마장 조건 줄
-    static let muted    = Color(hex: "#9AA0A8") ?? .secondary  // 날짜/라벨
-    static let star     = Color(hex: "#E8A11A") ?? .yellow
+public enum WidgetColors {
+    public static let title    = Color(hex: "#1B1E24") ?? .primary
+    public static let raceName = Color(hex: "#2B2F36") ?? .primary
+    public static let subtitle = Color(hex: "#5B616B") ?? .secondary
+    public static let cond     = Color(hex: "#7B818B") ?? .secondary
+    public static let muted    = Color(hex: "#9AA0A8") ?? .secondary
+    public static let star     = Color(hex: "#E8A11A") ?? .yellow
 }
 
 // MARK: - D-day
