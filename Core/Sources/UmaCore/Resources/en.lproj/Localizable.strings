@@ -52,3 +52,10 @@
 "gallery.lock_circ.desc" = "Days until the next event";
 "field.trainee" = "Trainee";
 "field.support" = "Support Card";
+
+"tab.schedule" = "Schedule";
+"tab.settings" = "Settings";
+"schedule.section.upcoming" = "Upcoming";
+"detail.section.track" = "Course";
+"detail.section.phases" = "Phases";
+"detail.field.period" = "Period";

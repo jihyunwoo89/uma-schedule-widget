@@ -52,3 +52,10 @@
 "gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
 "field.trainee" = "육성 우마무스메";
 "field.support" = "서포트 카드";
+
+"tab.schedule" = "일정";
+"tab.settings" = "설정";
+"schedule.section.upcoming" = "예정";
+"detail.section.track" = "마장";
+"detail.section.phases" = "단계";
+"detail.field.period" = "기간";

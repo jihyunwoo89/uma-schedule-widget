@@ -65,6 +65,14 @@ public enum L {
         case galleryLockRectDesc  = "gallery.lock_rect.desc"
         case galleryLockCircTitle = "gallery.lock_circ.title"
         case galleryLockCircDesc  = "gallery.lock_circ.desc"
+
+        // App screens
+        case tabSchedule             = "tab.schedule"
+        case tabSettings             = "tab.settings"
+        case scheduleSectionUpcoming = "schedule.section.upcoming"
+        case detailSectionTrack      = "detail.section.track"
+        case detailSectionPhases     = "detail.section.phases"
+        case detailFieldPeriod       = "detail.field.period"
     }
 
     public static func string(_ key: Key, locale: Locale? = nil) -> String {
