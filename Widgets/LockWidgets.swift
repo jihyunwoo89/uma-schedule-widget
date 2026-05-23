@@ -16,6 +16,48 @@ struct LockRectangularWidget: Widget {
     }
 }
 
+struct LockRectangularChampionsWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockRectangularChampionsWidget",
+                            provider: ScheduleTimelineProvider(variant: .championsOnly, detailLevel: .overview)) { entry in
+            LockRectangularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_rect_cm.title", bundle: .umaCore))
+        .description(Text("gallery.lock_rect_cm.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryRectangular])
+    }
+}
+
+struct LockRectangularLoHWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockRectangularLoHWidget",
+                            provider: ScheduleTimelineProvider(variant: .loHOnly, detailLevel: .overview)) { entry in
+            LockRectangularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_rect_loh.title", bundle: .umaCore))
+        .description(Text("gallery.lock_rect_loh.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryRectangular])
+    }
+}
+
+struct LockRectangularPickupWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockRectangularPickupWidget",
+                            provider: ScheduleTimelineProvider(variant: .pickupOnly, detailLevel: .overview)) { entry in
+            LockRectangularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_rect_pk.title", bundle: .umaCore))
+        .description(Text("gallery.lock_rect_pk.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryRectangular])
+    }
+}
+
 struct LockCircularWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "LockCircularWidget",

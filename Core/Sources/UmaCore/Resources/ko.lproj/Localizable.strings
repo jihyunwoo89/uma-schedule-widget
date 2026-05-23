@@ -46,8 +46,14 @@
 "gallery.s3.desc" = "다음 리그 오브 히어로스 일정만";
 "gallery.s4.title" = "픽업";
 "gallery.s4.desc" = "다음 픽업 일정만";
-"gallery.lock_rect.title" = "다음 일정";
-"gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
+"gallery.lock_rect.title" = "다음 일정 · 주요";
+"gallery.lock_rect.desc" = "챔미/LoH 중 가까운 일정";
+"gallery.lock_rect_cm.title" = "다음 일정 · 챔미";
+"gallery.lock_rect_cm.desc" = "다음 챔피언스 미팅";
+"gallery.lock_rect_loh.title" = "다음 일정 · LoH";
+"gallery.lock_rect_loh.desc" = "다음 리그 오브 히어로스";
+"gallery.lock_rect_pk.title" = "다음 일정 · 픽업";
+"gallery.lock_rect_pk.desc" = "다음 픽업";
 "gallery.lock_circ.title" = "D-day · 주요";
 "gallery.lock_circ.desc" = "챔미/LoH 중 가까운 일정";
 "gallery.lock_circ_cm.title" = "D-day · 챔미";

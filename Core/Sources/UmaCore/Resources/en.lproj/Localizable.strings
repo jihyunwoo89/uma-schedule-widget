@@ -46,8 +46,14 @@
 "gallery.s3.desc" = "Next League of Heroes only";
 "gallery.s4.title" = "Pickup";
 "gallery.s4.desc" = "Next pickup only";
-"gallery.lock_rect.title" = "Next Event";
-"gallery.lock_rect.desc" = "Most imminent event on your lock screen";
+"gallery.lock_rect.title" = "Next · Major";
+"gallery.lock_rect.desc" = "Soonest of CM / LoH";
+"gallery.lock_rect_cm.title" = "Next · CM";
+"gallery.lock_rect_cm.desc" = "Next Champions Meeting";
+"gallery.lock_rect_loh.title" = "Next · LoH";
+"gallery.lock_rect_loh.desc" = "Next League of Heroes";
+"gallery.lock_rect_pk.title" = "Next · Pickup";
+"gallery.lock_rect_pk.desc" = "Next pickup";
 "gallery.lock_circ.title" = "D-day · Major";
 "gallery.lock_circ.desc" = "Soonest of CM / LoH";
 "gallery.lock_circ_cm.title" = "D-day · CM";

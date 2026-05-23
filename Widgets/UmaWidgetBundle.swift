@@ -5,6 +5,9 @@ import SwiftUI
 struct UmaWidgetBundle: WidgetBundle {
     var body: some Widget {
         LockRectangularWidget()
+        LockRectangularChampionsWidget()
+        LockRectangularLoHWidget()
+        LockRectangularPickupWidget()
         LockCircularWidget()
         LockCircularChampionsWidget()
         LockCircularLoHWidget()
