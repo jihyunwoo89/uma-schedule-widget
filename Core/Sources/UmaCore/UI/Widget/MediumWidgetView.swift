@@ -45,7 +45,9 @@ public struct MediumWidgetView: View {
     private func twoRows(_ cards: [EventCard]) -> some View {
         VStack(spacing: 0) {
             half(cards[0])
-            Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 1)
+            Rectangle().fill(Color.primary.opacity(0.08))
+                .frame(height: 1)
+                .padding(.vertical, 7)   // breathing room above/below the divider
             if cards.count > 1 { half(cards[1]) }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
