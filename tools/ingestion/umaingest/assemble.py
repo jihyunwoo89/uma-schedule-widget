@@ -66,7 +66,8 @@ def build_document(extracted: dict, *, source_post_no: int | None = None, now_is
         eid = _eid("pk", per.start.isoformat(), ",".join(p.get("trainees", [])))
         pks.setdefault(eid, PickupPeriod(
             id=eid, period=per, trainees=p.get("trainees", []),
-            supportCards=[_support(sc) for sc in p.get("supportCards", [])]))
+            supportCards=[_support(sc) for sc in p.get("supportCards", [])],
+            supportNote=p.get("supportNote")))
 
     return ScheduleDocument(
         version=2, updatedAt=now_iso, sourcePostNo=source_post_no, server="kr",

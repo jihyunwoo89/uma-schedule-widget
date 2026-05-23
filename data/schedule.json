@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-05-21T14:12:52Z",
+  "updatedAt": "2026-05-23T01:51:00Z",
   "sourcePostNo": null,
   "server": "kr",
   "championsMeetings": [
@@ -244,7 +244,8 @@
           "name": "이쿠노 딕터스",
           "type": "지능"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-da578f46c1",
@@ -257,7 +258,8 @@
         "츠루마루 츠요시 2★",
         "천장시 3★ 택 1"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-3cbd0bc101",
@@ -280,7 +282,8 @@
           "name": "아몬드 아이",
           "type": "스피드"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-a60c45d7ec",
@@ -303,7 +306,8 @@
           "name": "라이스 샤워",
           "type": "스피드"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-e2fb1a0bdb",
@@ -315,7 +319,8 @@
       "trainees": [
         "노 리즌 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-eafaa3b41e",
@@ -339,7 +344,8 @@
           "name": "드림 저니",
           "type": "스피드"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-261fe847c7",
@@ -363,7 +369,8 @@
           "name": "데어링 하트",
           "type": "파워"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-6ace67c605",
@@ -375,7 +382,8 @@
       "trainees": [
         "페노메노 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-9bffb50cb4",
@@ -399,7 +407,8 @@
           "name": "부에나 비스타",
           "type": "파워"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-1c224e2477",
@@ -422,7 +431,8 @@
           "name": "카렌 부케도르",
           "type": "스태미나"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-bc772e3ed1",
@@ -434,7 +444,8 @@
       "trainees": [
         "러브즈 온리 유 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-777902fcdf",
@@ -458,7 +469,8 @@
           "name": "데어링 하트",
           "type": "지능"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-77d08e0257",
@@ -470,7 +482,8 @@
       "trainees": [
         "크로노 제네시스 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-ad6b9b5fd4",
@@ -493,7 +506,8 @@
           "name": "타마모 크로스",
           "type": "파워"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-8eacd5e8ed",
@@ -516,7 +530,8 @@
           "name": "카와카미 프린세스",
           "type": "근성"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-9da047c8ae",
@@ -528,7 +543,8 @@
       "trainees": [
         "후사이치 판도라 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     },
     {
       "id": "pk-cc4b675248",
@@ -552,7 +568,8 @@
           "name": "두라멘테",
           "type": "스태미나"
         }
-      ]
+      ],
+      "supportNote": null
     },
     {
       "id": "pk-38674a7951",
@@ -564,7 +581,8 @@
       "trainees": [
         "수영복 비블로스 3★"
       ],
-      "supportCards": []
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
     }
   ]
 }
