@@ -48,8 +48,14 @@
 "gallery.s4.desc" = "Next pickup only";
 "gallery.lock_rect.title" = "Next Event";
 "gallery.lock_rect.desc" = "Most imminent event on your lock screen";
-"gallery.lock_circ.title" = "D-day";
-"gallery.lock_circ.desc" = "Days until the next event";
+"gallery.lock_circ.title" = "D-day · Major";
+"gallery.lock_circ.desc" = "Soonest of CM / LoH";
+"gallery.lock_circ_cm.title" = "D-day · CM";
+"gallery.lock_circ_cm.desc" = "Days until Champions Meeting";
+"gallery.lock_circ_loh.title" = "D-day · LoH";
+"gallery.lock_circ_loh.desc" = "Days until League of Heroes";
+"gallery.lock_circ_pk.title" = "D-day · Pickup";
+"gallery.lock_circ_pk.desc" = "Days until the next pickup";
 "gallery.lock_inline.title" = "Inline";
 "gallery.lock_inline.desc" = "Next event in one line by the clock";
 "field.trainee" = "Trainee";

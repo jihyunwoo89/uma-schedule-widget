@@ -30,6 +30,48 @@ struct LockCircularWidget: Widget {
     }
 }
 
+struct LockCircularChampionsWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockCircularChampionsWidget",
+                            provider: ScheduleTimelineProvider(variant: .championsOnly, detailLevel: .overview)) { entry in
+            LockCircularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_circ_cm.title", bundle: .umaCore))
+        .description(Text("gallery.lock_circ_cm.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
+struct LockCircularLoHWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockCircularLoHWidget",
+                            provider: ScheduleTimelineProvider(variant: .loHOnly, detailLevel: .overview)) { entry in
+            LockCircularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_circ_loh.title", bundle: .umaCore))
+        .description(Text("gallery.lock_circ_loh.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
+struct LockCircularPickupWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "LockCircularPickupWidget",
+                            provider: ScheduleTimelineProvider(variant: .pickupOnly, detailLevel: .overview)) { entry in
+            LockCircularView(entry: entry)
+                .fontDesign(Typography.fontDesign(for: entry.fontTheme))
+                .containerBackground(for: .widget) { Color.clear }
+        }
+        .configurationDisplayName(Text("gallery.lock_circ_pk.title", bundle: .umaCore))
+        .description(Text("gallery.lock_circ_pk.desc", bundle: .umaCore))
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
 struct LockInlineWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "LockInlineWidget",

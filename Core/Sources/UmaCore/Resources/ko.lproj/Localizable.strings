@@ -48,8 +48,14 @@
 "gallery.s4.desc" = "다음 픽업 일정만";
 "gallery.lock_rect.title" = "다음 일정";
 "gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
-"gallery.lock_circ.title" = "D-day";
-"gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
+"gallery.lock_circ.title" = "D-day · 주요";
+"gallery.lock_circ.desc" = "챔미/LoH 중 가까운 일정";
+"gallery.lock_circ_cm.title" = "D-day · 챔미";
+"gallery.lock_circ_cm.desc" = "챔피언스 미팅까지 남은 일수";
+"gallery.lock_circ_loh.title" = "D-day · LoH";
+"gallery.lock_circ_loh.desc" = "리그 오브 히어로스까지 남은 일수";
+"gallery.lock_circ_pk.title" = "D-day · 픽업";
+"gallery.lock_circ_pk.desc" = "다음 픽업까지 남은 일수";
 "gallery.lock_inline.title" = "인라인 요약";
 "gallery.lock_inline.desc" = "시계 위 한 줄로 다음 일정";
 "field.trainee" = "육성 우마무스메";
