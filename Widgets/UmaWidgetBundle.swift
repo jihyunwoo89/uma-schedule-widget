@@ -6,6 +6,7 @@ struct UmaWidgetBundle: WidgetBundle {
     var body: some Widget {
         LockRectangularWidget()
         LockCircularWidget()
+        LockInlineWidget()
         L1MajorDetailWidget()
         L2AllScheduleWidget()
         M1MajorBriefWidget()
