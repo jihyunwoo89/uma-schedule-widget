@@ -186,7 +186,7 @@ public struct PickupHeader: View {
     public var body: some View {
         Text(L.string(key))
             .font(.system(size: size, weight: .heavy))
-            .foregroundStyle(Color(hex: "#3A3F47") ?? .primary)
+            .foregroundStyle(Color(hex: "#5C3A18") ?? .brown)   // 갈색 (SSR 뱃지 글씨와 동일)
             .lineLimit(1)
     }
 }
@@ -255,7 +255,7 @@ public struct PickupTwoColumn: View {
         self.headerSize = headerSize; self.lineSize = lineSize
     }
     public var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: 18) {
             VStack(alignment: .leading, spacing: 3) {
                 PickupHeader(.fieldTrainee, size: headerSize)
                 ForEach(Array(trainees.enumerated()), id: \.offset) { _, t in
