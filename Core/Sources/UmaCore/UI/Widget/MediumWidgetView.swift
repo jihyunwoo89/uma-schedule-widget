@@ -51,14 +51,11 @@ public struct MediumWidgetView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    /// One half: content vertically centered within its 50% via top/bottom spacers.
+    /// One half (sector): content left-aligned and vertically centered within its 50%.
+    /// (`Alignment.leading` == horizontal .leading + vertical .center.)
     private func half(_ card: EventCard) -> some View {
-        VStack(spacing: 0) {
-            Spacer(minLength: 0)
-            rowContent(card)
-            Spacer(minLength: 0)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        rowContent(card)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 
     private func rowContent(_ card: EventCard) -> some View {
