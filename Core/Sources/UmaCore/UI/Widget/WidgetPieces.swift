@@ -195,12 +195,13 @@ public struct PickupHeader: View {
 public struct PickupBlock: View {
     public let trainees: [String]
     public let supports: [SupportCardPick]
+    public let supportNote: String?
     public var headerSize: CGFloat
     public var lineSize: CGFloat
     public var spacing: CGFloat
-    public init(trainees: [String], supports: [SupportCardPick],
+    public init(trainees: [String], supports: [SupportCardPick], supportNote: String? = nil,
                 headerSize: CGFloat = 12.5, lineSize: CGFloat = 11.5, spacing: CGFloat = 3) {
-        self.trainees = trainees; self.supports = supports
+        self.trainees = trainees; self.supports = supports; self.supportNote = supportNote
         self.headerSize = headerSize; self.lineSize = lineSize; self.spacing = spacing
     }
     public var body: some View {
@@ -211,14 +212,33 @@ public struct PickupBlock: View {
                     TraineeLine(raw: t, size: lineSize)
                 }
             }
-            if !supports.isEmpty {
+            if !supports.isEmpty || hasNote {
                 PickupHeader(.fieldSupport, size: headerSize)
                     .padding(.top, trainees.isEmpty ? 0 : 2)
-                ForEach(Array(supports.enumerated()), id: \.offset) { _, s in
-                    SupportLine(pick: s, size: lineSize)
+                if !supports.isEmpty {
+                    ForEach(Array(supports.enumerated()), id: \.offset) { _, s in
+                        SupportLine(pick: s, size: lineSize)
+                    }
+                } else if let note = supportNote {
+                    SupportNoteLine(text: note, size: lineSize)
                 }
             }
         }
+    }
+    private var hasNote: Bool { (supportNote?.isEmpty == false) }
+}
+
+/// A plain support note line (e.g. "셀렉트 픽업") used when there are no concrete support cards.
+public struct SupportNoteLine: View {
+    public let text: String
+    public var size: CGFloat
+    public init(text: String, size: CGFloat = 11.5) { self.text = text; self.size = size }
+    public var body: some View {
+        Text(text)
+            .font(.system(size: size, weight: .semibold))
+            .foregroundStyle(WidgetColors.raceName)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
     }
 }
 
@@ -226,11 +246,12 @@ public struct PickupBlock: View {
 public struct PickupTwoColumn: View {
     public let trainees: [String]
     public let supports: [SupportCardPick]
+    public let supportNote: String?
     public var headerSize: CGFloat
     public var lineSize: CGFloat
-    public init(trainees: [String], supports: [SupportCardPick],
+    public init(trainees: [String], supports: [SupportCardPick], supportNote: String? = nil,
                 headerSize: CGFloat = 12.5, lineSize: CGFloat = 11.5) {
-        self.trainees = trainees; self.supports = supports
+        self.trainees = trainees; self.supports = supports; self.supportNote = supportNote
         self.headerSize = headerSize; self.lineSize = lineSize
     }
     public var body: some View {
@@ -246,8 +267,12 @@ public struct PickupTwoColumn: View {
                 .frame(width: 1)
             VStack(alignment: .leading, spacing: 3) {
                 PickupHeader(.fieldSupport, size: headerSize)
-                ForEach(Array(supports.enumerated()), id: \.offset) { _, s in
-                    SupportLine(pick: s, size: lineSize)
+                if !supports.isEmpty {
+                    ForEach(Array(supports.enumerated()), id: \.offset) { _, s in
+                        SupportLine(pick: s, size: lineSize)
+                    }
+                } else if let note = supportNote, !note.isEmpty {
+                    SupportNoteLine(text: note, size: lineSize)
                 }
             }.frame(maxWidth: .infinity, alignment: .leading)
         }

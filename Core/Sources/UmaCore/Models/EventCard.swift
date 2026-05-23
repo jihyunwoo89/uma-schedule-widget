@@ -22,12 +22,14 @@ public struct EventCard: Codable, Hashable, Sendable {
     public var raceGrade: String?
     public var trainees: [String]
     public var supportCards: [SupportCardPick]
+    public var supportNote: String?
 
     public init(category: EventCategory, title: String, subtitle: String? = nil,
                 track: TrackCondition? = nil, period: EventPeriod? = nil,
                 phaseLabel: String, targetDate: Date, status: EventStatus,
                 raceGrade: String? = nil,
-                trainees: [String] = [], supportCards: [SupportCardPick] = []) {
+                trainees: [String] = [], supportCards: [SupportCardPick] = [],
+                supportNote: String? = nil) {
         self.category = category
         self.title = title
         self.subtitle = subtitle
@@ -39,5 +41,6 @@ public struct EventCard: Codable, Hashable, Sendable {
         self.raceGrade = raceGrade
         self.trainees = trainees
         self.supportCards = supportCards
+        self.supportNote = supportNote
     }
 }

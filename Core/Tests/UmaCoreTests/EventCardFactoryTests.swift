@@ -182,4 +182,13 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(actCard.phaseLabel, "종료까지")
         XCTAssertEqual(actCard.targetDate, active.period.end)
     }
+
+    func test_pickupCard_propagatesSupportNote() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let p = PickupPeriod(id: "p3", period: EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(3*86400)),
+                             trainees: ["천장시 3★ 택 1"], supportCards: [], supportNote: "셀렉트 픽업")
+        let card = EventCardFactory.pickupCard(for: p, now: now)
+        XCTAssertEqual(card.supportNote, "셀렉트 픽업")
+        XCTAssertTrue(card.supportCards.isEmpty)
+    }
 }

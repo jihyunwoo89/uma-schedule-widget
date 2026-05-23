@@ -201,10 +201,16 @@ def parse_kr_rows(rows: list[dict]) -> dict:
                 "raceName": (row.get("레이스") or "").strip(),
                 "track": _parse_track_packed(row.get("마장")), "period": period})
         elif cat == "gacha":
-            doc["pickups"].append({
+            raw_support = (row.get("픽업(서포트)") or "").strip()
+            cards = _parse_supports_kr(raw_support)
+            pickup = {
                 "period": period,
                 "trainees": _parse_trainees_kr(row.get("픽업(육성마)")),
-                "supportCards": _parse_supports_kr(row.get("픽업(서포트)"))})
+                "supportCards": cards}
+            # No parseable cards but the cell has text (e.g. "셀렉트 픽업") → keep as a note.
+            if not cards and raw_support:
+                pickup["supportNote"] = raw_support
+            doc["pickups"].append(pickup)
     return doc
 
 

@@ -87,6 +87,7 @@ public struct LargeWidgetView: View {
                                       dateText: dateLabel(for: p), ddaySize: 19, dateSize: 11)
                         }
                         PickupTwoColumn(trainees: p.trainees, supports: p.supportCards,
+                                        supportNote: p.supportNote,
                                         headerSize: 12, lineSize: 11)
                         Spacer(minLength: 0)
                     }

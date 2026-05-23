@@ -14,7 +14,7 @@ struct ScheduleHeroCard: View {
                           ddaySize: 24, dateSize: 11)
             }
             if card.category == .gacha {
-                PickupBlock(trainees: card.trainees, supports: card.supportCards, headerSize: 12.5, lineSize: 12, spacing: 3)
+                PickupBlock(trainees: card.trainees, supports: card.supportCards, supportNote: card.supportNote, headerSize: 12.5, lineSize: 12, spacing: 3)
             } else {
                 BracketTitle(card.title, size: 20)
                 RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 13)
@@ -51,7 +51,7 @@ struct ScheduleRowCard: View {
                         RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 12)
                     }
                     if let t = card.track {
-                        Text(t.distanceLine).font(.system(size: 11)).foregroundStyle(WidgetColors.cond).lineLimit(1)
+                        Text(t.distanceLine).font(.system(size: 11)).foregroundStyle(WidgetColors.title).lineLimit(1)
                     }
                 }
             }

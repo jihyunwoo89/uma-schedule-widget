@@ -100,6 +100,7 @@ public struct MediumWidgetView: View {
                           dateText: dateLabel(for: card), ddaySize: 22, dateSize: 11)
             }
             PickupTwoColumn(trainees: card.trainees, supports: card.supportCards,
+                            supportNote: card.supportNote,
                             headerSize: 12.5, lineSize: 11.5)
             Spacer(minLength: 0)
         }

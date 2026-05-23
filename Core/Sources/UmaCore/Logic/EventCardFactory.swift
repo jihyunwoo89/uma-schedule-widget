@@ -25,7 +25,7 @@ public enum EventCardFactory {
         return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
                          period: p.period, phaseLabel: upcoming ? "시작까지" : "종료까지",
                          targetDate: upcoming ? p.period.start : p.period.end, status: status,
-                         trainees: p.trainees, supportCards: p.supportCards)
+                         trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
     }
 
     // MARK: - Upcoming list factory methods
@@ -75,7 +75,7 @@ public enum EventCardFactory {
         if let p = active {
             return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
                              period: p.period, phaseLabel: "종료까지", targetDate: p.period.end, status: .active,
-                             trainees: p.trainees, supportCards: p.supportCards)
+                             trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
         }
         let upcoming = pickups
             .filter { $0.period.start > now }
@@ -84,7 +84,7 @@ public enum EventCardFactory {
         if let p = upcoming {
             return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
                              period: p.period, phaseLabel: "시작까지", targetDate: p.period.start, status: .upcoming,
-                             trainees: p.trainees, supportCards: p.supportCards)
+                             trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
         }
         return nil
     }

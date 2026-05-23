@@ -83,6 +83,7 @@ class PickupPeriod(_Base):
     period: EventPeriod
     trainees: list[str]
     supportCards: list[SupportCardPick]
+    supportNote: str | None = None
 
 
 class ScheduleDocument(_Base):

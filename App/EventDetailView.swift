@@ -171,19 +171,26 @@ struct PickupDetailBody: View {
                 .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))
             }
 
-            // Support cards
-            if !pickup.supportCards.isEmpty {
+            // Support cards (or a free-text note like "셀렉트 픽업")
+            if !pickup.supportCards.isEmpty || (pickup.supportNote?.isEmpty == false) {
                 Text(L.string(.fieldSupport)).font(.system(size: 13, weight: .heavy)).foregroundStyle(WidgetColors.title)
                 VStack(spacing: 0) {
-                    ForEach(Array(pickup.supportCards.enumerated()), id: \.offset) { idx, s in
-                        HStack(spacing: 8) {
-                            if let tier = RarityTier(s.rarity) { RarityBadge(text: s.rarity, tier: tier) }
-                            Text(s.name).font(.system(size: 14, weight: .semibold))
-                                .foregroundStyle(SupportType.color(forType: s.type) ?? WidgetColors.raceName)
+                    if !pickup.supportCards.isEmpty {
+                        ForEach(Array(pickup.supportCards.enumerated()), id: \.offset) { idx, s in
+                            HStack(spacing: 8) {
+                                if let tier = RarityTier(s.rarity) { RarityBadge(text: s.rarity, tier: tier) }
+                                Text(s.name).font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(SupportType.color(forType: s.type) ?? WidgetColors.raceName)
+                                Spacer()
+                                SupportTypeIcon(type: s.type, size: 20)
+                            }.padding(.vertical, 9)
+                            if idx < pickup.supportCards.count - 1 { Divider() }
+                        }
+                    } else if let note = pickup.supportNote {
+                        HStack {
+                            Text(note).font(.system(size: 14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
                             Spacer()
-                            SupportTypeIcon(type: s.type, size: 20)
                         }.padding(.vertical, 9)
-                        if idx < pickup.supportCards.count - 1 { Divider() }
                     }
                 }.padding(.horizontal, 13)
                 .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))

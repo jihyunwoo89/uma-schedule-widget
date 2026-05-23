@@ -50,6 +50,7 @@ public struct SmallWidgetView: View {
             }
             PickupBlock(trainees: Array(card.trainees.prefix(2)),
                         supports: Array(card.supportCards.prefix(2)),
+                        supportNote: card.supportNote,
                         headerSize: 10.5, lineSize: 10.5, spacing: 2)
                 .padding(.top, 5)
             Spacer(minLength: 0)
