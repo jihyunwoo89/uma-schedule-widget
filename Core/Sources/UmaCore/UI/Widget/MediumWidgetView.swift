@@ -47,7 +47,7 @@ public struct MediumWidgetView: View {
             half(cards[0])
             Rectangle().fill(Color.primary.opacity(0.08))
                 .frame(height: 1)
-                .padding(.vertical, 7)   // breathing room above/below the divider
+                .padding(.vertical, 12)   // breathing room above/below the divider
             if cards.count > 1 { half(cards[1]) }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
