@@ -49,7 +49,7 @@ struct EventDetailView: View {
         // Track
         SectionLabel(.detailSectionTrack)
         TrackImageView(track: track).frame(height: 150).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-        Text(track.distanceLine).font(.system(size: 14, weight: .bold)).foregroundStyle(WidgetColors.raceName)
+        Text(track.distanceLine).font(.system(size: 14, weight: .bold)).foregroundStyle(WidgetColors.title)
         let chips = track.conditionChips
         if !chips.isEmpty {
             ConditionChipsWrap(chips: chips)

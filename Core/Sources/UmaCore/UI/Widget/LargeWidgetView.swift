@@ -39,7 +39,7 @@ public struct LargeWidgetView: View {
             if let t = card.track {
                 Text(t.distanceLine)
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(WidgetColors.raceName)
+                    .foregroundStyle(WidgetColors.title)
                     .padding(.top, 6)
                 let chips = t.conditionChips
                 if !chips.isEmpty {
@@ -114,7 +114,7 @@ public struct LargeWidgetView: View {
                 if let t = card.track {
                     Text(t.distanceLine)
                         .font(.system(size: 10))
-                        .foregroundStyle(WidgetColors.cond)
+                        .foregroundStyle(WidgetColors.title)
                         .padding(.top, 3)
                         .lineLimit(1)
                     let chips = t.conditionChips

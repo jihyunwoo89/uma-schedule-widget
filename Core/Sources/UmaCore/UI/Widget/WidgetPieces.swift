@@ -105,27 +105,32 @@ public struct RaceNameLine: View {
 // MARK: - Track lines
 
 /// Distance line + condition chips line. (DESIGN §8.6)
+/// `tightCond`: use a tight "·" separator and don't shrink the condition (keeps it
+/// the same rendered size as the distance line in narrow widgets like Small).
 public struct TrackLines: View {
     public let track: TrackCondition
     public var distanceSize: CGFloat
     public var condSize: CGFloat
     public var spacing: CGFloat
-    public init(track: TrackCondition, distanceSize: CGFloat = 12, condSize: CGFloat = 11, spacing: CGFloat = 1) {
-        self.track = track; self.distanceSize = distanceSize; self.condSize = condSize; self.spacing = spacing
+    public var tightCond: Bool
+    public init(track: TrackCondition, distanceSize: CGFloat = 12, condSize: CGFloat = 11,
+                spacing: CGFloat = 1, tightCond: Bool = false) {
+        self.track = track; self.distanceSize = distanceSize; self.condSize = condSize
+        self.spacing = spacing; self.tightCond = tightCond
     }
     public var body: some View {
         VStack(alignment: .leading, spacing: spacing) {
             Text(track.distanceLine)
                 .font(.system(size: distanceSize, weight: .semibold))
-                .foregroundStyle(WidgetColors.raceName)
+                .foregroundStyle(WidgetColors.title)
                 .lineLimit(1)
             let chips = track.conditionChips
             if !chips.isEmpty {
-                Text(chips.joined(separator: " · "))
+                Text(chips.joined(separator: tightCond ? "·" : " · "))
                     .font(.system(size: condSize))
                     .foregroundStyle(WidgetColors.cond)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .minimumScaleFactor(tightCond ? 1.0 : 0.85)
             }
         }
     }

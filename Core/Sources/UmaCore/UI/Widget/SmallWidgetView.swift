@@ -31,7 +31,7 @@ public struct SmallWidgetView: View {
             BracketTitle(card.title, size: 18).padding(.top, 5)
             RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 11).padding(.top, 1)
             if let t = card.track {
-                TrackLines(track: t, distanceSize: 10, condSize: 10, spacing: 0).padding(.top, 11)
+                TrackLines(track: t, distanceSize: 10, condSize: 10, spacing: 1, tightCond: true).padding(.top, 11)
             }
             Spacer(minLength: 0)
         }

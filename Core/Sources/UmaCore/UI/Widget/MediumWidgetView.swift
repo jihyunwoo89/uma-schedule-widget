@@ -41,34 +41,37 @@ public struct MediumWidgetView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 
-    /// M2: two stacked rows (CM / LoH) with a hairline divider between.
+    /// M2: two equal halves (CM / LoH), each vertically centered, hairline between.
     private func twoRows(_ cards: [EventCard]) -> some View {
         VStack(spacing: 0) {
-            ForEach(Array(cards.enumerated()), id: \.offset) { index, card in
-                row(card)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                if index < cards.count - 1 {
-                    Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 1)
-                }
-            }
+            half(cards[0])
+            Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 1)
+            if cards.count > 1 { half(cards[1]) }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func row(_ card: EventCard) -> some View {
+    /// One half: content vertically centered within its 50% via top/bottom spacers.
+    private func half(_ card: EventCard) -> some View {
+        VStack(spacing: 0) {
+            Spacer(minLength: 0)
+            rowContent(card)
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func rowContent(_ card: EventCard) -> some View {
         HStack(alignment: .center, spacing: 10) {
-            VStack(alignment: .leading, spacing: 3) {
+            VStack(alignment: .leading, spacing: 0) {
                 CategoryBadge(category: card.category)
                 HStack(spacing: 6) {
                     BracketTitle(card.title, size: 16)
                     RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 12)
                 }
+                .padding(.top, 5)   // gap between category header and body
                 if let t = card.track {
-                    Text(conditionSummary(t))
-                        .font(.system(size: 10.5))
-                        .foregroundStyle(WidgetColors.cond)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.85)
+                    trackSummary(t).padding(.top, 2)
                 }
             }
             Spacer(minLength: 4)
@@ -77,10 +80,14 @@ public struct MediumWidgetView: View {
         }
     }
 
-    /// "한신 잔디 1600m · 시계(우)·봄·맑음·양호·낮" single-line summary.
-    private func conditionSummary(_ t: TrackCondition) -> String {
+    /// One line: distance (black) · conditions (gray).
+    private func trackSummary(_ t: TrackCondition) -> some View {
         let chips = t.conditionChips
-        return chips.isEmpty ? t.distanceLine : "\(t.distanceLine) · \(chips.joined(separator: "·"))"
+        return (Text(t.distanceLine).foregroundColor(WidgetColors.title)
+                + Text(chips.isEmpty ? "" : " · " + chips.joined(separator: "·")).foregroundColor(WidgetColors.cond))
+            .font(.system(size: 10.5))
+            .lineLimit(1)
+            .minimumScaleFactor(0.85)
     }
 
     /// M3: header + right big D-day stack, then 2-column pickup.
