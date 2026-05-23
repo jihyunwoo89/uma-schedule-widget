@@ -145,15 +145,18 @@ public struct TraineeLine: View {
     public init(raw: String, size: CGFloat = 11.5) { self.raw = raw; self.size = size }
     public var body: some View {
         let parsed = PickupFormatter.trainee(raw)
-        HStack(spacing: 5) {
+        // .top so the badge stays on the first line; a wrapped name keeps both lines
+        // aligned under each other (indented past the badge), not under the badge.
+        HStack(alignment: .top, spacing: 5) {
             if let stars = parsed.stars, let tier = RarityTier("\(stars)★") {
                 RarityBadge(text: "\(stars)★", tier: tier)
             }
             Text(parsed.name)
                 .font(.system(size: size))
                 .foregroundStyle(WidgetColors.raceName)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
+                .lineLimit(2)
+                .minimumScaleFactor(0.85)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
