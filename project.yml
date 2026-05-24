@@ -27,7 +27,7 @@ targets:
       path: App/Info.plist
       properties:
         CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "2"
+        CFBundleVersion: "3"
         CFBundleDisplayName: 우마스케쥴
         CFBundleLocalizations: [en, ko]
         ITSAppUsesNonExemptEncryption: false
@@ -57,7 +57,7 @@ targets:
       path: Widgets/Info.plist
       properties:
         CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "2"
+        CFBundleVersion: "3"
         CFBundleDisplayName: 우마스케쥴
         CFBundleLocalizations: [en, ko]
         NSExtension:
