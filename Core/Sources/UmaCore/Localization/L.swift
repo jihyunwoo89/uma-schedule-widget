@@ -73,6 +73,22 @@ public enum L {
         case detailSectionTrack      = "detail.section.track"
         case detailSectionPhases     = "detail.section.phases"
         case detailFieldPeriod       = "detail.field.period"
+
+        // Course-map legend
+        case detailLegendSectionTrack   = "detail.legend.section.track"
+        case detailLegendTurf           = "detail.legend.turf"
+        case detailLegendDirt           = "detail.legend.dirt"
+        case detailLegendSectionPhase   = "detail.legend.section.phase"
+        case detailLegendEarly          = "detail.legend.early"
+        case detailLegendMid            = "detail.legend.mid"
+        case detailLegendLate           = "detail.legend.late"
+        case detailLegendSpurt          = "detail.legend.spurt"
+        case detailLegendSectionTerrain = "detail.legend.section.terrain"
+        case detailLegendStraight       = "detail.legend.straight"
+        case detailLegendCorner         = "detail.legend.corner"
+        case detailLegendSectionEtc     = "detail.legend.section.etc"
+        case detailLegendPositionKeep   = "detail.legend.position_keep"
+        case detailLegendSpurtStart     = "detail.legend.spurt_start"
     }
 
     public static func string(_ key: Key, locale: Locale? = nil) -> String {

@@ -46,9 +46,14 @@ struct EventDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(card.category.accentColor.opacity(0.08)))
 
-        // Track
+        // Track — legend (left) + course map (right)
         SectionLabel(.detailSectionTrack)
-        TrackImageView(track: track).frame(height: 150).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        HStack(alignment: .center, spacing: 12) {
+            CourseLegend(style: .full).fixedSize()
+            TrackImageView(track: track)
+                .frame(maxWidth: .infinity, maxHeight: 210)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
         Text(track.distanceLine).font(.system(size: 14, weight: .bold)).foregroundStyle(WidgetColors.title)
         let chips = track.conditionChips
         if !chips.isEmpty {

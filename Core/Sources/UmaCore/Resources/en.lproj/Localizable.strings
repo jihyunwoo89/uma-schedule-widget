@@ -73,3 +73,18 @@
 "detail.section.track" = "Course";
 "detail.section.phases" = "Phases";
 "detail.field.period" = "Period";
+
+"detail.legend.section.track" = "Course";
+"detail.legend.turf" = "Turf";
+"detail.legend.dirt" = "Dirt";
+"detail.legend.section.phase" = "Phase";
+"detail.legend.early" = "Early";
+"detail.legend.mid" = "Middle";
+"detail.legend.late" = "Late";
+"detail.legend.spurt" = "Last spurt";
+"detail.legend.section.terrain" = "Terrain";
+"detail.legend.straight" = "Straight";
+"detail.legend.corner" = "Corner";
+"detail.legend.section.etc" = "Other";
+"detail.legend.position_keep" = "Position keep end";
+"detail.legend.spurt_start" = "Spurt start";

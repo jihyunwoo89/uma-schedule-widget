@@ -73,3 +73,18 @@
 "detail.section.track" = "마장";
 "detail.section.phases" = "단계";
 "detail.field.period" = "기간";
+
+"detail.legend.section.track" = "마장";
+"detail.legend.turf" = "잔디";
+"detail.legend.dirt" = "더트";
+"detail.legend.section.phase" = "전개별 구간";
+"detail.legend.early" = "초반";
+"detail.legend.mid" = "중반";
+"detail.legend.late" = "종반";
+"detail.legend.spurt" = "라스트 스퍼트";
+"detail.legend.section.terrain" = "지형별 구간";
+"detail.legend.straight" = "직선";
+"detail.legend.corner" = "코너";
+"detail.legend.section.etc" = "기타";
+"detail.legend.position_keep" = "포지션킵 끝";
+"detail.legend.spurt_start" = "스퍼트 시작";
