@@ -51,6 +51,7 @@ class TrackCondition(_Base):
     ground: Optional[str] = None
     timeOfDay: Optional[str] = None
     imageURL: Optional[str] = None
+    courseMap: Optional[str] = None  # bundled course-map asset name (course_{id1}_{id2})
 
 
 class ChampionsMeeting(_Base):

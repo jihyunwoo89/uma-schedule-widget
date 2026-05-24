@@ -1,5 +1,6 @@
 from __future__ import annotations
 import hashlib
+from . import racetracks
 from .models import (ScheduleDocument, ChampionsMeeting, LeagueOfHeroes, PickupPeriod,
                      TrackCondition, EventPeriod, EventPhase, SupportCardPick)
 
@@ -20,9 +21,14 @@ def _period(p: dict) -> EventPeriod:
 
 
 def _track(t: dict) -> TrackCondition:
-    return TrackCondition(**{k: t.get(k) for k in
-        ["racecourse","surface","distanceMeters","distanceClass","turn","courseSide","season","weather","ground","timeOfDay","imageURL"]
+    tc = TrackCondition(**{k: t.get(k) for k in
+        ["racecourse","surface","distanceMeters","distanceClass","turn","courseSide","season","weather","ground","timeOfDay","imageURL","courseMap"]
         if k in t})
+    if not tc.courseMap:  # resolve bundled course-map image from gametora data
+        surface = tc.surface.value if hasattr(tc.surface, "value") else str(tc.surface)
+        tc.courseMap = racetracks.course_image_name(
+            tc.racecourse, surface, tc.distanceMeters, tc.courseSide)
+    return tc
 
 
 def _support(sc: dict) -> SupportCardPick:

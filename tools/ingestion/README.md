@@ -110,6 +110,24 @@ python -m umaingest.cli --dest ../../data/schedule.json
 . .venv/bin/activate && pytest -q
 ```
 
+## Racetrack course maps
+
+Each CM/LoH `TrackCondition` is matched to a bundled gametora course-map image
+(`courseMap` = `course_{id1}_{id2}`) by `umaingest/racetracks.py` during assembly —
+no runtime download. Maps are bundled in `Core/.../Media.xcassets/Racetracks/`
+(15 racecourses / 119 courses; the newest overseas santa_anita + del_mar have no
+gametora "simple" map yet and fall back to the self-drawn diagram).
+
+```bash
+# (re)download all course maps into the asset catalog
+python3 crawl_racetracks.py            # missing only
+python3 crawl_racetracks.py --refresh  # refresh the data snapshot first, then download
+```
+
+Data pipeline (plain HTTP): `data/manifests/umamusume.json` → racetracks hash →
+`data/umamusume/racetracks.<hash>.json`. Snapshot committed at
+`umaingest/data/racetracks_data.json`.
+
 ## Setup checklist (user)
 
 1. Host this repo on GitHub with Actions enabled.

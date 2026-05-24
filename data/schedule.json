@@ -20,7 +20,8 @@
         "weather": "맑음",
         "ground": "양호",
         "timeOfDay": "낮",
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10009_10903"
       },
       "period": {
         "start": "2026-07-14T00:00:00Z",
@@ -56,7 +57,8 @@
         "weather": "맑음",
         "ground": "양호",
         "timeOfDay": "낮",
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10008_10811"
       },
       "period": {
         "start": "2026-08-13T00:00:00Z",
@@ -92,7 +94,8 @@
         "weather": "맑음",
         "ground": "양호",
         "timeOfDay": null,
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10006_10606"
       },
       "period": {
         "start": "2026-10-10T00:00:00Z",
@@ -128,7 +131,8 @@
         "weather": "흐림",
         "ground": "다습",
         "timeOfDay": "낮",
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10009_10906"
       },
       "period": {
         "start": "2026-11-13T00:00:00Z",
@@ -165,7 +169,8 @@
         "weather": null,
         "ground": null,
         "timeOfDay": "낮",
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10005_10501"
       },
       "period": {
         "start": "2026-06-07T00:00:00Z",
@@ -200,7 +205,8 @@
         "weather": null,
         "ground": null,
         "timeOfDay": "밤",
-        "imageURL": null
+        "imageURL": null,
+        "courseMap": "course_10101_11103"
       },
       "period": {
         "start": "2026-09-15T00:00:00Z",

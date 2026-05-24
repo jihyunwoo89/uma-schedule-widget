@@ -97,9 +97,11 @@ def parse_rows(rows: list[dict]) -> dict:
 
 # ---------------------------------------------------------------------------
 # KR human-friendly sheet format
-# Columns: 날짜, 분류, 제목, 레이스, 마장, 픽업(육성마), 픽업(서포트), 비고
+# Columns: 날짜, 분류, 제목, 레이스, 마장, 코스(선택), 픽업(육성마), 픽업(서포트), 비고
 # Values are packed Korean strings, e.g.:
 #   마장 = "한신, 잔디 1600m(마일), 시계(우), 봄, 맑음, 양호, 낮"
+#   코스 = "외" 또는 "내"  ← 교토 1400/1600·니가타 2000처럼 같은 거리에 안/바깥
+#          코스가 둘 다 있는 경우에만 채우면 됨(없으면 비워둠).
 #   레이스 = "G1 벚꽃상"   픽업(서포트) = "카렌짱 SSR(근성), 이쿠노 딕터스 SSR(지능)"
 # ---------------------------------------------------------------------------
 
@@ -181,6 +183,16 @@ def _parse_supports_kr(cell: str) -> list:
     return out
 
 
+def _track_kr(row: dict) -> dict:
+    """Track from the packed 마장 cell, with an optional dedicated 코스 column
+    (내/외, 내측/외측…) overriding the inner/outer side when present."""
+    track = _parse_track_packed(row.get("마장"))
+    side = (row.get("코스") or "").strip()
+    if side:
+        track["courseSide"] = side
+    return track
+
+
 def parse_kr_rows(rows: list[dict]) -> dict:
     doc = {"championsMeetings": [], "leagueOfHeroes": [], "pickups": []}
     for row in rows:
@@ -194,12 +206,12 @@ def parse_kr_rows(rows: list[dict]) -> dict:
             doc["championsMeetings"].append({
                 "codeName": _strip_brackets(row.get("제목")),
                 "raceGrade": grade, "raceName": name,
-                "track": _parse_track_packed(row.get("마장")), "period": period})
+                "track": _track_kr(row), "period": period})
         elif cat == "leagueOfHeroes":
             doc["leagueOfHeroes"].append({
                 "round": _strip_brackets(row.get("제목")),
                 "raceName": (row.get("레이스") or "").strip(),
-                "track": _parse_track_packed(row.get("마장")), "period": period})
+                "track": _track_kr(row), "period": period})
         elif cat == "gacha":
             raw_support = (row.get("픽업(서포트)") or "").strip()
             cards = _parse_supports_kr(raw_support)

@@ -9,12 +9,35 @@
       "codeName": "LONG",
       "raceGrade": "G1",
       "raceName": "벚꽃상",
-      "track": { "racecourse": "한신", "surface": "turf", "distanceMeters": 1600, "distanceClass": "mile",
-                 "turn": "clockwise", "courseSide": "외측", "season": "봄", "weather": "맑음", "ground": "양호", "timeOfDay": "낮" },
-      "period": { "start": "2026-07-14T00:00:00Z", "end": "2026-07-20T00:00:00Z", "estimated": true },
+      "track": {
+        "racecourse": "한신",
+        "surface": "turf",
+        "distanceMeters": 1600,
+        "distanceClass": "mile",
+        "turn": "clockwise",
+        "courseSide": "외측",
+        "season": "봄",
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
+        "courseMap": "course_10009_10903"
+      },
+      "period": {
+        "start": "2026-07-14T00:00:00Z",
+        "end": "2026-07-20T00:00:00Z",
+        "estimated": true
+      },
       "phases": [
-        { "kind": "open",  "label": "오픈", "date": "2026-07-14T00:00:00Z" },
-        { "kind": "ended", "label": "종료", "date": "2026-07-20T00:00:00Z" }
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2026-07-14T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2026-07-20T00:00:00Z"
+        }
       ]
     }
   ],
@@ -23,23 +46,59 @@
       "id": "loh-2026-10",
       "round": "10회차",
       "raceName": "스프린터즈 스테이크스",
-      "track": { "racecourse": "나카야마", "surface": "turf", "distanceMeters": 1200, "distanceClass": "sprint",
-                 "turn": "clockwise", "courseSide": "외측", "season": "겨울", "timeOfDay": "낮" },
-      "period": { "start": "2026-06-07T00:00:00Z", "end": "2026-06-16T00:00:00Z", "estimated": true },
+      "track": {
+        "racecourse": "나카야마",
+        "surface": "turf",
+        "distanceMeters": 1200,
+        "distanceClass": "sprint",
+        "turn": "clockwise",
+        "courseSide": "외측",
+        "season": "겨울",
+        "timeOfDay": "낮",
+        "courseMap": "course_10005_10501"
+      },
+      "period": {
+        "start": "2026-06-07T00:00:00Z",
+        "end": "2026-06-16T00:00:00Z",
+        "estimated": true
+      },
       "phases": [
-        { "kind": "open",  "label": "오픈", "date": "2026-06-07T00:00:00Z" },
-        { "kind": "ended", "label": "종료", "date": "2026-06-16T00:00:00Z" }
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2026-06-07T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2026-06-16T00:00:00Z"
+        }
       ]
     }
   ],
   "pickups": [
     {
       "id": "pk-2026-06-15",
-      "period": { "start": "2026-06-15T00:00:00Z", "end": "2026-06-21T00:00:00Z", "estimated": false },
-      "trainees": ["오르페브르", "푸리오소"],
+      "period": {
+        "start": "2026-06-15T00:00:00Z",
+        "end": "2026-06-21T00:00:00Z",
+        "estimated": false
+      },
+      "trainees": [
+        "오르페브르",
+        "푸리오소"
+      ],
       "supportCards": [
-        { "rarity": "SSR", "name": "아몬드 아이", "type": "스피드" },
-        { "rarity": "SSR", "name": "메지로 브라이트", "type": "스태미나" }
+        {
+          "rarity": "SSR",
+          "name": "아몬드 아이",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SSR",
+          "name": "메지로 브라이트",
+          "type": "스태미나"
+        }
       ]
     }
   ]
