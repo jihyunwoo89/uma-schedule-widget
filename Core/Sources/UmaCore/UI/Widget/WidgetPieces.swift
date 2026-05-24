@@ -48,7 +48,7 @@ public struct DDayStack: View {
             DDayBadge(targetDate: targetDate, now: now, size: ddaySize)
             if !dateText.isEmpty {
                 Text(dateText)
-                    .font(.uma(dateSize))
+                    .font(.system(size: dateSize))
                     .foregroundStyle(WidgetColors.muted)
                     .lineLimit(1)
             }
@@ -92,7 +92,7 @@ public struct RaceNameLine: View {
                 if let g = grade { GradeBadge(grade: g) }
                 if let n = name {
                     Text(n)
-                        .font(.uma(size, weight: .bold))
+                        .font(.system(size: size, weight: .bold))
                         .foregroundStyle(WidgetColors.raceName)
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
@@ -121,13 +121,13 @@ public struct TrackLines: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: spacing) {
             Text(track.distanceLine)
-                .font(.uma(distanceSize, weight: .semibold))
+                .font(.system(size: distanceSize, weight: .semibold))
                 .foregroundStyle(WidgetColors.title)
                 .lineLimit(1)
             let chips = track.conditionChips
             if !chips.isEmpty {
                 Text(chips.joined(separator: tightCond ? "·" : " · "))
-                    .font(.uma(condSize))
+                    .font(.system(size: condSize))
                     .foregroundStyle(WidgetColors.cond)
                     .lineLimit(1)
                     .minimumScaleFactor(tightCond ? 1.0 : 0.85)
@@ -152,7 +152,7 @@ public struct TraineeLine: View {
                 RarityBadge(text: "\(stars)★", tier: tier)
             }
             Text(parsed.name)
-                .font(.uma(size))
+                .font(.system(size: size))
                 .foregroundStyle(WidgetColors.raceName)
                 .lineLimit(2)
                 .minimumScaleFactor(0.85)
@@ -172,7 +172,7 @@ public struct SupportLine: View {
                 RarityBadge(text: pick.rarity, tier: tier)
             }
             Text(pick.name)
-                .font(.uma(size, weight: .semibold))
+                .font(.system(size: size, weight: .semibold))
                 .foregroundStyle(SupportType.color(forType: pick.type) ?? WidgetColors.raceName)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
@@ -188,7 +188,7 @@ public struct PickupHeader: View {
     public init(_ key: L.Key, size: CGFloat = 12.5) { self.key = key; self.size = size }
     public var body: some View {
         Text(L.string(key))
-            .font(.uma(size, weight: .heavy))
+            .font(.system(size: size, weight: .heavy))
             .foregroundStyle(Color(hex: "#5C3A18") ?? .brown)   // 갈색 (SSR 뱃지 글씨와 동일)
             .lineLimit(1)
     }
@@ -238,7 +238,7 @@ public struct SupportNoteLine: View {
     public init(text: String, size: CGFloat = 11.5) { self.text = text; self.size = size }
     public var body: some View {
         Text(text)
-            .font(.uma(size, weight: .semibold))
+            .font(.system(size: size, weight: .semibold))
             .foregroundStyle(WidgetColors.raceName)
             .lineLimit(1)
             .minimumScaleFactor(0.8)
@@ -319,8 +319,8 @@ public struct WidgetMessageView: View {
     public init(titleKey: L.Key, bodyKey: L.Key) { self.titleKey = titleKey; self.bodyKey = bodyKey }
     public var body: some View {
         VStack(spacing: 4) {
-            Text(L.string(titleKey)).font(.uma(14, weight: .semibold))
-            Text(L.string(bodyKey)).font(.uma(11)).foregroundStyle(.secondary).multilineTextAlignment(.center)
+            Text(L.string(titleKey)).font(.system(size: 14, weight: .semibold))
+            Text(L.string(bodyKey)).font(.system(size: 11)).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

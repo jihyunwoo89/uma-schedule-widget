@@ -49,7 +49,7 @@ public struct CategoryBadge: View {
                 .fill(category.accentColor)
                 .frame(width: 7, height: 7)
             Text(L.string(short ? category.shortLabelKey : category.labelKey))
-                .font(.uma(11, weight: .bold))
+                .font(.system(size: 11, weight: .bold))
         }
         .foregroundStyle(category.accentColor)
         .lineLimit(1)

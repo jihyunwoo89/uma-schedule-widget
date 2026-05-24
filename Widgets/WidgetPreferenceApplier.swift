@@ -5,7 +5,6 @@ import UmaCore
 /// timeline entry re-applies user prefs so views render with the chosen font + language.
 enum WidgetPreferenceApplier {
     static func apply(_ prefs: UserPrefs?) {
-        AppFonts.registerIfNeeded()
         Typography.currentTheme = prefs?.fontTheme ?? .system
         switch prefs?.localeOverride ?? .system {
         case .system: L.currentLocale = nil

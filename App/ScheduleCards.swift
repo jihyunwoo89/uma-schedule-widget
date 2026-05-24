@@ -42,7 +42,7 @@ struct ScheduleRowCard: View {
             VStack(alignment: .leading, spacing: 2) {
                 if card.category == .gacha {
                     Text(card.trainees.map { PickupFormatter.trainee($0).name }.joined(separator: " · "))
-                        .font(.uma(14, weight: .bold))
+                        .font(.system(size: 14, weight: .bold))
                         .foregroundStyle(WidgetColors.raceName)
                         .lineLimit(2)
                 } else {
@@ -51,7 +51,7 @@ struct ScheduleRowCard: View {
                         RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 12)
                     }
                     if let t = card.track {
-                        Text(t.distanceLine).font(.uma(11)).foregroundStyle(WidgetColors.title).lineLimit(1)
+                        Text(t.distanceLine).font(.system(size: 11)).foregroundStyle(WidgetColors.title).lineLimit(1)
                     }
                 }
             }

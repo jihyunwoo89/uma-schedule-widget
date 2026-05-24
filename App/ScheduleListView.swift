@@ -50,7 +50,7 @@ struct ScheduleListView: View {
                     if items.count > 1 {
                         HStack {
                             Text(L.string(.scheduleSectionUpcoming))
-                                .font(.uma(11, weight: .bold))
+                                .font(.system(size: 11, weight: .bold))
                                 .foregroundStyle(WidgetColors.muted)
                                 .textCase(.uppercase)
                             Spacer()

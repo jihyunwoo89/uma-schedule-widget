@@ -38,13 +38,13 @@ public struct LargeWidgetView: View {
             }.padding(.top, 5)
             if let t = card.track {
                 Text(t.distanceLine)
-                    .font(.uma(13, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(WidgetColors.title)
                     .padding(.top, 6)
                 let chips = t.conditionChips
                 if !chips.isEmpty {
                     Text(chips.joined(separator: " · "))
-                        .font(.uma(11))
+                        .font(.system(size: 11))
                         .foregroundStyle(WidgetColors.cond)
                         .padding(.top, 1)
                 }
@@ -118,14 +118,14 @@ public struct LargeWidgetView: View {
                 BracketTitle(card.title, size: 16).padding(.top, 4)
                 if let t = card.track {
                     Text(t.distanceLine)
-                        .font(.uma(10))
+                        .font(.system(size: 10))
                         .foregroundStyle(WidgetColors.title)
                         .padding(.top, 3)
                         .lineLimit(1)
                     let chips = t.conditionChips
                     if !chips.isEmpty {
                         Text(chips.joined(separator: "·"))
-                            .font(.uma(9.5))
+                            .font(.system(size: 9.5))
                             .foregroundStyle(WidgetColors.cond)
                             .lineLimit(1)
                     }

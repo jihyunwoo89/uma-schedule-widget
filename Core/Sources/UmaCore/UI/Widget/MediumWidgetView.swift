@@ -84,7 +84,7 @@ public struct MediumWidgetView: View {
         let chips = t.conditionChips
         return (Text(t.distanceLine).foregroundColor(WidgetColors.title)
                 + Text(chips.isEmpty ? "" : " · " + chips.joined(separator: "·")).foregroundColor(WidgetColors.cond))
-            .font(.uma(10.5))
+            .font(.system(size: 10.5))
             .lineLimit(1)
             .minimumScaleFactor(0.85)
     }

@@ -18,13 +18,13 @@ public struct LockRectangularView: View {
                     .frame(width: 1, height: 44)
                 VStack(alignment: .leading, spacing: 1) {
                     Text(L.string(card.category.labelKey))
-                        .font(.uma(11, weight: .semibold))
+                        .font(.system(size: 11, weight: .semibold))
                         .lineLimit(1)
                     Text("「\(line2(card))」")
-                        .font(.uma(17, weight: .heavy))
+                        .font(.system(size: 17, weight: .heavy))
                         .lineLimit(1)
                     Text(line3(card))
-                        .font(.uma(12))
+                        .font(.system(size: 12))
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
@@ -32,7 +32,7 @@ public struct LockRectangularView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } else {
-            Text(L.string(.stateIdleTitle)).font(.uma(12))
+            Text(L.string(.stateIdleTitle)).font(.system(size: 12))
         }
     }
 
