@@ -77,7 +77,7 @@ public struct LargeWidgetView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
-            Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 1).padding(.vertical, 8)
+            Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 1).padding(.vertical, 12)
 
             // Bottom half: pickup
             Group {
@@ -99,6 +99,7 @@ public struct LargeWidgetView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.top, 3)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
