@@ -49,6 +49,7 @@ public struct LargeWidgetView: View {
                         .padding(.top, 1)
                 }
                 CourseLegend(style: .compact)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 8)
                 TrackImageView(track: t)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
