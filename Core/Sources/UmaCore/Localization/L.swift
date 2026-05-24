@@ -34,6 +34,11 @@ public enum L {
         case settingsValueLanguageEn    = "settings.value.language.en"
         case settingsRowDataSource      = "settings.row.data_source"
         case settingsRowRefresh         = "settings.row.refresh"
+        case settingsRefreshDoneTitle   = "settings.refresh.done.title"
+        case settingsRefreshDoneBody    = "settings.refresh.done.body"
+        case settingsRefreshFailedTitle = "settings.refresh.failed.title"
+        case settingsRefreshFailedBody  = "settings.refresh.failed.body"
+        case commonOK                   = "common.ok"
 
         // Legal
         case legalDisclaimer = "legal.disclaimer"

@@ -88,3 +88,9 @@
 "detail.legend.section.etc" = "Other";
 "detail.legend.position_keep" = "Position keep end";
 "detail.legend.spurt_start" = "Spurt start";
+
+"settings.refresh.done.title" = "Refresh complete";
+"settings.refresh.done.body" = "The latest schedule has been loaded.";
+"settings.refresh.failed.title" = "Refresh failed";
+"settings.refresh.failed.body" = "Check your connection and try again.";
+"common.ok" = "OK";

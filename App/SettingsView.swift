@@ -4,6 +4,8 @@ import UmaCore
 
 struct SettingsView: View {
     @Bindable var prefs: PrefsStore
+    @State private var refreshAlert = false
+    @State private var refreshSucceeded = false
 
     var body: some View {
         Form {
@@ -54,12 +56,23 @@ struct SettingsView: View {
         }
         .environment(\.editMode, .constant(.active))
         .navigationTitle(L.string(.settingsTitle))
+        .alert(L.string(refreshSucceeded ? .settingsRefreshDoneTitle : .settingsRefreshFailedTitle),
+               isPresented: $refreshAlert) {
+            Button(L.string(.commonOK), role: .cancel) {}
+        } message: {
+            Text(L.string(refreshSucceeded ? .settingsRefreshDoneBody : .settingsRefreshFailedBody))
+        }
     }
 
-    /// Drop the cached schedule so the next widget/app load refetches, then reload widgets now.
+    /// Force a network refresh, update widgets, then confirm with a popup.
     private func refreshNow() {
-        AppGroupStore.shared().remove(forKey: ScheduleRepository.cacheKey)
-        WidgetCenter.shared.reloadAllTimelines()
+        Task {
+            let ok: Bool
+            do { _ = try await ScheduleRepository.makeLive().refresh(); ok = true }
+            catch { ok = false }
+            if ok { WidgetCenter.shared.reloadAllTimelines() }
+            await MainActor.run { refreshSucceeded = ok; refreshAlert = true }
+        }
     }
 
     private var fontBinding: Binding<FontTheme> {
