@@ -6,7 +6,10 @@ import UmaCore
 struct UmaScheduleApp: App {
     @State private var prefs = PrefsStore(reloadWidgets: { WidgetCenter.shared.reloadAllTimelines() })
 
-    init() { BackgroundRefreshTask.register() }
+    init() {
+        AppFonts.registerIfNeeded()
+        BackgroundRefreshTask.register()
+    }
 
     var body: some Scene {
         WindowGroup {

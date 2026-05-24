@@ -8,18 +8,18 @@ public enum Typography {
     nonisolated(unsafe) public static var currentTheme: FontTheme = .system
 
     public static func font(for token: Token, theme: FontTheme? = nil) -> Font {
-        let design = fontDesign(for: theme ?? currentTheme)
+        let t = theme ?? currentTheme
         switch token {
-        case .title:       return .system(size: 28, weight: .bold,     design: design)
-        case .headline:    return .system(size: 17, weight: .semibold, design: design)
-        case .body:        return .system(size: 15, weight: .regular,  design: design)
-        case .caption:     return .system(size: 12, weight: .medium,   design: design)
+        case .title:       return .uma(28, weight: .bold,     theme: t)
+        case .headline:    return .uma(17, weight: .semibold, theme: t)
+        case .body:        return .uma(15, weight: .regular,  theme: t)
+        case .caption:     return .uma(12, weight: .medium,   theme: t)
         case .monoCaption: return .system(size: 11, weight: .semibold, design: .monospaced)
         }
     }
 
     public static func systemFont(size: CGFloat, weight: Font.Weight = .regular, theme: FontTheme? = nil) -> Font {
-        .system(size: size, weight: weight, design: fontDesign(for: theme ?? currentTheme))
+        .uma(size, weight: weight, theme: theme ?? currentTheme)
     }
 
     public static func fontDesign(for theme: FontTheme) -> Font.Design {

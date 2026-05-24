@@ -39,7 +39,7 @@ struct EventDetailView: View {
             RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 14)
             if let p = card.period {
                 Text("\(L.string(.detailFieldPeriod)) · \(PeriodFormatter.range(p))")
-                    .font(.system(size: 12)).foregroundStyle(WidgetColors.muted).padding(.top, 2)
+                    .font(.uma(12)).foregroundStyle(WidgetColors.muted).padding(.top, 2)
             }
         }
         .padding(14)
@@ -54,7 +54,7 @@ struct EventDetailView: View {
                 .frame(maxWidth: .infinity, maxHeight: 210)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         }
-        Text(track.distanceLine).font(.system(size: 14, weight: .bold)).foregroundStyle(WidgetColors.title)
+        Text(track.distanceLine).font(.uma(14, weight: .bold)).foregroundStyle(WidgetColors.title)
         let chips = track.conditionChips
         if !chips.isEmpty {
             ConditionChipsWrap(chips: chips)
@@ -69,7 +69,7 @@ struct EventDetailView: View {
 
     private var disclaimer: some View {
         Text(L.string(.legalDisclaimer))
-            .font(.system(size: 10)).foregroundStyle(WidgetColors.muted)
+            .font(.uma(10)).foregroundStyle(WidgetColors.muted)
             .padding(.top, 4)
     }
 }
@@ -79,7 +79,7 @@ struct SectionLabel: View {
     let key: L.Key
     init(_ key: L.Key) { self.key = key }
     var body: some View {
-        Text(L.string(key)).font(.system(size: 11, weight: .bold))
+        Text(L.string(key)).font(.uma(11, weight: .bold))
             .foregroundStyle(WidgetColors.muted).textCase(.uppercase)
             .padding(.top, 6)
     }
@@ -94,7 +94,7 @@ struct ConditionChipsWrap: View {
             ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
                 HStack(spacing: 6) {
                     ForEach(row, id: \.self) { c in
-                        Text(c).font(.system(size: 11)).foregroundStyle(WidgetColors.subtitle)
+                        Text(c).font(.uma(11)).foregroundStyle(WidgetColors.subtitle)
                             .padding(.horizontal, 9).padding(.vertical, 4)
                             .background(Color.primary.opacity(0.05)).clipShape(Capsule())
                     }
@@ -119,14 +119,14 @@ struct PhaseTimeline: View {
                         .fill(ph.date <= now || isCurrent ? accent : Color.clear)
                         .frame(width: 9, height: 9)
                         .overlay(Circle().stroke(accent, lineWidth: 2))
-                    Text(ph.label).font(.system(size: 13, weight: .semibold)).foregroundStyle(WidgetColors.title)
+                    Text(ph.label).font(.uma(13, weight: .semibold)).foregroundStyle(WidgetColors.title)
                     if isCurrent {
                         Text(CountdownFormatter.ddayLabel(days: CountdownFormatter.daysUntil(ph.date, from: now)))
-                            .font(.system(size: 10, weight: .bold)).foregroundStyle(accent)
+                            .font(.uma(10, weight: .bold)).foregroundStyle(accent)
                     }
                     Spacer()
                     Text(PeriodFormatter.startShort(EventPeriod(start: ph.date, end: ph.date)))
-                        .font(.system(size: 12)).foregroundStyle(WidgetColors.subtitle)
+                        .font(.uma(12)).foregroundStyle(WidgetColors.subtitle)
                 }
                 .padding(.vertical, 8)
                 if idx < sorted.count - 1 { Divider() }
@@ -151,7 +151,7 @@ struct PickupDetailBody: View {
                     DDayStack(targetDate: card.targetDate, now: now, dateText: card.phaseLabel, ddaySize: 30, dateSize: 11)
                 }
                 Text("\(L.string(.detailFieldPeriod)) · \(PeriodFormatter.range(pickup.period))")
-                    .font(.system(size: 13, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
+                    .font(.uma(13, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -159,7 +159,7 @@ struct PickupDetailBody: View {
 
             // Trainees
             if !pickup.trainees.isEmpty {
-                Text(L.string(.fieldTrainee)).font(.system(size: 13, weight: .heavy)).foregroundStyle(WidgetColors.title)
+                Text(L.string(.fieldTrainee)).font(.uma(13, weight: .heavy)).foregroundStyle(WidgetColors.title)
                 VStack(spacing: 0) {
                     ForEach(Array(pickup.trainees.enumerated()), id: \.offset) { idx, t in
                         let parsed = PickupFormatter.trainee(t)
@@ -167,7 +167,7 @@ struct PickupDetailBody: View {
                             if let stars = parsed.stars, let tier = RarityTier("\(stars)★") {
                                 RarityBadge(text: "\(stars)★", tier: tier)
                             }
-                            Text(parsed.name).font(.system(size: 14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
+                            Text(parsed.name).font(.uma(14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
                             Spacer()
                         }.padding(.vertical, 9)
                         if idx < pickup.trainees.count - 1 { Divider() }
@@ -178,13 +178,13 @@ struct PickupDetailBody: View {
 
             // Support cards (or a free-text note like "셀렉트 픽업")
             if !pickup.supportCards.isEmpty || (pickup.supportNote?.isEmpty == false) {
-                Text(L.string(.fieldSupport)).font(.system(size: 13, weight: .heavy)).foregroundStyle(WidgetColors.title)
+                Text(L.string(.fieldSupport)).font(.uma(13, weight: .heavy)).foregroundStyle(WidgetColors.title)
                 VStack(spacing: 0) {
                     if !pickup.supportCards.isEmpty {
                         ForEach(Array(pickup.supportCards.enumerated()), id: \.offset) { idx, s in
                             HStack(spacing: 8) {
                                 if let tier = RarityTier(s.rarity) { RarityBadge(text: s.rarity, tier: tier) }
-                                Text(s.name).font(.system(size: 14, weight: .semibold))
+                                Text(s.name).font(.uma(14, weight: .semibold))
                                     .foregroundStyle(SupportType.color(forType: s.type) ?? WidgetColors.raceName)
                                 Spacer()
                                 SupportTypeIcon(type: s.type, size: 20)
@@ -193,7 +193,7 @@ struct PickupDetailBody: View {
                         }
                     } else if let note = pickup.supportNote {
                         HStack {
-                            Text(note).font(.system(size: 14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
+                            Text(note).font(.uma(14, weight: .semibold)).foregroundStyle(WidgetColors.raceName)
                             Spacer()
                         }.padding(.vertical, 9)
                     }
