@@ -48,11 +48,11 @@ public struct LargeWidgetView: View {
                         .foregroundStyle(WidgetColors.cond)
                         .padding(.top, 1)
                 }
-                CourseLegend(style: .compact)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 8)
                 TrackImageView(track: t)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, 8)
+                CourseLegend(style: .compact)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 6)
             } else {
                 Spacer(minLength: 0)
