@@ -40,14 +40,14 @@ def _period(p: dict) -> EventPeriod:
     return EventPeriod(start=_day(p["start"]), end=_day(p["end"]), estimated=bool(p.get("estimated", True)))
 
 
-def _track(t: dict) -> TrackCondition:
+def _track(t: dict, race_name: str | None = None) -> TrackCondition:
     tc = TrackCondition(**{k: t.get(k) for k in
         ["racecourse","surface","distanceMeters","distanceClass","turn","courseSide","season","weather","ground","timeOfDay","imageURL","courseMap"]
         if k in t})
     if not tc.courseMap:  # resolve bundled course-map image from gametora data
         surface = tc.surface.value if hasattr(tc.surface, "value") else str(tc.surface)
         tc.courseMap = racetracks.course_image_name(
-            tc.racecourse, surface, tc.distanceMeters, tc.courseSide)
+            tc.racecourse, surface, tc.distanceMeters, tc.courseSide, race_name=race_name)
     return tc
 
 
@@ -72,7 +72,7 @@ def build_document(extracted: dict, *, source_post_no: int | None = None, now_is
         eid = _eid("cm", c.get("codeName", ""), c.get("raceName", ""), per.start.isoformat())
         cms.setdefault(eid, ChampionsMeeting(
             id=eid, codeName=c.get("codeName", ""), raceGrade=c.get("raceGrade"),
-            raceName=c.get("raceName", ""), track=_track(c["track"]), period=per, phases=_phases(per)))
+            raceName=c.get("raceName", ""), track=_track(c["track"], c.get("raceName")), period=per, phases=_phases(per)))
 
     lohs: dict[str, LeagueOfHeroes] = {}
     for l in extracted.get("leagueOfHeroes", []):
@@ -82,7 +82,7 @@ def build_document(extracted: dict, *, source_post_no: int | None = None, now_is
         eid = _eid("loh", l.get("round", ""), l.get("raceName", ""), per.start.isoformat())
         lohs.setdefault(eid, LeagueOfHeroes(
             id=eid, round=l.get("round", ""), raceName=l.get("raceName", ""),
-            track=_track(l["track"]), period=per, phases=_phases(per)))
+            track=_track(l["track"], l.get("raceName")), period=per, phases=_phases(per)))
 
     # Pickups: end = next pickup's start (chained, in chronological order).
     parsed_pks = [(_period(p["period"]), p) for p in extracted.get("pickups", []) if p.get("period")]

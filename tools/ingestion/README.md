@@ -118,6 +118,18 @@ no runtime download. Maps are bundled in `Core/.../Media.xcassets/Racetracks/`
 (15 racecourses / 119 courses; the newest overseas santa_anita + del_mar have no
 gametora "simple" map yet and fall back to the self-drawn diagram).
 
+Course resolution priority:
+1. **Race name + racecourse** → exact course via the `races` dataset
+   (`umaingest/data/races.json`). This is authoritative and resolves inner/outer
+   (内/外) automatically — e.g. `마일 챔피언십` @교토 → the outer 1600. Grade
+   prefixes (`G1 `…) and spacing are normalized.
+2. Fallback: `(racecourse, surface, distance)`, with the optional `코스` column
+   (`내`/`외`) disambiguating kyoto/niigata when the race name isn't recognized.
+
+```bash
+python3 -c "from umaingest import racetracks as rt; rt.refresh_races_snapshot()"  # refresh races
+```
+
 ```bash
 # (re)download all course maps into the asset catalog
 python3 crawl_racetracks.py            # missing only

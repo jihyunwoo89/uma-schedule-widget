@@ -34,6 +34,26 @@ def test_course_side_string_variants():
         assert rt.course_image_name("교토", "turf", 1600, course_side=s) == "course_10008_10804"
 
 
+def test_race_name_resolves_exact_course():
+    # authoritative race-name lookup (incl. grade-prefix / spacing normalization)
+    assert rt.course_image_name_by_race("벚꽃상", "한신") == "course_10009_10903"
+    assert rt.course_image_name_by_race("텐노상(봄)", "교토") == "course_10008_10811"
+    assert rt.course_image_name_by_race("G1 재팬 더트 더비", "오이") == "course_10101_11103"
+
+
+def test_race_name_resolves_inner_outer_ambiguity():
+    # 마일 챔피언십 at kyoto is the OUTER 1600 (10805) — race name disambiguates
+    assert rt.course_image_name("교토", "turf", 1600, race_name="마일 챔피언십") == "course_10008_10805"
+    # without race name it defaults to the lower id (inner)
+    assert rt.course_image_name("교토", "turf", 1600) == "course_10008_10804"
+
+
+def test_race_name_miss_falls_back_to_terrain_length():
+    # transliteration/abbrev mismatch → fall back; nakayama 1200 is unambiguous → correct
+    assert rt.course_image_name_by_race("G1 스프린터즈 S", "나카야마") is None
+    assert rt.course_image_name("나카야마", "turf", 1200, race_name="G1 스프린터즈 S") == "course_10005_10501"
+
+
 def test_unknown_returns_none():
     assert rt.course_image_name("없는경기장", "turf", 1600) is None
     assert rt.course_image_name("한신", "turf", 9999) is None

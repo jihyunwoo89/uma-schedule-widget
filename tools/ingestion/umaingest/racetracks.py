@@ -25,6 +25,7 @@ Course field semantics (from the gametora racetracks page bundle):
 from __future__ import annotations
 
 import json
+import re
 import ssl
 import time
 import urllib.request
@@ -44,6 +45,7 @@ _UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
        "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15")
 
 _SNAPSHOT = Path(__file__).with_name("data") / "racetracks_data.json"
+_RACES_SNAPSHOT = Path(__file__).with_name("data") / "races.json"
 
 # gametora racecourse id (id1) -> english slug
 SLUG_BY_ID: dict[str, str] = {
@@ -95,6 +97,66 @@ def load_data() -> list:
     return json.loads(_SNAPSHOT.read_text(encoding="utf-8"))
 
 
+# --- races (race-name → exact course, incl. 内/外) -------------------------
+def fetch_remote_races() -> list:
+    """Fetch the live races dataset (name_ko + track + course_id) via the manifest."""
+    manifest = _http_json(f"{DATA_HOST}/data/manifests/umamusume.json")
+    h = manifest["races"]
+    data = _http_json(f"{DATA_HOST}/data/umamusume/races.{h}.json")
+    return [{"name_ko": x.get("name_ko"), "track": str(x["track"]), "course_id": x["course_id"],
+             "distance": x.get("distance"), "terrain": x.get("terrain")}
+            for x in data if x.get("name_ko")]
+
+
+def refresh_races_snapshot() -> Path:
+    _RACES_SNAPSHOT.write_text(json.dumps(fetch_remote_races(), ensure_ascii=False), encoding="utf-8")
+    return _RACES_SNAPSHOT
+
+
+def load_races() -> list:
+    return json.loads(_RACES_SNAPSHOT.read_text(encoding="utf-8"))
+
+
+_GRADE_PREFIX = re.compile(r"^(?:G[123]|G[ⅠⅡⅢ]+|OP|EX)\s+")
+
+
+def _norm_race(name: str) -> str:
+    """Normalize a race name for matching: drop a leading grade prefix + all spaces."""
+    return _GRADE_PREFIX.sub("", (name or "").strip()).replace(" ", "")
+
+
+_race_index: dict | None = None
+
+
+def _races_by_key() -> dict:
+    """(normalized name_ko, track_id) → course_id. Conflicting keys map to None (skip)."""
+    global _race_index
+    if _race_index is None:
+        idx: dict = {}
+        for x in load_races():
+            if not x.get("name_ko"):
+                continue
+            key = (_norm_race(x["name_ko"]), str(x["track"]))
+            cid = x["course_id"]
+            if key in idx and idx[key] != cid:
+                idx[key] = None  # ambiguous (same name+track, different course) → unusable
+            else:
+                idx.setdefault(key, cid)
+        _race_index = idx
+    return _race_index
+
+
+def course_image_name_by_race(race_name: str | None, racecourse_kr: str) -> str | None:
+    """Authoritative course from the race name + racecourse (resolves 内/外). None if unknown."""
+    if not race_name:
+        return None
+    id1 = ID_BY_KR.get(racecourse_kr)
+    if id1 is None:
+        return None
+    cid = _races_by_key().get((_norm_race(race_name), id1))
+    return image_name(id1, cid) if cid is not None else None
+
+
 # --- mapping ---------------------------------------------------------------
 def image_name(id1: str, id2) -> str:
     """Stable bundled-asset base name for a course."""
@@ -115,15 +177,19 @@ def iter_courses(data: list | None = None):
 
 
 def course_image_name(racecourse_kr: str, surface: str, distance_m: int,
-                      course_side: str | None = None,
+                      course_side: str | None = None, race_name: str | None = None,
                       data: list | None = None) -> str | None:
     """Resolve a schedule TrackCondition to a bundled course-map image name.
 
-    Returns "course_{id1}_{id2}" or None if no racecourse/course matches.
-    When multiple courses share (terrain, length) — kyoto/niigata inner-vs-outer —
-    `course_side` ("inner"/"outer"/"내"/"외"/"1"/"2") disambiguates; otherwise the
-    lowest course id is chosen deterministically.
+    Priority:
+      1. `race_name` + racecourse → exact course (authoritative; resolves 内/外).
+      2. (terrain, length) match; `course_side` ("내"/"외"/…) disambiguates kyoto/
+         niigata inner-vs-outer, else the lowest course id is chosen deterministically.
+    Returns "course_{id1}_{id2}" or None if nothing matches.
     """
+    by_race = course_image_name_by_race(race_name, racecourse_kr)
+    if by_race is not None:
+        return by_race
     id1 = ID_BY_KR.get(racecourse_kr)
     if id1 is None:
         return None
