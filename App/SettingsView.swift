@@ -43,7 +43,17 @@ struct SettingsView: View {
 
             Section {
                 Text(L.string(.legalDisclaimer)).font(.footnote).foregroundStyle(.secondary)
-                Text(L.string(.legalImageSource)).font(.footnote).foregroundStyle(.secondary)
+                if let url = URL(string: "https://gametora.com/ko/umamusume") {
+                    Link(destination: url) {
+                        HStack(spacing: 4) {
+                            Text(L.string(.legalImageSource))
+                            Image(systemName: "arrow.up.right.square")
+                        }
+                        .font(.footnote)
+                    }
+                } else {
+                    Text(L.string(.legalImageSource)).font(.footnote).foregroundStyle(.secondary)
+                }
             }
         }
         .environment(\.editMode, .constant(.active))
