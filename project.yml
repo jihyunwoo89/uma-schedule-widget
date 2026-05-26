@@ -31,7 +31,10 @@ targets:
         CFBundleDisplayName: 우마스케쥴
         CFBundleLocalizations: [en, ko]
         ITSAppUsesNonExemptEncryption: false
-        UILaunchScreen: {}
+        UILaunchScreen:
+          UIImageName: LaunchLogo
+          UIColorName: LaunchBackground
+          UIImageRespectsSafeAreaInsets: false
         UIBackgroundModes: [fetch, processing]
         BGTaskSchedulerPermittedIdentifiers:
           - com.damienjee.umaschedule.refresh
