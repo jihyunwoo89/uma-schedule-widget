@@ -94,3 +94,5 @@
 "settings.refresh.failed.title" = "Refresh failed";
 "settings.refresh.failed.body" = "Check your connection and try again.";
 "common.ok" = "OK";
+
+"splash.loading" = "Loading…";

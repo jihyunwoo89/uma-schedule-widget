@@ -94,3 +94,5 @@
 "settings.refresh.failed.title" = "새로고침 실패";
 "settings.refresh.failed.body" = "네트워크 연결을 확인하고 다시 시도해 주세요.";
 "common.ok" = "확인";
+
+"splash.loading" = "로딩 중";

@@ -39,6 +39,7 @@ public enum L {
         case settingsRefreshFailedTitle = "settings.refresh.failed.title"
         case settingsRefreshFailedBody  = "settings.refresh.failed.body"
         case commonOK                   = "common.ok"
+        case splashLoading              = "splash.loading"
 
         // Legal
         case legalDisclaimer = "legal.disclaimer"

@@ -1,4 +1,5 @@
 import SwiftUI
+import UmaCore
 
 /// In-app start screen shown while the initial schedule loads. Visually identical to the
 /// static iOS launch screen (same horseshoe + cream) so the handoff is seamless, then it
@@ -15,7 +16,7 @@ struct SplashView: View {
                 Spacer()
                 ProgressView()
                     .tint(ink.opacity(0.55))
-                Text("우마스케쥴")
+                Text(L.string(.splashLoading))
                     .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(ink.opacity(0.5))
                     .padding(.top, 12)
