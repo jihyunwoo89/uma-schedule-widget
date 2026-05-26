@@ -43,6 +43,7 @@ struct SettingsView: View {
 
             Section {
                 Text(L.string(.legalDisclaimer)).font(.footnote).foregroundStyle(.secondary)
+                Text(L.string(.legalImageSource)).font(.footnote).foregroundStyle(.secondary)
             }
         }
         .environment(\.editMode, .constant(.active))

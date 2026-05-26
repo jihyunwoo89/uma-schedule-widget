@@ -43,6 +43,7 @@ public enum L {
 
         // Legal
         case legalDisclaimer = "legal.disclaimer"
+        case legalImageSource = "legal.image_source"
 
         // Field labels
         case fieldTrainee     = "field.trainee"
