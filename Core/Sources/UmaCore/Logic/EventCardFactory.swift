@@ -44,13 +44,11 @@ public enum EventCardFactory {
                .map { $0.0 }
     }
 
+    /// Pickups are shown by the *next* (upcoming) banner, not the one currently running —
+    /// so only future pickups (start in the future), soonest first.
     public static func upcomingPickups(_ pickups: [PickupPeriod], now: Date) -> [PickupPeriod] {
-        pickups.filter { now < $0.period.end }
-               .sorted { lhs, rhs in
-                   let lt = lhs.period.start > now ? lhs.period.start : lhs.period.end
-                   let rt = rhs.period.start > now ? rhs.period.start : rhs.period.end
-                   return lt < rt
-               }
+        pickups.filter { $0.period.start > now }
+               .sorted { $0.period.start < $1.period.start }
     }
 
     // MARK: - "Soonest" (array) factory methods — refactored to reuse upcoming lists
@@ -66,25 +64,17 @@ public enum EventCardFactory {
         return leagueCard(for: loh, now: now)
     }
 
-    /// Active pickup (now within period) preferred; else the soonest upcoming.
+    /// The next (upcoming) pickup as a card; falls back to a currently-active one only
+    /// when there is no upcoming pickup left in the schedule.
     public static func pickupCard(_ pickups: [PickupPeriod], now: Date) -> EventCard? {
-        let active = pickups
-            .filter { now >= $0.period.start && now < $0.period.end }
-            .sorted { $0.period.end < $1.period.end }
-            .first
-        if let p = active {
-            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
-                             period: p.period, phaseLabel: "종료까지", targetDate: p.period.end, status: .active,
-                             trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
+        if let next = upcomingPickups(pickups, now: now).first {
+            return pickupCard(for: next, now: now)
         }
-        let upcoming = pickups
-            .filter { $0.period.start > now }
-            .sorted { $0.period.start < $1.period.start }
-            .first
-        if let p = upcoming {
-            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
-                             period: p.period, phaseLabel: "시작까지", targetDate: p.period.start, status: .upcoming,
-                             trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
+        if let active = pickups
+            .filter({ now >= $0.period.start && now < $0.period.end })
+            .sorted(by: { $0.period.end < $1.period.end })
+            .first {
+            return pickupCard(for: active, now: now)
         }
         return nil
     }

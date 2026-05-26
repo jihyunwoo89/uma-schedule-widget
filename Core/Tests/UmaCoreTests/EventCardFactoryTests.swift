@@ -84,6 +84,27 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(card.targetDate, d(150))
     }
 
+    func test_pickupCard_prefersNextOverCurrentlyActive() {
+        let active = PickupPeriod(id: "now", period: EventPeriod(start: d(100), end: d(300)),
+                                  trainees: ["현재 픽업"], supportCards: [])
+        let next = PickupPeriod(id: "next", period: EventPeriod(start: d(300), end: d(500)),
+                                trainees: ["다음 픽업"], supportCards: [])
+        // now is inside the active pickup, but the NEXT pickup should be shown
+        let card = EventCardFactory.pickupCard([active, next], now: d(200))!
+        XCTAssertEqual(card.title, "다음 픽업")
+        XCTAssertEqual(card.status, .upcoming)
+        XCTAssertEqual(card.phaseLabel, "시작까지")
+        XCTAssertEqual(card.targetDate, d(300))
+    }
+
+    func test_upcomingPickups_excludesCurrentlyActive() {
+        let active = PickupPeriod(id: "now", period: EventPeriod(start: d(100), end: d(300)),
+                                  trainees: ["A"], supportCards: [])
+        let next = PickupPeriod(id: "next", period: EventPeriod(start: d(300), end: d(500)),
+                                trainees: ["B"], supportCards: [])
+        XCTAssertEqual(EventCardFactory.upcomingPickups([active, next], now: d(200)).map { $0.id }, ["next"])
+    }
+
     func test_leagueCard_buildsFromRoundAndTrack() {
         let card = EventCardFactory.leagueCard(doc().leagueOfHeroes, now: d(50))!
         XCTAssertEqual(card.category, .leagueOfHeroes)
