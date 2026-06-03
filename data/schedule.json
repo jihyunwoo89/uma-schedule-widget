@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-05-23T01:51:00Z",
+  "updatedAt": "2026-06-03T12:32:50Z",
   "sourcePostNo": null,
   "server": "kr",
   "championsMeetings": [
@@ -151,6 +151,191 @@
           "date": "2026-11-19T00:00:00Z"
         }
       ]
+    },
+    {
+      "id": "cm-92ba3ee779",
+      "codeName": "CLASSIC",
+      "raceGrade": "G1",
+      "raceName": "추화상",
+      "track": {
+        "racecourse": "교토",
+        "surface": "turf",
+        "distanceMeters": 2000,
+        "distanceClass": "medium",
+        "turn": "clockwise",
+        "courseSide": null,
+        "season": "가을",
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10008_10807"
+      },
+      "period": {
+        "start": "2027-01-11T00:00:00Z",
+        "end": "2027-01-17T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-01-11T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-01-17T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cm-8a5b598665",
+      "codeName": "SPRINT",
+      "raceGrade": "G3",
+      "raceName": "니이가타 주니어 S",
+      "track": {
+        "racecourse": "니이가타",
+        "surface": "turf",
+        "distanceMeters": 1200,
+        "distanceClass": "sprint",
+        "turn": "counterclockwise",
+        "courseSide": null,
+        "season": "가을",
+        "weather": "흐림",
+        "ground": "양호",
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10003_10302"
+      },
+      "period": {
+        "start": "2027-02-11T00:00:00Z",
+        "end": "2027-02-17T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-02-11T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-02-17T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cm-c251b6f072",
+      "codeName": "MILE",
+      "raceGrade": "G1",
+      "raceName": "아사히배 퓨처러티 S",
+      "track": {
+        "racecourse": "한신",
+        "surface": "turf",
+        "distanceMeters": 1600,
+        "distanceClass": "mile",
+        "turn": "clockwise",
+        "courseSide": null,
+        "season": "겨울",
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10009_10903"
+      },
+      "period": {
+        "start": "2027-04-11T00:00:00Z",
+        "end": "2027-04-17T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-04-11T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-04-17T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cm-c7e085e361",
+      "codeName": "LONG",
+      "raceGrade": "G1",
+      "raceName": "아리마 기념",
+      "track": {
+        "racecourse": "나카야마",
+        "surface": "turf",
+        "distanceMeters": 2500,
+        "distanceClass": "long",
+        "turn": "clockwise",
+        "courseSide": null,
+        "season": "겨울",
+        "weather": "맑음",
+        "ground": "양호",
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10005_10506"
+      },
+      "period": {
+        "start": "2027-05-13T00:00:00Z",
+        "end": "2027-05-19T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-05-13T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-05-19T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cm-15d82003c4",
+      "codeName": "CLASSIC",
+      "raceGrade": "G1",
+      "raceName": "브리더스 컵",
+      "track": {
+        "racecourse": "델마",
+        "surface": "turf",
+        "distanceMeters": 2200,
+        "distanceClass": "medium",
+        "turn": "counterclockwise",
+        "courseSide": null,
+        "season": "봄",
+        "weather": "맑음",
+        "ground": "다습",
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10203_11703"
+      },
+      "period": {
+        "start": "2027-07-11T00:00:00Z",
+        "end": "2027-07-17T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-07-11T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-07-17T00:00:00Z"
+        }
+      ]
     }
   ],
   "leagueOfHeroes": [
@@ -223,6 +408,114 @@
           "kind": "ended",
           "label": "종료",
           "date": "2026-09-24T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "loh-6d1250b1cd",
+      "round": "12회차",
+      "raceName": "OP 삿포로 닛케이 오픈",
+      "track": {
+        "racecourse": "삿포로",
+        "surface": "turf",
+        "distanceMeters": 2600,
+        "distanceClass": "long",
+        "turn": "clockwise",
+        "courseSide": null,
+        "season": "여름",
+        "weather": null,
+        "ground": null,
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10001_10105"
+      },
+      "period": {
+        "start": "2026-12-04T00:00:00Z",
+        "end": "2026-12-13T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2026-12-04T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2026-12-13T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "loh-c0967975a6",
+      "round": "13회차",
+      "raceName": "G1 마일 챔피언십 남부배",
+      "track": {
+        "racecourse": "모리오카",
+        "surface": "dirt",
+        "distanceMeters": 1600,
+        "distanceClass": "mile",
+        "turn": "counterclockwise",
+        "courseSide": null,
+        "season": "가을",
+        "weather": null,
+        "ground": null,
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10105_11502"
+      },
+      "period": {
+        "start": "2027-03-12T00:00:00Z",
+        "end": "2027-03-21T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-03-12T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-03-21T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "loh-1813430966",
+      "round": "14회차",
+      "raceName": "G1 야스다 기념",
+      "track": {
+        "racecourse": "도쿄",
+        "surface": "turf",
+        "distanceMeters": 1600,
+        "distanceClass": "mile",
+        "turn": null,
+        "courseSide": null,
+        "season": null,
+        "weather": null,
+        "ground": null,
+        "timeOfDay": "낮",
+        "imageURL": null,
+        "courseMap": "course_10006_10602"
+      },
+      "period": {
+        "start": "2027-06-06T00:00:00Z",
+        "end": "2027-06-15T00:00:00Z",
+        "estimated": true
+      },
+      "phases": [
+        {
+          "kind": "open",
+          "label": "오픈",
+          "date": "2027-06-06T00:00:00Z"
+        },
+        {
+          "kind": "ended",
+          "label": "종료",
+          "date": "2027-06-15T00:00:00Z"
         }
       ]
     }
@@ -581,11 +874,508 @@
       "id": "pk-38674a7951",
       "period": {
         "start": "2026-12-03T00:00:00Z",
-        "end": "2026-12-17T00:00:00Z",
+        "end": "2026-12-13T00:00:00Z",
         "estimated": true
       },
       "trainees": [
         "수영복 비블로스 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-57e6210d78",
+      "period": {
+        "start": "2026-12-13T00:00:00Z",
+        "end": "2026-12-18T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "스틸 인 러브 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "스테이 골드",
+          "type": "근성"
+        },
+        {
+          "rarity": "SSR",
+          "name": "어드마이어 그루브",
+          "type": "스피드"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-85c2e83d0d",
+      "period": {
+        "start": "2026-12-18T00:00:00Z",
+        "end": "2026-12-29T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "홀쭉 케이에스 미라클 3★",
+        "뚠뚠 히시 미라클 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "칼스톤 라이트 오",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SSR",
+          "name": "뒤랑달",
+          "type": "지능"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-81ff9a238f",
+      "period": {
+        "start": "2026-12-29T00:00:00Z",
+        "end": "2027-01-08T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "에스푸와르 시티 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "다이이치 루비",
+          "type": "근성"
+        },
+        {
+          "rarity": "SR",
+          "name": "비코 페가수스",
+          "type": "지능"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-0fc21df193",
+      "period": {
+        "start": "2027-01-08T00:00:00Z",
+        "end": "2027-01-18T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "빌리브 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-fdc8d9a853",
+      "period": {
+        "start": "2027-01-18T00:00:00Z",
+        "end": "2027-01-29T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "할로윈 히시 아케보노 3★",
+        "할로윈 마블러스 선데이 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "후지 키세키",
+          "type": "근성"
+        },
+        {
+          "rarity": "SSR",
+          "name": "에이신 플래시",
+          "type": "스피드"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-c3dcfde702",
+      "period": {
+        "start": "2027-01-29T00:00:00Z",
+        "end": "2027-02-06T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "할로윈 토센 조던 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "카렌 부케도르",
+          "type": "스태미나"
+        },
+        {
+          "rarity": "SR",
+          "name": "사쿠라 치토세 오",
+          "type": "스피드"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-7cfe52f93e",
+      "period": {
+        "start": "2027-02-06T00:00:00Z",
+        "end": "2027-02-17T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "단츠 플레임 3★",
+        "정글 포켓 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-f863c8095f",
+      "period": {
+        "start": "2027-02-17T00:00:00Z",
+        "end": "2027-03-01T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "온천 트랜센드 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "호시나 키요코",
+          "type": "친구"
+        },
+        {
+          "rarity": "SSR",
+          "name": "토카이 테이오",
+          "type": "스피드"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-d75aac6545",
+      "period": {
+        "start": "2027-03-01T00:00:00Z",
+        "end": "2027-03-10T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "온천 원더 어큐트 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "미호노 부르봉",
+          "type": "파워"
+        },
+        {
+          "rarity": "SR",
+          "name": "홋코 타루마에",
+          "type": "파워"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-2a897b58e7",
+      "period": {
+        "start": "2027-03-10T00:00:00Z",
+        "end": "2027-03-19T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "부에나 비스타 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-63df933e59",
+      "period": {
+        "start": "2027-03-19T00:00:00Z",
+        "end": "2027-04-01T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "크리스마스 나카야마 페스타 3★",
+        "크리스마스 드림 저니 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "골드 쉽",
+          "type": "스태미나"
+        },
+        {
+          "rarity": "SSR",
+          "name": "페노메노",
+          "type": "스태미나"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-36d1d7be38",
+      "period": {
+        "start": "2027-04-01T00:00:00Z",
+        "end": "2027-04-11T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "신데렐라 그레이 오구리 캡 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "이나리 원",
+          "type": "스태미나"
+        },
+        {
+          "rarity": "SR",
+          "name": "메지로 도베르",
+          "type": "스피드"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-6d21fe648c",
+      "period": {
+        "start": "2027-04-11T00:00:00Z",
+        "end": "2027-04-16T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "스테이 골드 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-be0cd33ed0",
+      "period": {
+        "start": "2027-04-16T00:00:00Z",
+        "end": "2027-04-29T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "새해 이쿠노 딕터스 3★",
+        "새해 사쿠라 로렐 3★",
+        "젠틸돈나 3★",
+        "오르페브르 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "에어 그루브",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SSR",
+          "name": "파인 모션",
+          "type": "파워"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-782985a650",
+      "period": {
+        "start": "2027-04-29T00:00:00Z",
+        "end": "2027-05-10T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "새해 버블검 펠로 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "킹 헤일로",
+          "type": "근성"
+        },
+        {
+          "rarity": "SR",
+          "name": "사토노 다이아몬드",
+          "type": "스태미나"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-5ce4adb87c",
+      "period": {
+        "start": "2027-05-10T00:00:00Z",
+        "end": "2027-05-21T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "키세키 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-f03f3d9a83",
+      "period": {
+        "start": "2027-05-21T00:00:00Z",
+        "end": "2027-06-05T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "발렌타인 타이키 셔틀 3★",
+        "발렌타인 사운즈 오브 어스 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "마치카네 후쿠키타루",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SSR",
+          "name": "네오 유니버스",
+          "type": "파워"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-6d08464502",
+      "period": {
+        "start": "2027-06-05T00:00:00Z",
+        "end": "2027-06-15T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "로이스 앤 로이스 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-00945ff8ec",
+      "period": {
+        "start": "2027-06-15T00:00:00Z",
+        "end": "2027-06-30T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "아몬드 아이 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "포에버 영",
+          "type": "지능"
+        },
+        {
+          "rarity": "SSR",
+          "name": "카지노 드라이브",
+          "type": "친구"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-09581c8d05",
+      "period": {
+        "start": "2027-06-30T00:00:00Z",
+        "end": "2027-07-08T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "Beyond Dreams 러브즈 온리 유 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "마르슈 로렌",
+          "type": "스피드"
+        },
+        {
+          "rarity": "SR",
+          "name": "슈퍼 크릭",
+          "type": "파워"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-a9d7f07411",
+      "period": {
+        "start": "2027-07-08T00:00:00Z",
+        "end": "2027-07-19T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "빅투아르 피사 3★"
+      ],
+      "supportCards": [],
+      "supportNote": "셀렉트 픽업"
+    },
+    {
+      "id": "pk-6bcf72ce95",
+      "period": {
+        "start": "2027-07-19T00:00:00Z",
+        "end": "2027-07-30T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "무도회 사쿠라 바쿠신 오 3★",
+        "무도회 노스 플라이트 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "데어링 택트",
+          "type": "근성"
+        },
+        {
+          "rarity": "SSR",
+          "name": "데어링 하트",
+          "type": "근성"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-45ccf21ab7",
+      "period": {
+        "start": "2027-07-30T00:00:00Z",
+        "end": "2027-08-09T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "럭키 라일락 3★"
+      ],
+      "supportCards": [
+        {
+          "rarity": "SSR",
+          "name": "애스턴 마짱",
+          "type": "근성"
+        },
+        {
+          "rarity": "SR",
+          "name": "히시 아마존",
+          "type": "지능"
+        }
+      ],
+      "supportNote": null
+    },
+    {
+      "id": "pk-fb7beac29b",
+      "period": {
+        "start": "2027-08-09T00:00:00Z",
+        "end": "2027-08-19T00:00:00Z",
+        "estimated": true
+      },
+      "trainees": [
+        "어드마이어 그루브 3★"
       ],
       "supportCards": [],
       "supportNote": "셀렉트 픽업"
