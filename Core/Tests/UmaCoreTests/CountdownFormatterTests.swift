@@ -23,8 +23,10 @@ final class CountdownFormatterTests: XCTestCase {
         XCTAssertEqual(CountdownFormatter.ddayLabel(days: 5), "D-5")
     }
 
-    func test_ddayLabel_negativeClampsToDDay() {
-        XCTAssertEqual(CountdownFormatter.ddayLabel(days: -3), "D-DAY")
+    func test_ddayLabel_negativeIsInProgress() {
+        // a passed start date (running event) shows the localized "진행 중"
+        XCTAssertEqual(CountdownFormatter.ddayLabel(days: -3), L.string(.commonInProgress))
+        XCTAssertNotEqual(CountdownFormatter.ddayLabel(days: -3), "D-DAY")
     }
 
     func test_daysUntil_pastTargetIsNegative() {

@@ -35,12 +35,15 @@ final class ScheduledEventTests: XCTestCase {
         XCTAssertEqual(r.status, .ended)
     }
 
-    func test_targetDate_isNextPhaseDate_whenUpcoming() {
-        XCTAssertEqual(cm().resolution(now: d(150)).targetDate, d(200))
+    func test_targetDate_isStartDate_whenUpcoming() {
+        // before open: D-day counts toward the start date
+        XCTAssertEqual(cm().resolution(now: d(50)).targetDate, d(100))
     }
 
-    func test_targetDate_isEndDate_whenNoUpcomingPhaseButNotEnded() {
-        XCTAssertEqual(cm().resolution(now: d(350)).targetDate, d(400))
+    func test_targetDate_isStartDate_whileActive() {
+        // running (now between open and end): D-day still references the start date
+        XCTAssertEqual(cm().resolution(now: d(150)).targetDate, d(100))
+        XCTAssertEqual(cm().resolution(now: d(350)).targetDate, d(100))
     }
 
     func test_exactlyAtOpenDate_isActive_nextPhaseIsRound1() {

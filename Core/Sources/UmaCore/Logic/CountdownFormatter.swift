@@ -8,8 +8,10 @@ public enum CountdownFormatter {
         return calendar.dateComponents([.day], from: a, to: b).day ?? 0
     }
 
-    /// "D-DAY" when 0, "D-n" otherwise. (Negative clamps to D-DAY.)
+    /// "D-n" when the target is in the future, "D-DAY" on the day itself, and the
+    /// localized "진행 중" once it has passed (event already started / running).
     public static func ddayLabel(days: Int) -> String {
-        days <= 0 ? "D-DAY" : "D-\(days)"
+        if days < 0 { return L.string(.commonInProgress) }
+        return days == 0 ? "D-DAY" : "D-\(days)"
     }
 }
