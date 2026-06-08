@@ -86,9 +86,10 @@ def test_parse_kr_fixture_counts_and_fields():
     assert pk["trainees"] == ["발렌타인 애스턴 마짱 3★", "발렌타인 야마닌 제퍼 3★"]
     assert pk["supportCards"] == [{"rarity":"SSR","name":"카렌짱","type":"근성"},
                                   {"rarity":"SSR","name":"이쿠노 딕터스","type":"지능"}]
-    # "셀렉트 픽업" pickup -> no structured cards
+    # "셀렉트 픽업" pickup -> no structured cards, kept as a free-text note
     select = d["pickups"][1]
     assert select["supportCards"] == []
+    assert select["supportNote"] == "셀렉트 픽업"
 
 def test_parse_csv_autodetects_kr():
     d = parse_csv(_kr_fixture())   # parse_csv should route to KR parser via the 날짜 header

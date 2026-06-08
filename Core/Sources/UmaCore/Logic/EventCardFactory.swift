@@ -2,64 +2,79 @@ import Foundation
 
 public enum EventCardFactory {
 
+    // MARK: - Per-item factory methods
+
+    public static func championsCard(for cm: ChampionsMeeting, now: Date) -> EventCard {
+        let r = cm.resolution(now: now)
+        return EventCard(category: .championsMeeting, title: cm.codeName, subtitle: cm.raceName,
+                         track: cm.track, period: cm.period, phaseLabel: phaseLabel(for: r),
+                         targetDate: r.targetDate, status: r.status, raceGrade: cm.raceGrade)
+    }
+
+    public static func leagueCard(for loh: LeagueOfHeroes, now: Date) -> EventCard {
+        let r = loh.resolution(now: now)
+        let (grade, name) = GradeParse.leading(loh.raceName)
+        return EventCard(category: .leagueOfHeroes, title: loh.round, subtitle: name,
+                         track: loh.track, period: loh.period, phaseLabel: phaseLabel(for: r),
+                         targetDate: r.targetDate, status: r.status, raceGrade: grade)
+    }
+
+    public static func pickupCard(for p: PickupPeriod, now: Date) -> EventCard {
+        let upcoming = p.period.start > now
+        let status: EventStatus = upcoming ? .upcoming : (now < p.period.end ? .active : .ended)
+        return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
+                         period: p.period, phaseLabel: upcoming ? "시작까지" : "종료까지",
+                         targetDate: upcoming ? p.period.start : p.period.end, status: status,
+                         trainees: p.trainees, supportCards: p.supportCards, supportNote: p.supportNote)
+    }
+
+    // MARK: - Upcoming list factory methods
+
+    public static func upcomingChampions(_ meetings: [ChampionsMeeting], now: Date) -> [ChampionsMeeting] {
+        meetings.map { ($0, $0.resolution(now: now)) }
+                .filter { $0.1.status != .ended }
+                .sorted { $0.1.targetDate < $1.1.targetDate }
+                .map { $0.0 }
+    }
+
+    public static func upcomingLeagues(_ leagues: [LeagueOfHeroes], now: Date) -> [LeagueOfHeroes] {
+        leagues.map { ($0, $0.resolution(now: now)) }
+               .filter { $0.1.status != .ended }
+               .sorted { $0.1.targetDate < $1.1.targetDate }
+               .map { $0.0 }
+    }
+
+    /// Pickups are shown by the *next* (upcoming) banner, not the one currently running —
+    /// so only future pickups (start in the future), soonest first.
+    public static func upcomingPickups(_ pickups: [PickupPeriod], now: Date) -> [PickupPeriod] {
+        pickups.filter { $0.period.start > now }
+               .sorted { $0.period.start < $1.period.start }
+    }
+
+    // MARK: - "Soonest" (array) factory methods — refactored to reuse upcoming lists
+
     /// The soonest non-ended Champions Meeting as a card, or nil if all are ended/empty.
     public static func championsCard(_ meetings: [ChampionsMeeting], now: Date) -> EventCard? {
-        let candidate = meetings
-            .map { ($0, $0.resolution(now: now)) }
-            .filter { $0.1.status != .ended }
-            .sorted { $0.1.targetDate < $1.1.targetDate }
-            .first
-        guard let (cm, r) = candidate else { return nil }
-        return EventCard(
-            category: .championsMeeting,
-            title: cm.codeName,
-            subtitle: [cm.raceGrade, cm.raceName].compactMap { $0 }.joined(separator: " "),
-            track: cm.track,
-            period: cm.period,
-            phaseLabel: phaseLabel(for: r),
-            targetDate: r.targetDate,
-            status: r.status
-        )
+        guard let cm = upcomingChampions(meetings, now: now).first else { return nil }
+        return championsCard(for: cm, now: now)
     }
 
     public static func leagueCard(_ leagues: [LeagueOfHeroes], now: Date) -> EventCard? {
-        let candidate = leagues
-            .map { ($0, $0.resolution(now: now)) }
-            .filter { $0.1.status != .ended }
-            .sorted { $0.1.targetDate < $1.1.targetDate }
-            .first
-        guard let (loh, r) = candidate else { return nil }
-        return EventCard(
-            category: .leagueOfHeroes,
-            title: loh.round,
-            subtitle: loh.raceName,
-            track: loh.track,
-            period: loh.period,
-            phaseLabel: phaseLabel(for: r),
-            targetDate: r.targetDate,
-            status: r.status
-        )
+        guard let loh = upcomingLeagues(leagues, now: now).first else { return nil }
+        return leagueCard(for: loh, now: now)
     }
 
-    /// Active pickup (now within period) preferred; else the soonest upcoming.
+    /// The next (upcoming) pickup as a card; falls back to a currently-active one only
+    /// when there is no upcoming pickup left in the schedule.
     public static func pickupCard(_ pickups: [PickupPeriod], now: Date) -> EventCard? {
-        let active = pickups
-            .filter { now >= $0.period.start && now < $0.period.end }
-            .sorted { $0.period.end < $1.period.end }
-            .first
-        if let p = active {
-            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
-                             period: p.period, phaseLabel: "종료까지", targetDate: p.period.end, status: .active,
-                             trainees: p.trainees, supportCards: p.supportCards)
+        if let next = upcomingPickups(pickups, now: now).first {
+            return pickupCard(for: next, now: now)
         }
-        let upcoming = pickups
-            .filter { $0.period.start > now }
-            .sorted { $0.period.start < $1.period.start }
-            .first
-        if let p = upcoming {
-            return EventCard(category: .gacha, title: p.trainees.joined(separator: ", "),
-                             period: p.period, phaseLabel: "시작까지", targetDate: p.period.start, status: .upcoming,
-                             trainees: p.trainees, supportCards: p.supportCards)
+        if let active = pickups
+            .filter({ now >= $0.period.start && now < $0.period.end })
+            .sorted(by: { $0.period.end < $1.period.end })
+            .first {
+            return pickupCard(for: active, now: now)
         }
         return nil
     }

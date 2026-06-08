@@ -28,8 +28,9 @@ public extension ScheduledEvent {
             status = .upcoming
         }
 
-        // Target the next upcoming phase; if none remain but not ended, target the end.
-        let target = next?.date ?? endDate ?? now
+        // D-day always counts toward the event's START date (the open phase / first phase).
+        // Once started, the start is in the past so the D-day reads "D-DAY" while running.
+        let target = firstStart ?? endDate ?? now
         return PhaseResolution(nextPhase: next, status: status, targetDate: target)
     }
 }

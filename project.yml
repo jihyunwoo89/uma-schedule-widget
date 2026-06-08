@@ -27,11 +27,14 @@ targets:
       path: App/Info.plist
       properties:
         CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "1"
-        CFBundleDisplayName: 우마 스케줄
+        CFBundleVersion: "13"
+        CFBundleDisplayName: 우마스케쥴
         CFBundleLocalizations: [en, ko]
         ITSAppUsesNonExemptEncryption: false
-        UILaunchScreen: {}
+        UILaunchScreen:
+          UIImageName: LaunchLogo
+          UIColorName: LaunchBackground
+          UIImageRespectsSafeAreaInsets: false
         UIBackgroundModes: [fetch, processing]
         BGTaskSchedulerPermittedIdentifiers:
           - com.damienjee.umaschedule.refresh
@@ -57,8 +60,8 @@ targets:
       path: Widgets/Info.plist
       properties:
         CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "1"
-        CFBundleDisplayName: 우마 스케줄
+        CFBundleVersion: "13"
+        CFBundleDisplayName: 우마스케쥴
         CFBundleLocalizations: [en, ko]
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension

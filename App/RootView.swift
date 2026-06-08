@@ -1,60 +1,47 @@
 import SwiftUI
-import WidgetKit
 import UmaCore
 
-/// App home: shows a live preview of each category's next event (so the app is useful on
-/// its own) plus a link to Settings. Data comes from the same ScheduleRepository the widget
-/// uses; loaded once on appear.
+/// App root: shows the splash while the initial schedule loads, then the tab bar.
 struct RootView: View {
     @Bindable var prefs: PrefsStore
-    @State private var document: ScheduleDocument?
-    @State private var loadFailed = false
+    @State private var ready = false
+    @State private var dataReady = false
 
     var body: some View {
-        NavigationStack {
-            List {
-                if let doc = document {
-                    ForEach(prefs.prefs.categoryOrder, id: \.self) { category in
-                        Section(L.string(category.labelKey)) {
-                            if let card = card(for: category, doc: doc) {
-                                EventCardRow(card: card, now: Date()).padding(.vertical, 4)
-                            } else {
-                                Text(L.string(.stateIdleTitle)).foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                } else if loadFailed {
-                    Text(L.string(.stateNoDataTitle))
-                } else {
-                    ProgressView()
-                }
-            }
-            .navigationTitle("우마 스케줄")
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink {
+        ZStack {
+            if ready {
+                TabView {
+                    ScheduleListView()
+                        .tabItem { Label(L.string(.tabSchedule), systemImage: "calendar") }
+                    NavigationStack {
                         SettingsView(prefs: prefs)
-                    } label: { Image(systemName: "gearshape") }
+                    }
+                    .tabItem { Label(L.string(.tabSettings), systemImage: "gearshape") }
                 }
+                .transition(.opacity)
+            } else {
+                SplashView()
+                    .transition(.opacity)
             }
-            .task { await load() }
-            .refreshable { await load() }
         }
+        .animation(.easeInOut(duration: 0.35), value: ready)
+        .task { await bootstrap() }
     }
 
-    private func card(for category: EventCategory, doc: ScheduleDocument) -> EventCard? {
-        switch category {
-        case .championsMeeting: return EventCardFactory.championsCard(doc.championsMeetings, now: Date())
-        case .leagueOfHeroes:   return EventCardFactory.leagueCard(doc.leagueOfHeroes, now: Date())
-        case .gacha:            return EventCardFactory.pickupCard(doc.pickups, now: Date())
+    /// Warm the schedule cache, holding the splash ≥1.0s and until data is ready,
+    /// but never past a 3.0s cap (the fetch itself can take up to 15s on a stall).
+    private func bootstrap() async {
+        Task {
+            _ = try? await ScheduleRepository.makeLive().current()
+            dataReady = true
         }
-    }
-
-    private func load() async {
-        do {
-            document = try await ScheduleRepository.makeLive().current()
-            loadFailed = false
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch { loadFailed = true }
+        let start = Date()
+        while true {
+            let elapsed = Date().timeIntervalSince(start)
+            if elapsed >= 3.0 { break }
+            if elapsed >= 1.0 && dataReady { break }
+            try? await Task.sleep(nanoseconds: 80_000_000)
+        }
+        ready = true
     }
 }

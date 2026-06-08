@@ -40,10 +40,12 @@ public struct TrackCondition: Codable, Hashable, Sendable {
     public var ground: String?
     public var timeOfDay: String?
     public var imageURL: URL?
+    /// Bundled course-map asset name (`course_{id1}_{id2}`) from gametora, when available.
+    public var courseMap: String?
 
     public init(racecourse: String, surface: Surface, distanceMeters: Int, distanceClass: DistanceClass,
                 turn: Turn? = nil, courseSide: String? = nil, season: String? = nil, weather: String? = nil,
-                ground: String? = nil, timeOfDay: String? = nil, imageURL: URL? = nil) {
+                ground: String? = nil, timeOfDay: String? = nil, imageURL: URL? = nil, courseMap: String? = nil) {
         self.racecourse = racecourse
         self.surface = surface
         self.distanceMeters = distanceMeters
@@ -55,9 +57,13 @@ public struct TrackCondition: Codable, Hashable, Sendable {
         self.ground = ground
         self.timeOfDay = timeOfDay
         self.imageURL = imageURL
+        self.courseMap = courseMap
     }
 
     public var summary: String { "\(racecourse) · \(surface.koLabel) \(distanceMeters)m" }
+
+    /// "한신 잔디 1600m" — racecourse + surface + meters, NO distance class. (DESIGN §8.6)
+    public var distanceLine: String { "\(racecourse) \(surface.koLabel) \(distanceMeters)m" }
 
     public var conditionChips: [String] {
         var c: [String] = []

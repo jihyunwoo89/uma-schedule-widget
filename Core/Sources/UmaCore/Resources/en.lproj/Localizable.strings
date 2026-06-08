@@ -1,6 +1,9 @@
 "category.champions" = "Champions Meeting";
 "category.loh" = "League of Heroes";
 "category.pickup" = "Pickup";
+"category.champions.short" = "CM";
+"category.loh.short" = "LoH";
+"category.pickup.short" = "Pickup";
 
 "state.idle.title" = "No upcoming events";
 "state.idle.body" = "New schedules will appear here";
@@ -43,9 +46,57 @@
 "gallery.s3.desc" = "Next League of Heroes only";
 "gallery.s4.title" = "Pickup";
 "gallery.s4.desc" = "Next pickup only";
-"gallery.lock_rect.title" = "Next Event";
-"gallery.lock_rect.desc" = "Most imminent event on your lock screen";
-"gallery.lock_circ.title" = "D-day";
-"gallery.lock_circ.desc" = "Days until the next event";
+"gallery.lock_rect.title" = "Next · Major";
+"gallery.lock_rect.desc" = "Soonest of CM / LoH";
+"gallery.lock_rect_cm.title" = "Next · CM";
+"gallery.lock_rect_cm.desc" = "Next Champions Meeting";
+"gallery.lock_rect_loh.title" = "Next · LoH";
+"gallery.lock_rect_loh.desc" = "Next League of Heroes";
+"gallery.lock_rect_pk.title" = "Next · Pickup";
+"gallery.lock_rect_pk.desc" = "Next pickup";
+"gallery.lock_circ.title" = "D-day · Major";
+"gallery.lock_circ.desc" = "Soonest of CM / LoH";
+"gallery.lock_circ_cm.title" = "D-day · CM";
+"gallery.lock_circ_cm.desc" = "Days until Champions Meeting";
+"gallery.lock_circ_loh.title" = "D-day · LoH";
+"gallery.lock_circ_loh.desc" = "Days until League of Heroes";
+"gallery.lock_circ_pk.title" = "D-day · Pickup";
+"gallery.lock_circ_pk.desc" = "Days until the next pickup";
+"gallery.lock_inline.title" = "Inline";
+"gallery.lock_inline.desc" = "Next event in one line by the clock";
 "field.trainee" = "Trainee";
-"field.support" = "Support";
+"field.support" = "Support Card";
+
+"tab.schedule" = "Schedule";
+"tab.settings" = "Settings";
+"schedule.section.upcoming" = "Upcoming";
+"detail.section.track" = "Course";
+"detail.section.phases" = "Phases";
+"detail.field.period" = "Period";
+
+"detail.legend.section.track" = "Course";
+"detail.legend.turf" = "Turf";
+"detail.legend.dirt" = "Dirt";
+"detail.legend.section.phase" = "Phase";
+"detail.legend.early" = "Early";
+"detail.legend.mid" = "Middle";
+"detail.legend.late" = "Late";
+"detail.legend.spurt" = "Last spurt";
+"detail.legend.section.terrain" = "Terrain";
+"detail.legend.straight" = "Straight";
+"detail.legend.corner" = "Corner";
+"detail.legend.section.etc" = "Other";
+"detail.legend.position_keep" = "Position keep end";
+"detail.legend.spurt_start" = "Spurt start";
+
+"settings.refresh.done.title" = "Refresh complete";
+"settings.refresh.done.body" = "The latest schedule has been loaded.";
+"settings.refresh.failed.title" = "Refresh failed";
+"settings.refresh.failed.body" = "Check your connection and try again.";
+"common.ok" = "OK";
+
+"splash.loading" = "Loading…";
+
+"legal.image_source" = "Course map images: gametora.com";
+
+"common.in_progress" = "Live";

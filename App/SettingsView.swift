@@ -4,6 +4,8 @@ import UmaCore
 
 struct SettingsView: View {
     @Bindable var prefs: PrefsStore
+    @State private var refreshAlert = false
+    @State private var refreshSucceeded = false
 
     var body: some View {
         Form {
@@ -15,15 +17,6 @@ struct SettingsView: View {
                     var order = prefs.prefs.categoryOrder
                     order.move(fromOffsets: from, toOffset: to)
                     prefs.update { $0.categoryOrder = order }
-                }
-            }
-
-            Section(L.string(.settingsSectionFont)) {
-                Picker(L.string(.settingsSectionFont), selection: fontBinding) {
-                    Text(L.string(.settingsValueFontSystem)).tag(FontTheme.system)
-                    Text(L.string(.settingsValueFontRounded)).tag(FontTheme.rounded)
-                    Text(L.string(.settingsValueFontMono)).tag(FontTheme.mono)
-                    Text(L.string(.settingsValueFontSerif)).tag(FontTheme.serif)
                 }
             }
 
@@ -50,21 +43,40 @@ struct SettingsView: View {
 
             Section {
                 Text(L.string(.legalDisclaimer)).font(.footnote).foregroundStyle(.secondary)
+                if let url = URL(string: "https://gametora.com/ko/umamusume") {
+                    Link(destination: url) {
+                        HStack(spacing: 4) {
+                            Text(L.string(.legalImageSource))
+                            Image(systemName: "arrow.up.right.square")
+                        }
+                        .font(.footnote)
+                    }
+                } else {
+                    Text(L.string(.legalImageSource)).font(.footnote).foregroundStyle(.secondary)
+                }
             }
         }
         .environment(\.editMode, .constant(.active))
         .navigationTitle(L.string(.settingsTitle))
+        .alert(L.string(refreshSucceeded ? .settingsRefreshDoneTitle : .settingsRefreshFailedTitle),
+               isPresented: $refreshAlert) {
+            Button(L.string(.commonOK), role: .cancel) {}
+        } message: {
+            Text(L.string(refreshSucceeded ? .settingsRefreshDoneBody : .settingsRefreshFailedBody))
+        }
     }
 
-    /// Drop the cached schedule so the next widget/app load refetches, then reload widgets now.
+    /// Force a network refresh, update widgets, then confirm with a popup.
     private func refreshNow() {
-        AppGroupStore.shared().remove(forKey: ScheduleRepository.cacheKey)
-        WidgetCenter.shared.reloadAllTimelines()
+        Task {
+            let ok: Bool
+            do { _ = try await ScheduleRepository.makeLive().refresh(); ok = true }
+            catch { ok = false }
+            if ok { WidgetCenter.shared.reloadAllTimelines() }
+            await MainActor.run { refreshSucceeded = ok; refreshAlert = true }
+        }
     }
 
-    private var fontBinding: Binding<FontTheme> {
-        Binding(get: { prefs.prefs.fontTheme }, set: { v in prefs.update { $0.fontTheme = v }; WidgetPreferenceApplierApp.apply(prefs.prefs) })
-    }
     private var localeBinding: Binding<AppLocale> {
         Binding(get: { prefs.prefs.localeOverride }, set: { v in prefs.update { $0.localeOverride = v }; WidgetPreferenceApplierApp.apply(prefs.prefs) })
     }

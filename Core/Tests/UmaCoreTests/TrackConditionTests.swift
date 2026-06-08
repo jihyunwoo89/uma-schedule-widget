@@ -7,6 +7,11 @@ final class TrackConditionTests: XCTestCase {
                        turn: .clockwise, courseSide: "외측", season: "봄", weather: "맑음", ground: "양호", timeOfDay: "낮")
     }
     func test_summary() { XCTAssertEqual(t().summary, "한신 · 잔디 1600m") }
+    func test_distanceLine_hasNoDistanceClass() {
+        XCTAssertEqual(t().distanceLine, "한신 잔디 1600m")
+        let dirt = TrackCondition(racecourse: "오이", surface: .dirt, distanceMeters: 2000, distanceClass: .medium)
+        XCTAssertEqual(dirt.distanceLine, "오이 더트 2000m")
+    }
     func test_distanceClassLabel() {
         XCTAssertEqual(DistanceClass.sprint.koLabel, "단거리")
         XCTAssertEqual(DistanceClass.mile.koLabel, "마일")

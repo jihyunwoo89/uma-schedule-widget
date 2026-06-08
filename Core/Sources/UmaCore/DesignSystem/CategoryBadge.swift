@@ -10,9 +10,9 @@ public extension EventCategory {
     }
     var accentHex: String {
         switch self {
-        case .championsMeeting: return "#E8B923"
-        case .leagueOfHeroes:   return "#3F8EFC"
-        case .gacha:            return "#E0567A"
+        case .championsMeeting: return "#C79200"
+        case .leagueOfHeroes:   return "#2F6FD6"
+        case .gacha:            return "#C23E63"
         }
     }
     var labelKey: L.Key {
@@ -22,19 +22,36 @@ public extension EventCategory {
         case .gacha:            return .categoryPickup
         }
     }
+    /// Short label key for tight spaces (Small, L2 columns).
+    var shortLabelKey: L.Key {
+        switch self {
+        case .championsMeeting: return .categoryChampionsShort
+        case .leagueOfHeroes:   return .categoryLoHShort
+        case .gacha:            return .categoryPickupShort
+        }
+    }
     var accentColor: Color { Color(hex: accentHex) ?? .accentColor }
 }
 
-/// Small pill: category icon + localized name.
+/// Category header: 7pt filled accent dot + accent-colored name (system 11, bold).
 public struct CategoryBadge: View {
     public let category: EventCategory
-    public init(category: EventCategory) { self.category = category }
+    public var short: Bool
+
+    public init(category: EventCategory, short: Bool = false) {
+        self.category = category
+        self.short = short
+    }
 
     public var body: some View {
-        HStack(spacing: 4) {
-            Image(systemName: category.sfSymbol).font(.system(size: 10, weight: .bold))
-            Text(L.string(category.labelKey)).font(.system(size: 11, weight: .semibold))
+        HStack(spacing: 5) {
+            Circle()
+                .fill(category.accentColor)
+                .frame(width: 7, height: 7)
+            Text(L.string(short ? category.shortLabelKey : category.labelKey))
+                .font(.system(size: 11, weight: .bold))
         }
         .foregroundStyle(category.accentColor)
+        .lineLimit(1)
     }
 }

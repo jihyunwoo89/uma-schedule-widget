@@ -12,49 +12,97 @@ public struct MediumWidgetView: View {
             if cards.isEmpty {
                 WidgetMessageView(titleKey: .stateIdleTitle, bodyKey: .stateIdleBody)
             } else if cards.count == 1, let card = cards.first, card.category == .gacha {
-                pickupBig(card)
+                gacha(card)            // M3
             } else if cards.count == 1, let card = cards.first {
-                majorBig(card)
+                majorBig(card)         // M1
             } else {
-                VStack(spacing: 10) {
-                    ForEach(Array(cards.prefix(2).enumerated()), id: \.offset) { _, card in
-                        EventCardRow(card: card, now: entry.date)
-                    }
-                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                twoRows(Array(cards.prefix(2)))  // M2
             }
         case .idle:   WidgetMessageView(titleKey: .stateIdleTitle, bodyKey: .stateIdleBody)
         case .noData: WidgetMessageView(titleKey: .stateNoDataTitle, bodyKey: .stateNoDataBody)
         }
     }
 
-    /// Single major event (M1): bracket title + race subtitle + period + track summary + d-day.
+    /// M1: left column (header / 「title」 / race name / track 2 lines) + right big D-day stack.
     private func majorBig(_ card: EventCard) -> some View {
-        HStack(alignment: .top, spacing: 8) {
-            VStack(alignment: .leading, spacing: 3) {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 0) {
                 CategoryBadge(category: card.category)
-                BracketTitle(card.title, size: 20)
-                if let s = card.subtitle { Text(s).font(.system(size: 12, weight: .semibold)).foregroundStyle(.secondary).lineLimit(1) }
-                if let p = card.period { Text(PeriodFormatter.range(p)).font(.system(size: 11)).foregroundStyle(.secondary) }
-                if let t = card.track { Text(t.summary).font(.system(size: 11)).foregroundStyle(.secondary).lineLimit(1) }
+                BracketTitle(card.title, size: 20).padding(.top, 5)
+                RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 12).padding(.top, 2)
+                if let t = card.track {
+                    TrackLines(track: t, distanceSize: 11, condSize: 11, spacing: 1).padding(.top, 8)
+                }
             }
             Spacer(minLength: 4)
-            VStack(alignment: .trailing, spacing: 2) {
-                DDayBadge(targetDate: card.targetDate, now: entry.date)
-                Text(card.phaseLabel).font(.system(size: 10)).foregroundStyle(.secondary)
-            }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            DDayStack(targetDate: card.targetDate, now: entry.date,
+                      dateText: dateLabel(for: card), ddaySize: 32, dateSize: 11)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 
-    private func pickupBig(_ card: EventCard) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
+    /// M2: two equal halves (CM / LoH), each vertically centered, hairline between.
+    private func twoRows(_ cards: [EventCard]) -> some View {
+        VStack(spacing: 0) {
+            half(cards[0])
+            Rectangle().fill(Color.primary.opacity(0.08))
+                .frame(height: 1)
+                .padding(.vertical, 12)   // breathing room above/below the divider
+            if cards.count > 1 { half(cards[1]) }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// One half (sector): content left-aligned and vertically centered within its 50%.
+    /// (`Alignment.leading` == horizontal .leading + vertical .center.)
+    private func half(_ card: EventCard) -> some View {
+        rowContent(card)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+    }
+
+    private func rowContent(_ card: EventCard) -> some View {
+        HStack(alignment: .center, spacing: 10) {
+            VStack(alignment: .leading, spacing: 0) {
                 CategoryBadge(category: card.category)
-                Spacer()
-                if let p = card.period { Text(PeriodFormatter.range(p)).font(.system(size: 11)).foregroundStyle(.secondary) }
-                DDayBadge(targetDate: card.targetDate, now: entry.date)
+                HStack(spacing: 6) {
+                    BracketTitle(card.title, size: 16)
+                    RaceNameLine(grade: card.raceGrade, name: card.subtitle, size: 12)
+                }
+                .padding(.top, 5)   // gap between category header and body
+                if let t = card.track {
+                    trackSummary(t).padding(.top, 2)
+                }
             }
-            PickupLines(trainees: card.trainees, supports: card.supportCards)
+            Spacer(minLength: 4)
+            DDayStack(targetDate: card.targetDate, now: entry.date,
+                      dateText: dateLabel(for: card), ddaySize: 22, dateSize: 11)
+        }
+    }
+
+    /// One line: distance (black) · conditions (gray).
+    private func trackSummary(_ t: TrackCondition) -> some View {
+        let chips = t.conditionChips
+        return (Text(t.distanceLine).foregroundColor(WidgetColors.title)
+                + Text(chips.isEmpty ? "" : " · " + chips.joined(separator: "·")).foregroundColor(WidgetColors.cond))
+            .font(.system(size: 10.5))
+            .lineLimit(1)
+            .minimumScaleFactor(0.85)
+    }
+
+    /// M3: header + right big D-day stack, then 2-column pickup.
+    private func gacha(_ card: EventCard) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .top) {
+                CategoryBadge(category: card.category)
+                Spacer(minLength: 4)
+                DDayStack(targetDate: card.targetDate, now: entry.date,
+                          dateText: dateLabel(for: card), ddaySize: 22, dateSize: 11)
+            }
+            PickupTwoColumn(trainees: card.trainees, supports: card.supportCards,
+                            supportNote: card.supportNote,
+                            headerSize: 12.5, lineSize: 11.5)
             Spacer(minLength: 0)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }

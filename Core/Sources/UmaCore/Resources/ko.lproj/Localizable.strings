@@ -1,6 +1,9 @@
 "category.champions" = "챔피언스 미팅";
 "category.loh" = "리그 오브 히어로스";
 "category.pickup" = "픽업";
+"category.champions.short" = "챔미";
+"category.loh.short" = "LoH";
+"category.pickup.short" = "픽업";
 
 "state.idle.title" = "예정된 일정 없음";
 "state.idle.body" = "새 일정이 등록되면 표시됩니다";
@@ -43,9 +46,57 @@
 "gallery.s3.desc" = "다음 리그 오브 히어로스 일정만";
 "gallery.s4.title" = "픽업";
 "gallery.s4.desc" = "다음 픽업 일정만";
-"gallery.lock_rect.title" = "다음 일정";
-"gallery.lock_rect.desc" = "가장 임박한 이벤트를 잠금화면에";
-"gallery.lock_circ.title" = "D-day";
-"gallery.lock_circ.desc" = "다음 이벤트까지 남은 일수";
-"field.trainee" = "육성마";
-"field.support" = "서포트";
+"gallery.lock_rect.title" = "다음 일정 · 주요";
+"gallery.lock_rect.desc" = "챔미/LoH 중 가까운 일정";
+"gallery.lock_rect_cm.title" = "다음 일정 · 챔미";
+"gallery.lock_rect_cm.desc" = "다음 챔피언스 미팅";
+"gallery.lock_rect_loh.title" = "다음 일정 · LoH";
+"gallery.lock_rect_loh.desc" = "다음 리그 오브 히어로스";
+"gallery.lock_rect_pk.title" = "다음 일정 · 픽업";
+"gallery.lock_rect_pk.desc" = "다음 픽업";
+"gallery.lock_circ.title" = "D-day · 주요";
+"gallery.lock_circ.desc" = "챔미/LoH 중 가까운 일정";
+"gallery.lock_circ_cm.title" = "D-day · 챔미";
+"gallery.lock_circ_cm.desc" = "챔피언스 미팅까지 남은 일수";
+"gallery.lock_circ_loh.title" = "D-day · LoH";
+"gallery.lock_circ_loh.desc" = "리그 오브 히어로스까지 남은 일수";
+"gallery.lock_circ_pk.title" = "D-day · 픽업";
+"gallery.lock_circ_pk.desc" = "다음 픽업까지 남은 일수";
+"gallery.lock_inline.title" = "인라인 요약";
+"gallery.lock_inline.desc" = "시계 위 한 줄로 다음 일정";
+"field.trainee" = "육성 우마무스메";
+"field.support" = "서포트 카드";
+
+"tab.schedule" = "일정";
+"tab.settings" = "설정";
+"schedule.section.upcoming" = "예정";
+"detail.section.track" = "마장";
+"detail.section.phases" = "단계";
+"detail.field.period" = "기간";
+
+"detail.legend.section.track" = "마장";
+"detail.legend.turf" = "잔디";
+"detail.legend.dirt" = "더트";
+"detail.legend.section.phase" = "전개별 구간";
+"detail.legend.early" = "초반";
+"detail.legend.mid" = "중반";
+"detail.legend.late" = "종반";
+"detail.legend.spurt" = "라스트 스퍼트";
+"detail.legend.section.terrain" = "지형별 구간";
+"detail.legend.straight" = "직선";
+"detail.legend.corner" = "코너";
+"detail.legend.section.etc" = "기타";
+"detail.legend.position_keep" = "포지션킵 끝";
+"detail.legend.spurt_start" = "스퍼트 시작";
+
+"settings.refresh.done.title" = "새로고침 완료";
+"settings.refresh.done.body" = "최신 일정을 불러왔어요.";
+"settings.refresh.failed.title" = "새로고침 실패";
+"settings.refresh.failed.body" = "네트워크 연결을 확인하고 다시 시도해 주세요.";
+"common.ok" = "확인";
+
+"splash.loading" = "로딩 중";
+
+"legal.image_source" = "마장 이미지 출처: gametora.com";
+
+"common.in_progress" = "진행 중";

@@ -34,6 +34,29 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(card.track?.racecourse, "도쿄")
     }
 
+    func test_championsCard_gradeMovesToRaceGradeAndSubtitleHasNoGrade() {
+        let card = EventCardFactory.championsCard(doc().championsMeetings, now: d(50))!
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "리브르")  // grade NOT joined into subtitle
+    }
+
+    func test_leagueCard_parsesLeadingGradeFromRaceName() {
+        let track = TrackCondition(racecourse: "나카야마", surface: .turf, distanceMeters: 1200, distanceClass: .sprint)
+        let period = EventPeriod(start: d(0), end: d(600))
+        let loh = LeagueOfHeroes(id: "loh2", round: "10회차", raceName: "G1 스프린터즈 S",
+            track: track, period: period,
+            phases: [EventPhase(kind: .open, label: "오픈", date: d(200))])
+        let card = EventCardFactory.leagueCard([loh], now: d(50))!
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "스프린터즈 S")
+    }
+
+    func test_leagueCard_noGradeKeepsFullRaceName() {
+        let card = EventCardFactory.leagueCard(doc().leagueOfHeroes, now: d(50))!
+        XCTAssertNil(card.raceGrade)
+        XCTAssertEqual(card.subtitle, "스프린트")
+    }
+
     func test_endedChampions_isSkipped_returnsNilWhenAllEnded() {
         let card = EventCardFactory.championsCard(doc().championsMeetings, now: d(999))
         XCTAssertNil(card)
@@ -59,6 +82,27 @@ final class EventCardFactoryTests: XCTestCase {
         XCTAssertEqual(card.status, .upcoming)
         XCTAssertEqual(card.phaseLabel, "시작까지")
         XCTAssertEqual(card.targetDate, d(150))
+    }
+
+    func test_pickupCard_prefersNextOverCurrentlyActive() {
+        let active = PickupPeriod(id: "now", period: EventPeriod(start: d(100), end: d(300)),
+                                  trainees: ["현재 픽업"], supportCards: [])
+        let next = PickupPeriod(id: "next", period: EventPeriod(start: d(300), end: d(500)),
+                                trainees: ["다음 픽업"], supportCards: [])
+        // now is inside the active pickup, but the NEXT pickup should be shown
+        let card = EventCardFactory.pickupCard([active, next], now: d(200))!
+        XCTAssertEqual(card.title, "다음 픽업")
+        XCTAssertEqual(card.status, .upcoming)
+        XCTAssertEqual(card.phaseLabel, "시작까지")
+        XCTAssertEqual(card.targetDate, d(300))
+    }
+
+    func test_upcomingPickups_excludesCurrentlyActive() {
+        let active = PickupPeriod(id: "now", period: EventPeriod(start: d(100), end: d(300)),
+                                  trainees: ["A"], supportCards: [])
+        let next = PickupPeriod(id: "next", period: EventPeriod(start: d(300), end: d(500)),
+                                trainees: ["B"], supportCards: [])
+        XCTAssertEqual(EventCardFactory.upcomingPickups([active, next], now: d(200)).map { $0.id }, ["next"])
     }
 
     func test_leagueCard_buildsFromRoundAndTrack() {
@@ -95,5 +139,77 @@ final class EventCardFactoryTests: XCTestCase {
                 phases: [EventPhase(kind: .ended, label: "종료", date: d(10))])],
             leagueOfHeroes: [], pickups: [])
         XCTAssertNil(EventCardFactory.majorCard(endedDoc, now: d(100)))
+    }
+
+    func test_championsCard_forItem_mapsFields() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let track = TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile, turn: .clockwise, season: "봄")
+        let period = EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(2*86400), estimated: true)
+        let cm = ChampionsMeeting(id: "cm1", codeName: "MILE", raceGrade: "G1", raceName: "벚꽃상",
+                                  track: track, period: period,
+                                  phases: [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(86400))])
+        let card = EventCardFactory.championsCard(for: cm, now: now)
+        XCTAssertEqual(card.title, "MILE")
+        XCTAssertEqual(card.subtitle, "벚꽃상")
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.category, .championsMeeting)
+        XCTAssertEqual(card.track?.racecourse, "한신")
+    }
+
+    func test_leagueCard_forItem_parsesGradeFromRaceName() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let track = TrackCondition(racecourse: "나카야마", surface: .turf, distanceMeters: 1200, distanceClass: .sprint)
+        let period = EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(2*86400))
+        let loh = LeagueOfHeroes(id: "loh1", round: "10회차", raceName: "G1 스프린터즈 스테이크스",
+                                 track: track, period: period,
+                                 phases: [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(86400))])
+        let card = EventCardFactory.leagueCard(for: loh, now: now)
+        XCTAssertEqual(card.title, "10회차")
+        XCTAssertEqual(card.raceGrade, "G1")
+        XCTAssertEqual(card.subtitle, "스프린터즈 스테이크스")
+    }
+
+    func test_upcomingChampions_sortedAndExcludesEnded() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        func cm(_ id: String, openInDays: Double, endedDaysAgo: Double? = nil) -> ChampionsMeeting {
+            let t = TrackCondition(racecourse: "한신", surface: .turf, distanceMeters: 1600, distanceClass: .mile)
+            let phases: [EventPhase]
+            if let ago = endedDaysAgo {
+                phases = [EventPhase(kind: .ended, label: "종료", date: now.addingTimeInterval(-ago*86400))]
+            } else {
+                phases = [EventPhase(kind: .open, label: "오픈", date: now.addingTimeInterval(openInDays*86400)),
+                          EventPhase(kind: .ended, label: "종료", date: now.addingTimeInterval((openInDays+3)*86400))]
+            }
+            return ChampionsMeeting(id: id, codeName: id, raceGrade: "G1", raceName: "x",
+                                    track: t, period: EventPeriod(start: now, end: now.addingTimeInterval(86400)), phases: phases)
+        }
+        let list = EventCardFactory.upcomingChampions([cm("late", openInDays: 50), cm("soon", openInDays: 5), cm("done", openInDays: 0, endedDaysAgo: 2)], now: now)
+        XCTAssertEqual(list.map { $0.id }, ["soon", "late"])  // ended excluded, sorted by target
+    }
+
+    func test_pickupCard_forItem_upcomingVsActive() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let upcoming = PickupPeriod(id: "p1", period: EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(3*86400)),
+                                    trainees: ["오르페브르 3★"], supportCards: [])
+        let upCard = EventCardFactory.pickupCard(for: upcoming, now: now)
+        XCTAssertEqual(upCard.status, .upcoming)
+        XCTAssertEqual(upCard.phaseLabel, "시작까지")
+        XCTAssertEqual(upCard.targetDate, upcoming.period.start)
+
+        let active = PickupPeriod(id: "p2", period: EventPeriod(start: now.addingTimeInterval(-86400), end: now.addingTimeInterval(86400)),
+                                  trainees: ["푸리오소 3★"], supportCards: [])
+        let actCard = EventCardFactory.pickupCard(for: active, now: now)
+        XCTAssertEqual(actCard.status, .active)
+        XCTAssertEqual(actCard.phaseLabel, "종료까지")
+        XCTAssertEqual(actCard.targetDate, active.period.end)
+    }
+
+    func test_pickupCard_propagatesSupportNote() {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let p = PickupPeriod(id: "p3", period: EventPeriod(start: now.addingTimeInterval(86400), end: now.addingTimeInterval(3*86400)),
+                             trainees: ["천장시 3★ 택 1"], supportCards: [], supportNote: "셀렉트 픽업")
+        let card = EventCardFactory.pickupCard(for: p, now: now)
+        XCTAssertEqual(card.supportNote, "셀렉트 픽업")
+        XCTAssertTrue(card.supportCards.isEmpty)
     }
 }

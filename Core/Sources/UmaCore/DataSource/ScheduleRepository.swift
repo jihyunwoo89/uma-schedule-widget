@@ -22,6 +22,15 @@ public final class ScheduleRepository: @unchecked Sendable {
         ScheduleRepository(client: .live(), store: .shared(), fallback: ScheduleFallback.production)
     }
 
+    /// Force a network refresh, bypassing the cache. Writes the fresh document to
+    /// the cache on success; throws on network/decode failure (cache left intact).
+    @discardableResult
+    public func refresh() async throws -> ScheduleDocument {
+        let doc = try await client.fetch()
+        try? store.write(doc, forKey: Self.cacheKey, ttl: Self.ttl)
+        return doc
+    }
+
     public func current() async throws -> ScheduleDocument {
         if let cached = store.readAllowingStale(ScheduleDocument.self, forKey: Self.cacheKey), !cached.isStale {
             return cached.value

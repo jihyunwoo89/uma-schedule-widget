@@ -54,7 +54,11 @@ public struct PickupPeriod: Codable, Hashable, Sendable {
     public var period: EventPeriod
     public var trainees: [String]
     public var supportCards: [SupportCardPick]
-    public init(id: String, period: EventPeriod, trainees: [String], supportCards: [SupportCardPick]) {
-        self.id = id; self.period = period; self.trainees = trainees; self.supportCards = supportCards
+    /// Free-text support note used when there are no concrete support cards (e.g. "셀렉트 픽업").
+    public var supportNote: String?
+    public init(id: String, period: EventPeriod, trainees: [String],
+                supportCards: [SupportCardPick], supportNote: String? = nil) {
+        self.id = id; self.period = period; self.trainees = trainees
+        self.supportCards = supportCards; self.supportNote = supportNote
     }
 }
